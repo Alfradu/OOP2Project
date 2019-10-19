@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace Library.Services
 {
-    class BookService
+    class BookService : IService
     {
         /// <summary>
         /// service doesn't need a context but it needs a repository.
         /// </summary>
         BookRepository bookRepository;
+
+        public event EventHandler Updated;
 
         /// <param name="rFactory">A repository factory, so the service can create its own repository.</param>
         public BookService(RepositoryFactory rFactory)
@@ -39,7 +41,29 @@ namespace Library.Services
         public void Edit(Book b)
         {
             bookRepository.Edit(b);
-            // TODO: Raise the Updated event.
+            OnUpdateEvent(new UpdatedEventArgs(Action.EDIT, DateTime.Now));
         }
+
+        /// <summary>
+        /// The Add method saves a new Book object to the db and raises the Updated() event.
+        /// </summary>
+        /// <param name="b"></param>
+        public void Add(Book b)
+        {
+            bookRepository.Add(b);
+            OnUpdateEvent(new UpdatedEventArgs(Action.ADD, DateTime.Now));
+        }
+
+        /// <summary>
+        /// The Remove method removes a given book object in the db and raises the Updated() event.
+        /// </summary>
+        /// <param name="b"></param>
+        public void Remove(Book b)
+        {
+            bookRepository.Remove(b);
+            OnUpdateEvent(new UpdatedEventArgs(Action.REMOVE, DateTime.Now));
+        }
+
+        private void OnUpdateEvent(UpdatedEventArgs uea) => Updated?.Invoke(this, uea);
     }
 }

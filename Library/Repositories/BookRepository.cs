@@ -17,7 +17,8 @@ namespace Library.Repositories
 
         public void Add(Book item)
         {
-            throw new NotImplementedException();
+            context.Books.Add(item);
+            context.SaveChanges();
         }
 
         public IEnumerable<Book> All()
@@ -37,12 +38,13 @@ namespace Library.Repositories
 
         public Book Find(int id)
         {
-            throw new NotImplementedException();
+            return context.Books.Find(id);
         }
 
         public void Remove(Book item)
         {
-            throw new NotImplementedException();
+            context.Books.Remove(item);
+            context.SaveChanges();
         }
     }
 }
