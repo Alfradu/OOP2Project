@@ -14,8 +14,7 @@ namespace Library.Services
         /// service doesn't need a context but it needs a repository.
         /// </summary>
         BookRepository bookRepository;
-
-        public event EventHandler Updated;
+        public event EventHandler<UpdatedEventArgs> Updated;
 
         /// <param name="rFactory">A repository factory, so the service can create its own repository.</param>
         public BookService(RepositoryFactory rFactory)
@@ -31,9 +30,13 @@ namespace Library.Services
 
         public IEnumerable<Book> GetAllThatContainsInTitle(string a)
         {
-            return bookRepository.All().Where(b => b.Title.Contains(a));
+            return All().Where(b => b.Title.Contains(a));
         }
 
+        public IEnumerable<Book> GetAllThatHasAuthor(string a)
+        {
+            return All().Where(b => b.Author.Name == a);
+        }
         /// <summary>
         /// The Edit method makes sure that the given Book object is saved to the database and raises the Updated() event.
         /// </summary>

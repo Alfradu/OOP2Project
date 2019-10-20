@@ -10,6 +10,6 @@ namespace Library.Services {
     /// underlying data model changes.
     /// </summary>
     interface IService {
-        event EventHandler Updated;
+        event EventHandler<UpdatedEventArgs> Updated;
     }
 }

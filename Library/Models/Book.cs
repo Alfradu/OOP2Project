@@ -11,9 +11,17 @@ namespace Library.Models {
         public string ISBN { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public List<Author> Authors { get; set; }
+        public Author Author { get; set; }
         public List<BookCopy> Copies { get; set; }
 
+        public Book()
+        {
+            ISBN = "";
+            Title = "";
+            Description = "";
+            Author = new Author {Name = "Örjan" };
+            Copies = new List<BookCopy>();
+        }
 
         /// <summary>
         /// Useful for adding the book objects directly to a ListBox.

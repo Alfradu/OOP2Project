@@ -15,7 +15,6 @@ namespace Library
 {
     public partial class LibraryForm : Form
     {
-
         BookService bookService;
         AuthorService authorService;
         BookCopyService bookCopyService;
@@ -37,36 +36,75 @@ namespace Library
             this.loanService = new LoanService(repFactory);
             this.memberService = new MemberService(repFactory);
             bookService.Updated += BookService_Updated;
+            bookCopyService.Updated += BookCopyService_Updated;
+            authorService.Updated += AuthorService_Updated;
+            populateAuthorComboBox();
             ShowAllBooks(bookService.All());
         }
 
-        private void BookService_Updated(object sender, EventArgs e)
+        private void AuthorService_Updated(object sender, UpdatedEventArgs e)
         {
+            populateAuthorComboBox();
+        }
+
+        private void populateAuthorComboBox()
+        {
+            authorNameCombo.Items.Clear();
+            foreach (Author a in authorService.All())
+            {
+                authorNameCombo.Items.Add(a);
+            }
+        }
+
+        private void BookService_Updated(object sender, UpdatedEventArgs e)
+        {
+            Console.WriteLine("Sender " + sender.GetType() + " performed action " +e.Action+" on db at " + e.UpdateTime);
             ShowAllBooks(bookService.All());
+        }
+
+        private void BookCopyService_Updated(object sender, UpdatedEventArgs e)
+        {
+            ShowAllCopies(lbItems.SelectedItem as Book);
         }
 
         private void ShowAllBooks(IEnumerable<Book> books)
         {
-            lbBooks.Items.Clear();
+            lbItems.Items.Clear();
             foreach (Book book in books)
             {
-                Console.WriteLine(book.Title);
-                lbBooks.Items.Add(book);
+                lbItems.Items.Add(book);
             }
         }
 
-        private void ShowAllAuthors(IEnumerable<Author> authors)
+        private void ShowAllInfo(Book book)
         {
-            lbAuthors.Items.Clear();
-            foreach (Author author in authors)
+            lbInfo.Items.Clear();
+            lbInfo.Items.Add(book.Title);
+            lbInfo.Items.Add("ISBN :"+book.ISBN);
+            lbInfo.Items.Add("Description: \n"+book.Description);
+            lbInfo.Items.Add("Author: " + book.Author);
+        }
+        private void ShowAllCopies()
+        {
+            lbCopies.Items.Clear();
+            foreach (BookCopy bc in bookCopyService.All())
             {
-                lbAuthors.Items.Add(author);
+                lbCopies.Items.Add(bc);
+            }
+        }
+        private void ShowAllCopies(Book book)
+        {
+            lbCopies.Items.Clear();
+            var c = bookCopyService;
+            foreach (BookCopy bc in book.Copies)
+            {
+                lbCopies.Items.Add(bc);
             }
         }
 
         private void BTNChangeBook_Click(object sender, EventArgs e)
         {
-            Book b = lbBooks.SelectedItem as Book;
+            Book b = lbItems.SelectedItem as Book;
             if (b != null)
             {
                 b.Title = "Yoyoma koko";
@@ -80,18 +118,64 @@ namespace Library
             {
                 Title = title.Text,
                 ISBN = isbn.Text,
-                Description = desc.Text
+                Description = desc.Text,
+                Author = authorNameCombo.SelectedItem as Author
             };
             bookService.Add(b);
         }
 
         private void removeBtn_Click(object sender, EventArgs e)
         {
-            Book b = lbBooks.SelectedItem as Book;
+            Book b = lbItems.SelectedItem as Book;
             if (b != null)
             {
                 bookService.Remove(b);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Book b = lbItems.SelectedItem as Book;
+            if (b != null)
+            {
+                BookCopy bc = new BookCopy
+                {
+                    Book = b,
+                    Condition = new Random().Next(1, 10),
+                    Status = Status.AVAILABLE
+                };
+                b.Copies.Add(bc);
+                bookCopyService.Add(bc);
+            }
+        }
+
+        private void lbItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbItems.SelectedItems != null)
+            {
+                ShowAllInfo(lbItems.SelectedItem as Book);
+                ShowAllCopies(lbItems.SelectedItem as Book);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ShowAllCopies();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ShowAllBooks(bookService.GetAllThatHasAuthor(authorNameBox.Text));
+        }
+
+        private void memberAddBtn_Click(object sender, EventArgs e)
+        {
+            memberService.Add(new Member { Name = memberAddName.Text, PersonalId = memberAddid.Text, MembershipDate = DateTime.Now });
+        }
+
+        private void authorAddBtn_Click(object sender, EventArgs e)
+        {
+            authorService.Add(new Author { Name = authorAddName.Text });
         }
     }
 }

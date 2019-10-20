@@ -16,6 +16,6 @@ namespace Library.Services
             this.loanRepository = rFactory.CreateLoanRepository();
         }
 
-        public event EventHandler Updated;
+        public event EventHandler<UpdatedEventArgs> Updated;
     }
 }

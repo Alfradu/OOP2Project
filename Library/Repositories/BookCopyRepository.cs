@@ -18,27 +18,29 @@ namespace Library.Repositories
 
         public void Add(BookCopy item)
         {
-            throw new NotImplementedException();
+            context.BookCopies.Add(item);
+            context.SaveChanges();
         }
 
         public IEnumerable<BookCopy> All()
         {
-            throw new NotImplementedException();
+            return context.BookCopies;
         }
 
         public void Edit(BookCopy item)
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public BookCopy Find(int id)
         {
-            throw new NotImplementedException();
+            return context.BookCopies.Find(id);
         }
 
         public void Remove(BookCopy item)
         {
-            throw new NotImplementedException();
+            context.BookCopies.Remove(item);
+            context.SaveChanges();
         }
     }
 }

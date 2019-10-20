@@ -12,5 +12,10 @@ namespace Library.Models
         public string Name { get; set; }
         public DateTime MembershipDate { get; set; }
         public List<Loan> Loans { get; set; }
+
+        public Member()
+        {
+            Loans = new List<Loan>();
+        }
     }
 }

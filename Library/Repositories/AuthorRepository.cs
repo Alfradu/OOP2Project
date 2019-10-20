@@ -18,27 +18,29 @@ namespace Library.Repositories
 
         public void Add(Author item)
         {
-            throw new NotImplementedException();
+            context.Authors.Add(item);
+            context.SaveChanges();
         }
 
         public IEnumerable<Author> All()
         {
-            throw new NotImplementedException();
+            return context.Authors;
         }
 
         public void Edit(Author item)
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public Author Find(int id)
         {
-            throw new NotImplementedException();
+            return context.Authors.Find(id);
         }
 
         public void Remove(Author item)
         {
-            throw new NotImplementedException();
+            context.Authors.Remove(item);
+            context.SaveChanges();
         }
     }
 }
