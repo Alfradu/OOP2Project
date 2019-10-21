@@ -26,103 +26,144 @@
             this.lbItems = new System.Windows.Forms.ListBox();
             this.BTNChangeBook = new System.Windows.Forms.Button();
             this.lbInfo = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.title = new System.Windows.Forms.TextBox();
-            this.isbn = new System.Windows.Forms.TextBox();
-            this.desc = new System.Windows.Forms.TextBox();
+            this.newBookBtn = new System.Windows.Forms.Button();
+            this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.isbnTextBox = new System.Windows.Forms.TextBox();
+            this.descTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.removeBtn = new System.Windows.Forms.Button();
             this.lbCopies = new System.Windows.Forms.ListBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.showAllAvailableOfBookBtn = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.bookTab = new System.Windows.Forms.TabPage();
-            this.authorMemberTab = new System.Windows.Forms.TabPage();
-            this.loanTab = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
+            this.showAllAvailableBooksBtn = new System.Windows.Forms.Button();
+            this.bookTitleBox = new System.Windows.Forms.TextBox();
+            this.sortByTitleBtn = new System.Windows.Forms.Button();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.addBookTab = new System.Windows.Forms.TabPage();
+            this.authorNameCombo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.addCopyTab = new System.Windows.Forms.TabPage();
+            this.bookCopySelectedBook = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.copyCondition = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.newBookCopyBtn = new System.Windows.Forms.Button();
+            this.editBookTab = new System.Windows.Forms.TabPage();
+            this.showAllBooksBtn = new System.Windows.Forms.Button();
             this.authorNameBox = new System.Windows.Forms.TextBox();
+            this.sortByAuthorBtn = new System.Windows.Forms.Button();
+            this.loanTab = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.newLoanTab = new System.Windows.Forms.TabPage();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.editLoanTab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.showAllLoansBtn = new System.Windows.Forms.Button();
+            this.authorMemberTab = new System.Windows.Forms.TabPage();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.newAuthorTab = new System.Windows.Forms.TabPage();
+            this.authorAddBtn = new System.Windows.Forms.Button();
+            this.authorAddName = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.newMemberTab = new System.Windows.Forms.TabPage();
+            this.memberAddid = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.memberAddBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.memberAddName = new System.Windows.Forms.TextBox();
-            this.memberAddBtn = new System.Windows.Forms.Button();
-            this.memberAddid = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.authorAddName = new System.Windows.Forms.TextBox();
-            this.authorAddBtn = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.authorNameCombo = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.showAllMembersBtn = new System.Windows.Forms.Button();
+            this.showAllAuthorsBtn = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.tabControl.SuspendLayout();
             this.bookTab.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.addBookTab.SuspendLayout();
+            this.addCopyTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.copyCondition)).BeginInit();
+            this.editBookTab.SuspendLayout();
+            this.loanTab.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.newLoanTab.SuspendLayout();
             this.authorMemberTab.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.newAuthorTab.SuspendLayout();
+            this.newMemberTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbItems
             // 
             this.lbItems.FormattingEnabled = true;
-            this.lbItems.Location = new System.Drawing.Point(263, 14);
+            this.lbItems.Location = new System.Drawing.Point(263, 27);
             this.lbItems.Name = "lbItems";
-            this.lbItems.Size = new System.Drawing.Size(191, 368);
+            this.lbItems.Size = new System.Drawing.Size(191, 303);
             this.lbItems.TabIndex = 0;
             this.lbItems.SelectedIndexChanged += new System.EventHandler(this.lbItems_SelectedIndexChanged);
             // 
             // BTNChangeBook
             // 
-            this.BTNChangeBook.Location = new System.Drawing.Point(67, 126);
+            this.BTNChangeBook.Location = new System.Drawing.Point(3, 2);
             this.BTNChangeBook.Margin = new System.Windows.Forms.Padding(2);
             this.BTNChangeBook.Name = "BTNChangeBook";
-            this.BTNChangeBook.Size = new System.Drawing.Size(81, 59);
+            this.BTNChangeBook.Size = new System.Drawing.Size(161, 34);
             this.BTNChangeBook.TabIndex = 1;
-            this.BTNChangeBook.Text = "TEST: Change the book title";
+            this.BTNChangeBook.Text = "TO BE REMOVED: Change the selected book title";
             this.BTNChangeBook.UseVisualStyleBackColor = true;
             this.BTNChangeBook.Click += new System.EventHandler(this.BTNChangeBook_Click);
             // 
             // lbInfo
             // 
             this.lbInfo.FormattingEnabled = true;
-            this.lbInfo.Location = new System.Drawing.Point(460, 12);
+            this.lbInfo.Location = new System.Drawing.Point(460, 27);
             this.lbInfo.Name = "lbInfo";
-            this.lbInfo.Size = new System.Drawing.Size(264, 95);
+            this.lbInfo.Size = new System.Drawing.Size(264, 69);
             this.lbInfo.TabIndex = 2;
             // 
-            // button1
+            // newBookBtn
             // 
-            this.button1.Location = new System.Drawing.Point(130, 311);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Add new book";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.newBookBtn.Location = new System.Drawing.Point(6, 114);
+            this.newBookBtn.Name = "newBookBtn";
+            this.newBookBtn.Size = new System.Drawing.Size(213, 23);
+            this.newBookBtn.TabIndex = 3;
+            this.newBookBtn.Text = "Add new book";
+            this.newBookBtn.UseVisualStyleBackColor = true;
+            this.newBookBtn.Click += new System.EventHandler(this.newBookBtn_Click);
             // 
-            // title
+            // titleTextBox
             // 
-            this.title.Location = new System.Drawing.Point(130, 210);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(100, 20);
-            this.title.TabIndex = 4;
+            this.titleTextBox.Location = new System.Drawing.Point(69, 6);
+            this.titleTextBox.Name = "titleTextBox";
+            this.titleTextBox.Size = new System.Drawing.Size(150, 20);
+            this.titleTextBox.TabIndex = 4;
             // 
-            // isbn
+            // isbnTextBox
             // 
-            this.isbn.Location = new System.Drawing.Point(130, 236);
-            this.isbn.Name = "isbn";
-            this.isbn.Size = new System.Drawing.Size(100, 20);
-            this.isbn.TabIndex = 5;
+            this.isbnTextBox.Location = new System.Drawing.Point(69, 32);
+            this.isbnTextBox.Name = "isbnTextBox";
+            this.isbnTextBox.Size = new System.Drawing.Size(150, 20);
+            this.isbnTextBox.TabIndex = 5;
             // 
-            // desc
+            // descTextBox
             // 
-            this.desc.Location = new System.Drawing.Point(130, 262);
-            this.desc.Name = "desc";
-            this.desc.Size = new System.Drawing.Size(100, 20);
-            this.desc.TabIndex = 6;
+            this.descTextBox.Location = new System.Drawing.Point(69, 58);
+            this.descTextBox.Name = "descTextBox";
+            this.descTextBox.Size = new System.Drawing.Size(150, 20);
+            this.descTextBox.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 211);
+            this.label1.Location = new System.Drawing.Point(36, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 7;
@@ -131,7 +172,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(79, 243);
+            this.label2.Location = new System.Drawing.Point(31, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 8;
@@ -140,7 +181,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(64, 265);
+            this.label3.Location = new System.Drawing.Point(3, 61);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 9;
@@ -148,185 +189,371 @@
             // 
             // removeBtn
             // 
-            this.removeBtn.Location = new System.Drawing.Point(153, 126);
+            this.removeBtn.Location = new System.Drawing.Point(3, 117);
             this.removeBtn.Name = "removeBtn";
-            this.removeBtn.Size = new System.Drawing.Size(77, 58);
+            this.removeBtn.Size = new System.Drawing.Size(134, 23);
             this.removeBtn.TabIndex = 10;
-            this.removeBtn.Text = "TEST: Remove book";
+            this.removeBtn.Text = "Remove selected book";
             this.removeBtn.UseVisualStyleBackColor = true;
             this.removeBtn.Click += new System.EventHandler(this.removeBtn_Click);
             // 
             // lbCopies
             // 
             this.lbCopies.FormattingEnabled = true;
-            this.lbCopies.Location = new System.Drawing.Point(460, 115);
+            this.lbCopies.Location = new System.Drawing.Point(460, 131);
             this.lbCopies.Name = "lbCopies";
-            this.lbCopies.Size = new System.Drawing.Size(264, 264);
+            this.lbCopies.Size = new System.Drawing.Size(264, 199);
             this.lbCopies.TabIndex = 11;
             // 
-            // button2
+            // showAllAvailableOfBookBtn
             // 
-            this.button2.Location = new System.Drawing.Point(141, 61);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(89, 59);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "TEST: Add new copy of selected book";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(155, 6);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 49);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "Show all available books";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.showAllAvailableOfBookBtn.Location = new System.Drawing.Point(7, 103);
+            this.showAllAvailableOfBookBtn.Name = "showAllAvailableOfBookBtn";
+            this.showAllAvailableOfBookBtn.Size = new System.Drawing.Size(206, 20);
+            this.showAllAvailableOfBookBtn.TabIndex = 13;
+            this.showAllAvailableOfBookBtn.Text = "Show Available copies of selected book";
+            this.showAllAvailableOfBookBtn.UseVisualStyleBackColor = true;
+            this.showAllAvailableOfBookBtn.Click += new System.EventHandler(this.showAllAvailableOfBookBtn_Click);
             // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.bookTab);
             this.tabControl.Controls.Add(this.loanTab);
             this.tabControl.Controls.Add(this.authorMemberTab);
-            this.tabControl.Location = new System.Drawing.Point(13, 12);
+            this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(244, 370);
+            this.tabControl.Size = new System.Drawing.Size(245, 370);
             this.tabControl.TabIndex = 14;
             // 
             // bookTab
             // 
-            this.bookTab.Controls.Add(this.authorNameCombo);
-            this.bookTab.Controls.Add(this.label4);
+            this.bookTab.Controls.Add(this.showAllAvailableBooksBtn);
+            this.bookTab.Controls.Add(this.bookTitleBox);
+            this.bookTab.Controls.Add(this.sortByTitleBtn);
+            this.bookTab.Controls.Add(this.tabControl2);
+            this.bookTab.Controls.Add(this.showAllAvailableOfBookBtn);
             this.bookTab.Controls.Add(this.authorNameBox);
-            this.bookTab.Controls.Add(this.button4);
-            this.bookTab.Controls.Add(this.button3);
-            this.bookTab.Controls.Add(this.button2);
-            this.bookTab.Controls.Add(this.label3);
-            this.bookTab.Controls.Add(this.removeBtn);
-            this.bookTab.Controls.Add(this.label2);
-            this.bookTab.Controls.Add(this.BTNChangeBook);
-            this.bookTab.Controls.Add(this.label1);
-            this.bookTab.Controls.Add(this.title);
-            this.bookTab.Controls.Add(this.desc);
-            this.bookTab.Controls.Add(this.button1);
-            this.bookTab.Controls.Add(this.isbn);
+            this.bookTab.Controls.Add(this.sortByAuthorBtn);
             this.bookTab.Location = new System.Drawing.Point(4, 22);
             this.bookTab.Name = "bookTab";
             this.bookTab.Padding = new System.Windows.Forms.Padding(3);
-            this.bookTab.Size = new System.Drawing.Size(236, 344);
+            this.bookTab.Size = new System.Drawing.Size(237, 344);
             this.bookTab.TabIndex = 0;
             this.bookTab.Text = "Books";
             this.bookTab.UseVisualStyleBackColor = true;
             // 
-            // authorMemberTab
+            // showAllAvailableBooksBtn
             // 
-            this.authorMemberTab.Controls.Add(this.label11);
-            this.authorMemberTab.Controls.Add(this.label10);
-            this.authorMemberTab.Controls.Add(this.label9);
-            this.authorMemberTab.Controls.Add(this.authorAddName);
-            this.authorMemberTab.Controls.Add(this.authorAddBtn);
-            this.authorMemberTab.Controls.Add(this.label5);
-            this.authorMemberTab.Controls.Add(this.label6);
-            this.authorMemberTab.Controls.Add(this.memberAddName);
-            this.authorMemberTab.Controls.Add(this.memberAddBtn);
-            this.authorMemberTab.Controls.Add(this.memberAddid);
-            this.authorMemberTab.Location = new System.Drawing.Point(4, 22);
-            this.authorMemberTab.Name = "authorMemberTab";
-            this.authorMemberTab.Padding = new System.Windows.Forms.Padding(3);
-            this.authorMemberTab.Size = new System.Drawing.Size(236, 344);
-            this.authorMemberTab.TabIndex = 1;
-            this.authorMemberTab.Text = "Authors and Members";
-            this.authorMemberTab.UseVisualStyleBackColor = true;
+            this.showAllAvailableBooksBtn.Location = new System.Drawing.Point(7, 78);
+            this.showAllAvailableBooksBtn.Name = "showAllAvailableBooksBtn";
+            this.showAllAvailableBooksBtn.Size = new System.Drawing.Size(120, 19);
+            this.showAllAvailableBooksBtn.TabIndex = 21;
+            this.showAllAvailableBooksBtn.Text = "Show Available books";
+            this.showAllAvailableBooksBtn.UseVisualStyleBackColor = true;
+            this.showAllAvailableBooksBtn.Click += new System.EventHandler(this.showAllAvailableBooksBtn_Click);
             // 
-            // loanTab
+            // bookTitleBox
             // 
-            this.loanTab.Location = new System.Drawing.Point(4, 22);
-            this.loanTab.Name = "loanTab";
-            this.loanTab.Size = new System.Drawing.Size(236, 344);
-            this.loanTab.TabIndex = 2;
-            this.loanTab.Text = "Loans";
-            this.loanTab.UseVisualStyleBackColor = true;
+            this.bookTitleBox.Location = new System.Drawing.Point(7, 49);
+            this.bookTitleBox.Name = "bookTitleBox";
+            this.bookTitleBox.Size = new System.Drawing.Size(148, 20);
+            this.bookTitleBox.TabIndex = 20;
             // 
-            // button4
+            // sortByTitleBtn
             // 
-            this.button4.Location = new System.Drawing.Point(6, 43);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 30);
-            this.button4.TabIndex = 14;
-            this.button4.Text = "Sorty by author";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.sortByTitleBtn.Location = new System.Drawing.Point(161, 48);
+            this.sortByTitleBtn.Name = "sortByTitleBtn";
+            this.sortByTitleBtn.Size = new System.Drawing.Size(71, 21);
+            this.sortByTitleBtn.TabIndex = 19;
+            this.sortByTitleBtn.Text = "Sort by title";
+            this.sortByTitleBtn.UseVisualStyleBackColor = true;
+            this.sortByTitleBtn.Click += new System.EventHandler(this.sortByTitleBtn_Click);
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.addBookTab);
+            this.tabControl2.Controls.Add(this.addCopyTab);
+            this.tabControl2.Controls.Add(this.editBookTab);
+            this.tabControl2.Location = new System.Drawing.Point(2, 173);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(233, 169);
+            this.tabControl2.TabIndex = 15;
+            // 
+            // addBookTab
+            // 
+            this.addBookTab.Controls.Add(this.titleTextBox);
+            this.addBookTab.Controls.Add(this.authorNameCombo);
+            this.addBookTab.Controls.Add(this.isbnTextBox);
+            this.addBookTab.Controls.Add(this.label4);
+            this.addBookTab.Controls.Add(this.newBookBtn);
+            this.addBookTab.Controls.Add(this.descTextBox);
+            this.addBookTab.Controls.Add(this.label1);
+            this.addBookTab.Controls.Add(this.label2);
+            this.addBookTab.Controls.Add(this.label3);
+            this.addBookTab.Location = new System.Drawing.Point(4, 22);
+            this.addBookTab.Name = "addBookTab";
+            this.addBookTab.Padding = new System.Windows.Forms.Padding(3);
+            this.addBookTab.Size = new System.Drawing.Size(225, 143);
+            this.addBookTab.TabIndex = 0;
+            this.addBookTab.Text = "Add book";
+            this.addBookTab.UseVisualStyleBackColor = true;
+            // 
+            // authorNameCombo
+            // 
+            this.authorNameCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.authorNameCombo.FormattingEnabled = true;
+            this.authorNameCombo.Location = new System.Drawing.Point(69, 84);
+            this.authorNameCombo.Name = "authorNameCombo";
+            this.authorNameCombo.Size = new System.Drawing.Size(150, 21);
+            this.authorNameCombo.TabIndex = 17;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(25, 87);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Author";
+            // 
+            // addCopyTab
+            // 
+            this.addCopyTab.Controls.Add(this.bookCopySelectedBook);
+            this.addCopyTab.Controls.Add(this.label13);
+            this.addCopyTab.Controls.Add(this.copyCondition);
+            this.addCopyTab.Controls.Add(this.label14);
+            this.addCopyTab.Controls.Add(this.newBookCopyBtn);
+            this.addCopyTab.Location = new System.Drawing.Point(4, 22);
+            this.addCopyTab.Name = "addCopyTab";
+            this.addCopyTab.Padding = new System.Windows.Forms.Padding(3);
+            this.addCopyTab.Size = new System.Drawing.Size(225, 143);
+            this.addCopyTab.TabIndex = 1;
+            this.addCopyTab.Text = "Add Copy";
+            this.addCopyTab.UseVisualStyleBackColor = true;
+            // 
+            // bookCopySelectedBook
+            // 
+            this.bookCopySelectedBook.Location = new System.Drawing.Point(6, 88);
+            this.bookCopySelectedBook.Name = "bookCopySelectedBook";
+            this.bookCopySelectedBook.ReadOnly = true;
+            this.bookCopySelectedBook.Size = new System.Drawing.Size(213, 20);
+            this.bookCopySelectedBook.TabIndex = 24;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(3, 66);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(80, 13);
+            this.label13.TabIndex = 23;
+            this.label13.Text = "Selected Book:";
+            // 
+            // copyCondition
+            // 
+            this.copyCondition.Location = new System.Drawing.Point(6, 43);
+            this.copyCondition.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.copyCondition.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.copyCondition.Name = "copyCondition";
+            this.copyCondition.Size = new System.Drawing.Size(100, 20);
+            this.copyCondition.TabIndex = 22;
+            this.copyCondition.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(3, 22);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(172, 13);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "Condition of new book copy (1-10):";
+            // 
+            // newBookCopyBtn
+            // 
+            this.newBookCopyBtn.Location = new System.Drawing.Point(6, 114);
+            this.newBookCopyBtn.Name = "newBookCopyBtn";
+            this.newBookCopyBtn.Size = new System.Drawing.Size(213, 23);
+            this.newBookCopyBtn.TabIndex = 12;
+            this.newBookCopyBtn.Text = "Add new copy of selected book";
+            this.newBookCopyBtn.UseVisualStyleBackColor = true;
+            this.newBookCopyBtn.Click += new System.EventHandler(this.newBookCopyBtn_Click);
+            // 
+            // editBookTab
+            // 
+            this.editBookTab.Controls.Add(this.BTNChangeBook);
+            this.editBookTab.Controls.Add(this.removeBtn);
+            this.editBookTab.Location = new System.Drawing.Point(4, 22);
+            this.editBookTab.Name = "editBookTab";
+            this.editBookTab.Size = new System.Drawing.Size(225, 143);
+            this.editBookTab.TabIndex = 2;
+            this.editBookTab.Text = "Edit Books";
+            this.editBookTab.UseVisualStyleBackColor = true;
+            // 
+            // showAllBooksBtn
+            // 
+            this.showAllBooksBtn.Location = new System.Drawing.Point(263, 336);
+            this.showAllBooksBtn.Name = "showAllBooksBtn";
+            this.showAllBooksBtn.Size = new System.Drawing.Size(93, 19);
+            this.showAllBooksBtn.TabIndex = 18;
+            this.showAllBooksBtn.Text = "Show Books";
+            this.showAllBooksBtn.UseVisualStyleBackColor = true;
+            this.showAllBooksBtn.Click += new System.EventHandler(this.showAllBooksBtn_Click);
             // 
             // authorNameBox
             // 
             this.authorNameBox.Location = new System.Drawing.Point(7, 17);
             this.authorNameBox.Name = "authorNameBox";
-            this.authorNameBox.Size = new System.Drawing.Size(117, 20);
+            this.authorNameBox.Size = new System.Drawing.Size(138, 20);
             this.authorNameBox.TabIndex = 15;
             // 
-            // label5
+            // sortByAuthorBtn
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(68, 82);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "ID number";
+            this.sortByAuthorBtn.Location = new System.Drawing.Point(151, 16);
+            this.sortByAuthorBtn.Name = "sortByAuthorBtn";
+            this.sortByAuthorBtn.Size = new System.Drawing.Size(82, 21);
+            this.sortByAuthorBtn.TabIndex = 14;
+            this.sortByAuthorBtn.Text = "Sort by author";
+            this.sortByAuthorBtn.UseVisualStyleBackColor = true;
+            this.sortByAuthorBtn.Click += new System.EventHandler(this.sortByAuthorBtn_Click);
             // 
-            // label6
+            // loanTab
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(79, 54);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Name";
+            this.loanTab.Controls.Add(this.button2);
+            this.loanTab.Controls.Add(this.textBox1);
+            this.loanTab.Controls.Add(this.tabControl3);
+            this.loanTab.Controls.Add(this.button1);
+            this.loanTab.Location = new System.Drawing.Point(4, 22);
+            this.loanTab.Name = "loanTab";
+            this.loanTab.Size = new System.Drawing.Size(237, 344);
+            this.loanTab.TabIndex = 2;
+            this.loanTab.Text = "Loans";
+            this.loanTab.UseVisualStyleBackColor = true;
             // 
-            // memberAddName
+            // button2
             // 
-            this.memberAddName.Location = new System.Drawing.Point(130, 53);
-            this.memberAddName.Name = "memberAddName";
-            this.memberAddName.Size = new System.Drawing.Size(100, 20);
-            this.memberAddName.TabIndex = 11;
+            this.button2.Location = new System.Drawing.Point(135, 16);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(95, 21);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Sort by Member";
+            this.button2.UseVisualStyleBackColor = true;
             // 
-            // memberAddBtn
+            // textBox1
             // 
-            this.memberAddBtn.Location = new System.Drawing.Point(130, 105);
-            this.memberAddBtn.Name = "memberAddBtn";
-            this.memberAddBtn.Size = new System.Drawing.Size(100, 23);
-            this.memberAddBtn.TabIndex = 10;
-            this.memberAddBtn.Text = "Add new member";
-            this.memberAddBtn.UseVisualStyleBackColor = true;
-            this.memberAddBtn.Click += new System.EventHandler(this.memberAddBtn_Click);
+            this.textBox1.Location = new System.Drawing.Point(7, 17);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(122, 20);
+            this.textBox1.TabIndex = 4;
             // 
-            // memberAddid
+            // tabControl3
             // 
-            this.memberAddid.Location = new System.Drawing.Point(130, 79);
-            this.memberAddid.Name = "memberAddid";
-            this.memberAddid.Size = new System.Drawing.Size(100, 20);
-            this.memberAddid.TabIndex = 12;
+            this.tabControl3.Controls.Add(this.newLoanTab);
+            this.tabControl3.Controls.Add(this.editLoanTab);
+            this.tabControl3.Location = new System.Drawing.Point(3, 173);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(231, 169);
+            this.tabControl3.TabIndex = 2;
             // 
-            // label9
+            // newLoanTab
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(79, 234);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 21;
-            this.label9.Text = "Name";
+            this.newLoanTab.Controls.Add(this.comboBox1);
+            this.newLoanTab.Location = new System.Drawing.Point(4, 22);
+            this.newLoanTab.Name = "newLoanTab";
+            this.newLoanTab.Padding = new System.Windows.Forms.Padding(3);
+            this.newLoanTab.Size = new System.Drawing.Size(223, 143);
+            this.newLoanTab.TabIndex = 0;
+            this.newLoanTab.Text = "New Loan";
+            this.newLoanTab.UseVisualStyleBackColor = true;
             // 
-            // authorAddName
+            // comboBox1
             // 
-            this.authorAddName.Location = new System.Drawing.Point(130, 233);
-            this.authorAddName.Name = "authorAddName";
-            this.authorAddName.Size = new System.Drawing.Size(100, 20);
-            this.authorAddName.TabIndex = 18;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(48, 67);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(150, 21);
+            this.comboBox1.TabIndex = 18;
+            // 
+            // editLoanTab
+            // 
+            this.editLoanTab.Location = new System.Drawing.Point(4, 22);
+            this.editLoanTab.Name = "editLoanTab";
+            this.editLoanTab.Padding = new System.Windows.Forms.Padding(3);
+            this.editLoanTab.Size = new System.Drawing.Size(223, 143);
+            this.editLoanTab.TabIndex = 1;
+            this.editLoanTab.Text = "Edit Existing Loan";
+            this.editLoanTab.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(155, 43);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // showAllLoansBtn
+            // 
+            this.showAllLoansBtn.Location = new System.Drawing.Point(362, 336);
+            this.showAllLoansBtn.Name = "showAllLoansBtn";
+            this.showAllLoansBtn.Size = new System.Drawing.Size(92, 19);
+            this.showAllLoansBtn.TabIndex = 0;
+            this.showAllLoansBtn.Text = "Show Loans";
+            this.showAllLoansBtn.UseVisualStyleBackColor = true;
+            this.showAllLoansBtn.Click += new System.EventHandler(this.showAllLoansBtn_Click);
+            // 
+            // authorMemberTab
+            // 
+            this.authorMemberTab.Controls.Add(this.tabControl1);
+            this.authorMemberTab.Location = new System.Drawing.Point(4, 22);
+            this.authorMemberTab.Name = "authorMemberTab";
+            this.authorMemberTab.Padding = new System.Windows.Forms.Padding(3);
+            this.authorMemberTab.Size = new System.Drawing.Size(237, 344);
+            this.authorMemberTab.TabIndex = 1;
+            this.authorMemberTab.Text = "Authors and Members";
+            this.authorMemberTab.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.newAuthorTab);
+            this.tabControl1.Controls.Add(this.newMemberTab);
+            this.tabControl1.Location = new System.Drawing.Point(3, 200);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(230, 141);
+            this.tabControl1.TabIndex = 26;
+            // 
+            // newAuthorTab
+            // 
+            this.newAuthorTab.Controls.Add(this.authorAddBtn);
+            this.newAuthorTab.Controls.Add(this.authorAddName);
+            this.newAuthorTab.Controls.Add(this.label9);
+            this.newAuthorTab.Location = new System.Drawing.Point(4, 22);
+            this.newAuthorTab.Name = "newAuthorTab";
+            this.newAuthorTab.Padding = new System.Windows.Forms.Padding(3);
+            this.newAuthorTab.Size = new System.Drawing.Size(222, 115);
+            this.newAuthorTab.TabIndex = 0;
+            this.newAuthorTab.Text = "Add Author";
+            this.newAuthorTab.UseVisualStyleBackColor = true;
             // 
             // authorAddBtn
             // 
-            this.authorAddBtn.Location = new System.Drawing.Point(130, 259);
+            this.authorAddBtn.Location = new System.Drawing.Point(70, 59);
             this.authorAddBtn.Name = "authorAddBtn";
             this.authorAddBtn.Size = new System.Drawing.Size(100, 23);
             this.authorAddBtn.TabIndex = 17;
@@ -334,47 +561,187 @@
             this.authorAddBtn.UseVisualStyleBackColor = true;
             this.authorAddBtn.Click += new System.EventHandler(this.authorAddBtn_Click);
             // 
-            // label10
+            // authorAddName
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(151, 37);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 13);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "Member";
+            this.authorAddName.Location = new System.Drawing.Point(70, 33);
+            this.authorAddName.Name = "authorAddName";
+            this.authorAddName.Size = new System.Drawing.Size(100, 20);
+            this.authorAddName.TabIndex = 18;
             // 
-            // label11
+            // label9
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(151, 217);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
-            this.label11.TabIndex = 25;
-            this.label11.Text = "Author";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(29, 36);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Name";
             // 
-            // label4
+            // newMemberTab
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(73, 294);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Author";
+            this.newMemberTab.Controls.Add(this.memberAddid);
+            this.newMemberTab.Controls.Add(this.label5);
+            this.newMemberTab.Controls.Add(this.memberAddBtn);
+            this.newMemberTab.Controls.Add(this.label6);
+            this.newMemberTab.Controls.Add(this.memberAddName);
+            this.newMemberTab.Location = new System.Drawing.Point(4, 22);
+            this.newMemberTab.Name = "newMemberTab";
+            this.newMemberTab.Padding = new System.Windows.Forms.Padding(3);
+            this.newMemberTab.Size = new System.Drawing.Size(222, 115);
+            this.newMemberTab.TabIndex = 1;
+            this.newMemberTab.Text = "Add Member";
+            this.newMemberTab.UseVisualStyleBackColor = true;
             // 
-            // authorNameCombo
+            // memberAddid
             // 
-            this.authorNameCombo.FormattingEnabled = true;
-            this.authorNameCombo.Location = new System.Drawing.Point(130, 288);
-            this.authorNameCombo.Name = "authorNameCombo";
-            this.authorNameCombo.Size = new System.Drawing.Size(100, 21);
-            this.authorNameCombo.TabIndex = 17;
+            this.memberAddid.Location = new System.Drawing.Point(79, 55);
+            this.memberAddid.Name = "memberAddid";
+            this.memberAddid.Size = new System.Drawing.Size(100, 20);
+            this.memberAddid.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 58);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "ID number";
+            // 
+            // memberAddBtn
+            // 
+            this.memberAddBtn.Location = new System.Drawing.Point(79, 81);
+            this.memberAddBtn.Name = "memberAddBtn";
+            this.memberAddBtn.Size = new System.Drawing.Size(100, 23);
+            this.memberAddBtn.TabIndex = 10;
+            this.memberAddBtn.Text = "Add new member";
+            this.memberAddBtn.UseVisualStyleBackColor = true;
+            this.memberAddBtn.Click += new System.EventHandler(this.memberAddBtn_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(38, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Name";
+            // 
+            // memberAddName
+            // 
+            this.memberAddName.Location = new System.Drawing.Point(79, 29);
+            this.memberAddName.Name = "memberAddName";
+            this.memberAddName.Size = new System.Drawing.Size(100, 20);
+            this.memberAddName.TabIndex = 11;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(260, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Items";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(457, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(25, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Info";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(457, 115);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 13);
+            this.label12.TabIndex = 17;
+            this.label12.Text = "Copies";
+            // 
+            // showAllMembersBtn
+            // 
+            this.showAllMembersBtn.Location = new System.Drawing.Point(362, 361);
+            this.showAllMembersBtn.Name = "showAllMembersBtn";
+            this.showAllMembersBtn.Size = new System.Drawing.Size(92, 19);
+            this.showAllMembersBtn.TabIndex = 19;
+            this.showAllMembersBtn.Text = "Show Members";
+            this.showAllMembersBtn.UseVisualStyleBackColor = true;
+            this.showAllMembersBtn.Click += new System.EventHandler(this.showAllMembersBtn_Click);
+            // 
+            // showAllAuthorsBtn
+            // 
+            this.showAllAuthorsBtn.Location = new System.Drawing.Point(263, 361);
+            this.showAllAuthorsBtn.Name = "showAllAuthorsBtn";
+            this.showAllAuthorsBtn.Size = new System.Drawing.Size(93, 19);
+            this.showAllAuthorsBtn.TabIndex = 20;
+            this.showAllAuthorsBtn.Text = "Show Authors";
+            this.showAllAuthorsBtn.UseVisualStyleBackColor = true;
+            this.showAllAuthorsBtn.Click += new System.EventHandler(this.showAllAuthorsBtn_Click);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(460, 337);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(43, 17);
+            this.radioButton1.TabIndex = 21;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Id ^";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(460, 362);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(43, 17);
+            this.radioButton2.TabIndex = 22;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Id v";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(551, 362);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(62, 17);
+            this.radioButton3.TabIndex = 24;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Namn v";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(551, 337);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(62, 17);
+            this.radioButton4.TabIndex = 23;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "Namn ^";
+            this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 391);
+            this.Controls.Add(this.radioButton3);
+            this.Controls.Add(this.radioButton4);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.showAllMembersBtn);
+            this.Controls.Add(this.showAllAuthorsBtn);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.showAllLoansBtn);
+            this.Controls.Add(this.showAllBooksBtn);
             this.Controls.Add(this.lbCopies);
             this.Controls.Add(this.lbInfo);
             this.Controls.Add(this.lbItems);
@@ -383,9 +750,25 @@
             this.tabControl.ResumeLayout(false);
             this.bookTab.ResumeLayout(false);
             this.bookTab.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.addBookTab.ResumeLayout(false);
+            this.addBookTab.PerformLayout();
+            this.addCopyTab.ResumeLayout(false);
+            this.addCopyTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.copyCondition)).EndInit();
+            this.editBookTab.ResumeLayout(false);
+            this.loanTab.ResumeLayout(false);
+            this.loanTab.PerformLayout();
+            this.tabControl3.ResumeLayout(false);
+            this.newLoanTab.ResumeLayout(false);
             this.authorMemberTab.ResumeLayout(false);
-            this.authorMemberTab.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.newAuthorTab.ResumeLayout(false);
+            this.newAuthorTab.PerformLayout();
+            this.newMemberTab.ResumeLayout(false);
+            this.newMemberTab.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -394,25 +777,22 @@
         private System.Windows.Forms.ListBox lbItems;
         private System.Windows.Forms.Button BTNChangeBook;
         private System.Windows.Forms.ListBox lbInfo;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox title;
-        private System.Windows.Forms.TextBox isbn;
-        private System.Windows.Forms.TextBox desc;
+        private System.Windows.Forms.Button newBookBtn;
+        private System.Windows.Forms.TextBox titleTextBox;
+        private System.Windows.Forms.TextBox isbnTextBox;
+        private System.Windows.Forms.TextBox descTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button removeBtn;
         private System.Windows.Forms.ListBox lbCopies;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button showAllAvailableOfBookBtn;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage bookTab;
         private System.Windows.Forms.TextBox authorNameBox;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button sortByAuthorBtn;
         private System.Windows.Forms.TabPage loanTab;
         private System.Windows.Forms.TabPage authorMemberTab;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox authorAddName;
         private System.Windows.Forms.Button authorAddBtn;
@@ -423,6 +803,39 @@
         private System.Windows.Forms.TextBox memberAddid;
         private System.Windows.Forms.ComboBox authorNameCombo;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button showAllBooksBtn;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage newAuthorTab;
+        private System.Windows.Forms.TabPage newMemberTab;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage addBookTab;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox bookTitleBox;
+        private System.Windows.Forms.Button sortByTitleBtn;
+        private System.Windows.Forms.TabPage editBookTab;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button showAllAvailableBooksBtn;
+        private System.Windows.Forms.TabPage addCopyTab;
+        private System.Windows.Forms.NumericUpDown copyCondition;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button newBookCopyBtn;
+        private System.Windows.Forms.TextBox bookCopySelectedBook;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button showAllLoansBtn;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage newLoanTab;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TabPage editLoanTab;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button showAllMembersBtn;
+        private System.Windows.Forms.Button showAllAuthorsBtn;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton4;
     }
 }
 

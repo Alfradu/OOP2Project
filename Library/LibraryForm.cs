@@ -39,7 +39,7 @@ namespace Library
             bookCopyService.Updated += BookCopyService_Updated;
             authorService.Updated += AuthorService_Updated;
             populateAuthorComboBox();
-            ShowAllBooks(bookService.All());
+            ShowAllItems(bookService.All());
         }
 
         private void AuthorService_Updated(object sender, UpdatedEventArgs e)
@@ -59,46 +59,58 @@ namespace Library
         private void BookService_Updated(object sender, UpdatedEventArgs e)
         {
             Console.WriteLine("Sender " + sender.GetType() + " performed action " +e.Action+" on db at " + e.UpdateTime);
-            ShowAllBooks(bookService.All());
+            ShowAllItems(bookService.All());
         }
 
         private void BookCopyService_Updated(object sender, UpdatedEventArgs e)
         {
-            ShowAllCopies(lbItems.SelectedItem as Book);
+            ShowAllCopies(bookCopyService.All(lbItems.SelectedItem as Book));
         }
 
-        private void ShowAllBooks(IEnumerable<Book> books)
+        private void ShowAllItems<T>(IEnumerable<T> item)
         {
             lbItems.Items.Clear();
-            foreach (Book book in books)
+            foreach (T t in item)
             {
-                lbItems.Items.Add(book);
+                lbItems.Items.Add(t);
             }
         }
 
-        private void ShowAllInfo(Book book)
-        {
-            lbInfo.Items.Clear();
-            lbInfo.Items.Add(book.Title);
-            lbInfo.Items.Add("ISBN :"+book.ISBN);
-            lbInfo.Items.Add("Description: \n"+book.Description);
-            lbInfo.Items.Add("Author: " + book.Author);
-        }
-        private void ShowAllCopies()
+        private void ShowAllCopies(IEnumerable<BookCopy> copies)
         {
             lbCopies.Items.Clear();
-            foreach (BookCopy bc in bookCopyService.All())
+            foreach (BookCopy bc in copies)
             {
                 lbCopies.Items.Add(bc);
             }
         }
-        private void ShowAllCopies(Book book)
+
+        private void ShowAllInfo<T>(T item)
         {
-            lbCopies.Items.Clear();
-            var c = bookCopyService;
-            foreach (BookCopy bc in book.Copies)
-            {
-                lbCopies.Items.Add(bc);
+            //TODO: do not do this
+            switch (item.GetType().ToString()) {
+                case "Book":
+                    Book b = item as Book;
+                    lbInfo.Items.Clear();
+                    lbInfo.Items.Add(b.Title);
+                    lbInfo.Items.Add("ISBN :" + b.ISBN);
+                    lbInfo.Items.Add("Description: \n" + b.Description);
+                    lbInfo.Items.Add("Author: " + b.Author);
+                    break;
+                case "Author":
+                    Author a = item as Author;
+                    lbInfo.Items.Clear();
+                    lbInfo.Items.Add(a.Name);
+                    lbInfo.Items.Add("Books :\n");
+                    foreach (Book book in a.Books)
+                    {
+                        lbInfo.Items.Add(book);
+                    }
+                    break;
+                case "Loan":
+                    break;
+                case "Member":
+                    break;
             }
         }
 
@@ -112,13 +124,13 @@ namespace Library
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void newBookBtn_Click(object sender, EventArgs e)
         {
             Book b = new Book()
             {
-                Title = title.Text,
-                ISBN = isbn.Text,
-                Description = desc.Text,
+                Title = titleTextBox.Text,
+                ISBN = isbnTextBox.Text,
+                Description = descTextBox.Text,
                 Author = authorNameCombo.SelectedItem as Author
             };
             bookService.Add(b);
@@ -126,14 +138,21 @@ namespace Library
 
         private void removeBtn_Click(object sender, EventArgs e)
         {
+            //TODO: remember to properly clean up tables if something is removed!
             Book b = lbItems.SelectedItem as Book;
             if (b != null)
             {
+                foreach (BookCopy bc in b.Copies)
+                {
+                    bookCopyService.Remove(bc);
+                }
+                b.Author.Books.Remove(b);
+                authorService.Edit(b.Author);
                 bookService.Remove(b);
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void newBookCopyBtn_Click(object sender, EventArgs e)
         {
             Book b = lbItems.SelectedItem as Book;
             if (b != null)
@@ -153,19 +172,26 @@ namespace Library
         {
             if (lbItems.SelectedItems != null)
             {
-                ShowAllInfo(lbItems.SelectedItem as Book);
-                ShowAllCopies(lbItems.SelectedItem as Book);
+                Book b = lbItems.SelectedItem as Book;
+                ShowAllInfo(b);
+                ShowAllCopies(bookCopyService.All(b));
+                bookCopySelectedBook.Text = b.ToString();
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void showAllAvailableOfBookBtn_Click(object sender, EventArgs e)
         {
-            ShowAllCopies();
+            ShowAllCopies(bookCopyService.AllAvailable(lbItems.SelectedItem as Book));
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void sortByAuthorBtn_Click(object sender, EventArgs e)
         {
-            ShowAllBooks(bookService.GetAllThatHasAuthor(authorNameBox.Text));
+            ShowAllItems(bookService.GetAllThatHasAuthor(authorNameBox.Text));
+        }
+
+        private void sortByTitleBtn_Click(object sender, EventArgs e)
+        {
+            ShowAllItems(bookService.GetAllThatHasTitle(bookTitleBox.Text));
         }
 
         private void memberAddBtn_Click(object sender, EventArgs e)
@@ -176,6 +202,33 @@ namespace Library
         private void authorAddBtn_Click(object sender, EventArgs e)
         {
             authorService.Add(new Author { Name = authorAddName.Text });
+        }
+
+        private void showAllBooksBtn_Click(object sender, EventArgs e)
+        {
+            ShowAllItems(bookService.All());
+            ShowAllCopies(bookCopyService.All());
+        }
+
+        private void showAllAvailableBooksBtn_Click(object sender, EventArgs e)
+        {
+            ShowAllItems(bookService.GetAllAvailable());
+            ShowAllCopies(bookCopyService.AllAvailable());
+        }
+
+        private void showAllMembersBtn_Click(object sender, EventArgs e)
+        {
+            ShowAllItems(memberService.All());
+        }
+
+        private void showAllAuthorsBtn_Click(object sender, EventArgs e)
+        {
+            ShowAllItems(authorService.All());
+        }
+
+        private void showAllLoansBtn_Click(object sender, EventArgs e)
+        {
+            ShowAllItems(loanService.All());
         }
     }
 }

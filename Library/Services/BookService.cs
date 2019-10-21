@@ -27,7 +27,6 @@ namespace Library.Services
             return bookRepository.All();
         }
 
-
         public IEnumerable<Book> GetAllThatContainsInTitle(string a)
         {
             return All().Where(b => b.Title.Contains(a));
@@ -37,6 +36,17 @@ namespace Library.Services
         {
             return All().Where(b => b.Author.Name == a);
         }
+
+        public IEnumerable<Book> GetAllThatHasTitle(string t)
+        {
+            return All().Where(b => b.Title == t);
+        }
+
+        public IEnumerable<Book> GetAllAvailable()
+        {
+            return All().Where(b => b.Copies.Any(c => c.Status == Status.AVAILABLE));
+        }
+
         /// <summary>
         /// The Edit method makes sure that the given Book object is saved to the database and raises the Updated() event.
         /// </summary>

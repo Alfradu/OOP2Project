@@ -11,7 +11,8 @@ namespace Library.Models {
     /// Here in the Seed method you can create the default objects you want in the database.
     /// </summary>
     class LibraryDbInit : DropCreateDatabaseAlways<LibraryContext>
-    { //TODO: swap to DropCreateDatabaseIfChange
+    { 
+        //TODO: swap to DropCreateDatabaseIfChange
         protected override void Seed(LibraryContext context) {
             base.Seed(context);
 

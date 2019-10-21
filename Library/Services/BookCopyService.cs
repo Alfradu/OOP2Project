@@ -23,6 +23,11 @@ namespace Library.Services
             return bookCopyRepository.All();
         }
 
+        public IEnumerable<BookCopy> All(Book b)
+        {
+            return bookCopyRepository.All().Where(c => c.Book == b);
+        }
+
         public IEnumerable<BookCopy> AllAvailable()
         {
             return All().Where(bc => bc.Status == Status.AVAILABLE);
