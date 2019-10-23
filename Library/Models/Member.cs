@@ -6,6 +6,7 @@ namespace Library.Models
 {
     public class Member
     {
+
         [Key]
         public int Id { get; set; }
         public string PersonalId { get; set; }
@@ -16,6 +17,11 @@ namespace Library.Models
         public Member()
         {
             Loans = new List<Loan>();
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

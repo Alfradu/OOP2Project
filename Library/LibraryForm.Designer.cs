@@ -52,18 +52,19 @@
             this.label14 = new System.Windows.Forms.Label();
             this.newBookCopyBtn = new System.Windows.Forms.Button();
             this.editBookTab = new System.Windows.Forms.TabPage();
-            this.showAllBooksBtn = new System.Windows.Forms.Button();
             this.authorNameBox = new System.Windows.Forms.TextBox();
             this.sortByAuthorBtn = new System.Windows.Forms.Button();
             this.loanTab = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.bookTitleLoanSort = new System.Windows.Forms.TextBox();
+            this.loanSortMemberBtn = new System.Windows.Forms.Button();
+            this.memberNameLoanSort = new System.Windows.Forms.TextBox();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.newLoanTab = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.newLoanBtn = new System.Windows.Forms.Button();
+            this.availableMemberComboBox = new System.Windows.Forms.ComboBox();
             this.editLoanTab = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.showAllLoansBtn = new System.Windows.Forms.Button();
+            this.loanSortBookBtn = new System.Windows.Forms.Button();
             this.authorMemberTab = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.newAuthorTab = new System.Windows.Forms.TabPage();
@@ -76,15 +77,19 @@
             this.memberAddBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.memberAddName = new System.Windows.Forms.TextBox();
+            this.showAllBooksBtn = new System.Windows.Forms.Button();
+            this.showAllLoansBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.showAllMembersBtn = new System.Windows.Forms.Button();
             this.showAllAuthorsBtn = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.idAscRadio = new System.Windows.Forms.RadioButton();
+            this.idDescRadio = new System.Windows.Forms.RadioButton();
+            this.nameDescRadio = new System.Windows.Forms.RadioButton();
+            this.nameAscRadio = new System.Windows.Forms.RadioButton();
+            this.selectedBookCopyLoan = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.bookTab.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -204,6 +209,7 @@
             this.lbCopies.Name = "lbCopies";
             this.lbCopies.Size = new System.Drawing.Size(264, 199);
             this.lbCopies.TabIndex = 11;
+            this.lbCopies.SelectedIndexChanged += new System.EventHandler(this.lbCopies_SelectedIndexChanged);
             // 
             // showAllAvailableOfBookBtn
             // 
@@ -402,16 +408,6 @@
             this.editBookTab.Text = "Edit Books";
             this.editBookTab.UseVisualStyleBackColor = true;
             // 
-            // showAllBooksBtn
-            // 
-            this.showAllBooksBtn.Location = new System.Drawing.Point(263, 336);
-            this.showAllBooksBtn.Name = "showAllBooksBtn";
-            this.showAllBooksBtn.Size = new System.Drawing.Size(93, 19);
-            this.showAllBooksBtn.TabIndex = 18;
-            this.showAllBooksBtn.Text = "Show Books";
-            this.showAllBooksBtn.UseVisualStyleBackColor = true;
-            this.showAllBooksBtn.Click += new System.EventHandler(this.showAllBooksBtn_Click);
-            // 
             // authorNameBox
             // 
             this.authorNameBox.Location = new System.Drawing.Point(7, 17);
@@ -431,10 +427,11 @@
             // 
             // loanTab
             // 
-            this.loanTab.Controls.Add(this.button2);
-            this.loanTab.Controls.Add(this.textBox1);
+            this.loanTab.Controls.Add(this.bookTitleLoanSort);
+            this.loanTab.Controls.Add(this.loanSortMemberBtn);
+            this.loanTab.Controls.Add(this.memberNameLoanSort);
             this.loanTab.Controls.Add(this.tabControl3);
-            this.loanTab.Controls.Add(this.button1);
+            this.loanTab.Controls.Add(this.loanSortBookBtn);
             this.loanTab.Location = new System.Drawing.Point(4, 22);
             this.loanTab.Name = "loanTab";
             this.loanTab.Size = new System.Drawing.Size(237, 344);
@@ -442,21 +439,29 @@
             this.loanTab.Text = "Loans";
             this.loanTab.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // bookTitleLoanSort
             // 
-            this.button2.Location = new System.Drawing.Point(135, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(95, 21);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Sort by Member";
-            this.button2.UseVisualStyleBackColor = true;
+            this.bookTitleLoanSort.Location = new System.Drawing.Point(7, 45);
+            this.bookTitleLoanSort.Name = "bookTitleLoanSort";
+            this.bookTitleLoanSort.Size = new System.Drawing.Size(134, 20);
+            this.bookTitleLoanSort.TabIndex = 16;
             // 
-            // textBox1
+            // loanSortMemberBtn
             // 
-            this.textBox1.Location = new System.Drawing.Point(7, 17);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(122, 20);
-            this.textBox1.TabIndex = 4;
+            this.loanSortMemberBtn.Location = new System.Drawing.Point(135, 16);
+            this.loanSortMemberBtn.Name = "loanSortMemberBtn";
+            this.loanSortMemberBtn.Size = new System.Drawing.Size(95, 21);
+            this.loanSortMemberBtn.TabIndex = 15;
+            this.loanSortMemberBtn.Text = "Sort by Member";
+            this.loanSortMemberBtn.UseVisualStyleBackColor = true;
+            this.loanSortMemberBtn.Click += new System.EventHandler(this.loanSortMemberBtn_Click);
+            // 
+            // memberNameLoanSort
+            // 
+            this.memberNameLoanSort.Location = new System.Drawing.Point(7, 17);
+            this.memberNameLoanSort.Name = "memberNameLoanSort";
+            this.memberNameLoanSort.Size = new System.Drawing.Size(122, 20);
+            this.memberNameLoanSort.TabIndex = 4;
             // 
             // tabControl3
             // 
@@ -470,7 +475,11 @@
             // 
             // newLoanTab
             // 
-            this.newLoanTab.Controls.Add(this.comboBox1);
+            this.newLoanTab.Controls.Add(this.label11);
+            this.newLoanTab.Controls.Add(this.selectedBookCopyLoan);
+            this.newLoanTab.Controls.Add(this.label10);
+            this.newLoanTab.Controls.Add(this.newLoanBtn);
+            this.newLoanTab.Controls.Add(this.availableMemberComboBox);
             this.newLoanTab.Location = new System.Drawing.Point(4, 22);
             this.newLoanTab.Name = "newLoanTab";
             this.newLoanTab.Padding = new System.Windows.Forms.Padding(3);
@@ -479,14 +488,33 @@
             this.newLoanTab.Text = "New Loan";
             this.newLoanTab.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // label10
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(48, 67);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(150, 21);
-            this.comboBox1.TabIndex = 18;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 72);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(119, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Selected Copy of Book:";
+            // 
+            // newLoanBtn
+            // 
+            this.newLoanBtn.Location = new System.Drawing.Point(48, 114);
+            this.newLoanBtn.Name = "newLoanBtn";
+            this.newLoanBtn.Size = new System.Drawing.Size(118, 23);
+            this.newLoanBtn.TabIndex = 19;
+            this.newLoanBtn.Text = "Add New Loan";
+            this.newLoanBtn.UseVisualStyleBackColor = true;
+            this.newLoanBtn.Click += new System.EventHandler(this.newLoanBtn_Click);
+            // 
+            // availableMemberComboBox
+            // 
+            this.availableMemberComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.availableMemberComboBox.FormattingEnabled = true;
+            this.availableMemberComboBox.Location = new System.Drawing.Point(3, 48);
+            this.availableMemberComboBox.Name = "availableMemberComboBox";
+            this.availableMemberComboBox.Size = new System.Drawing.Size(217, 21);
+            this.availableMemberComboBox.TabIndex = 18;
             // 
             // editLoanTab
             // 
@@ -498,24 +526,15 @@
             this.editLoanTab.Text = "Edit Existing Loan";
             this.editLoanTab.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // loanSortBookBtn
             // 
-            this.button1.Location = new System.Drawing.Point(155, 43);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // showAllLoansBtn
-            // 
-            this.showAllLoansBtn.Location = new System.Drawing.Point(362, 336);
-            this.showAllLoansBtn.Name = "showAllLoansBtn";
-            this.showAllLoansBtn.Size = new System.Drawing.Size(92, 19);
-            this.showAllLoansBtn.TabIndex = 0;
-            this.showAllLoansBtn.Text = "Show Loans";
-            this.showAllLoansBtn.UseVisualStyleBackColor = true;
-            this.showAllLoansBtn.Click += new System.EventHandler(this.showAllLoansBtn_Click);
+            this.loanSortBookBtn.Location = new System.Drawing.Point(147, 45);
+            this.loanSortBookBtn.Name = "loanSortBookBtn";
+            this.loanSortBookBtn.Size = new System.Drawing.Size(83, 21);
+            this.loanSortBookBtn.TabIndex = 1;
+            this.loanSortBookBtn.Text = "Sort by Book";
+            this.loanSortBookBtn.UseVisualStyleBackColor = true;
+            this.loanSortBookBtn.Click += new System.EventHandler(this.loanSortBookBtn_Click);
             // 
             // authorMemberTab
             // 
@@ -634,6 +653,26 @@
             this.memberAddName.Size = new System.Drawing.Size(100, 20);
             this.memberAddName.TabIndex = 11;
             // 
+            // showAllBooksBtn
+            // 
+            this.showAllBooksBtn.Location = new System.Drawing.Point(263, 336);
+            this.showAllBooksBtn.Name = "showAllBooksBtn";
+            this.showAllBooksBtn.Size = new System.Drawing.Size(93, 19);
+            this.showAllBooksBtn.TabIndex = 18;
+            this.showAllBooksBtn.Text = "Show Books";
+            this.showAllBooksBtn.UseVisualStyleBackColor = true;
+            this.showAllBooksBtn.Click += new System.EventHandler(this.showAllBooksBtn_Click);
+            // 
+            // showAllLoansBtn
+            // 
+            this.showAllLoansBtn.Location = new System.Drawing.Point(362, 336);
+            this.showAllLoansBtn.Name = "showAllLoansBtn";
+            this.showAllLoansBtn.Size = new System.Drawing.Size(92, 19);
+            this.showAllLoansBtn.TabIndex = 0;
+            this.showAllLoansBtn.Text = "Show Loans";
+            this.showAllLoansBtn.UseVisualStyleBackColor = true;
+            this.showAllLoansBtn.Click += new System.EventHandler(this.showAllLoansBtn_Click);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -681,59 +720,74 @@
             this.showAllAuthorsBtn.UseVisualStyleBackColor = true;
             this.showAllAuthorsBtn.Click += new System.EventHandler(this.showAllAuthorsBtn_Click);
             // 
-            // radioButton1
+            // idAscRadio
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(460, 337);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(43, 17);
-            this.radioButton1.TabIndex = 21;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Id ^";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.idAscRadio.AutoSize = true;
+            this.idAscRadio.Location = new System.Drawing.Point(460, 337);
+            this.idAscRadio.Name = "idAscRadio";
+            this.idAscRadio.Size = new System.Drawing.Size(43, 17);
+            this.idAscRadio.TabIndex = 21;
+            this.idAscRadio.Text = "Id ^";
+            this.idAscRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // idDescRadio
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(460, 362);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(43, 17);
-            this.radioButton2.TabIndex = 22;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Id v";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.idDescRadio.AutoSize = true;
+            this.idDescRadio.Checked = true;
+            this.idDescRadio.Location = new System.Drawing.Point(460, 362);
+            this.idDescRadio.Name = "idDescRadio";
+            this.idDescRadio.Size = new System.Drawing.Size(43, 17);
+            this.idDescRadio.TabIndex = 22;
+            this.idDescRadio.TabStop = true;
+            this.idDescRadio.Text = "Id v";
+            this.idDescRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // nameDescRadio
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(551, 362);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(62, 17);
-            this.radioButton3.TabIndex = 24;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Namn v";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.nameDescRadio.AutoSize = true;
+            this.nameDescRadio.Location = new System.Drawing.Point(551, 362);
+            this.nameDescRadio.Name = "nameDescRadio";
+            this.nameDescRadio.Size = new System.Drawing.Size(62, 17);
+            this.nameDescRadio.TabIndex = 24;
+            this.nameDescRadio.Text = "Namn v";
+            this.nameDescRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // nameAscRadio
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(551, 337);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(62, 17);
-            this.radioButton4.TabIndex = 23;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Namn ^";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.nameAscRadio.AutoSize = true;
+            this.nameAscRadio.Location = new System.Drawing.Point(551, 337);
+            this.nameAscRadio.Name = "nameAscRadio";
+            this.nameAscRadio.Size = new System.Drawing.Size(62, 17);
+            this.nameAscRadio.TabIndex = 23;
+            this.nameAscRadio.Text = "Namn ^";
+            this.nameAscRadio.UseVisualStyleBackColor = true;
+            // 
+            // selectedBookCopyLoan
+            // 
+            this.selectedBookCopyLoan.Location = new System.Drawing.Point(3, 88);
+            this.selectedBookCopyLoan.Name = "selectedBookCopyLoan";
+            this.selectedBookCopyLoan.ReadOnly = true;
+            this.selectedBookCopyLoan.Size = new System.Drawing.Size(217, 20);
+            this.selectedBookCopyLoan.TabIndex = 25;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 32);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(148, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Loan a book copy to member:";
             // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 391);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton4);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.nameDescRadio);
+            this.Controls.Add(this.nameAscRadio);
+            this.Controls.Add(this.idDescRadio);
+            this.Controls.Add(this.idAscRadio);
             this.Controls.Add(this.showAllMembersBtn);
             this.Controls.Add(this.showAllAuthorsBtn);
             this.Controls.Add(this.label12);
@@ -761,6 +815,7 @@
             this.loanTab.PerformLayout();
             this.tabControl3.ResumeLayout(false);
             this.newLoanTab.ResumeLayout(false);
+            this.newLoanTab.PerformLayout();
             this.authorMemberTab.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.newAuthorTab.ResumeLayout(false);
@@ -823,19 +878,24 @@
         private System.Windows.Forms.TextBox bookCopySelectedBook;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button showAllLoansBtn;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button loanSortMemberBtn;
+        private System.Windows.Forms.TextBox memberNameLoanSort;
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage newLoanTab;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox availableMemberComboBox;
         private System.Windows.Forms.TabPage editLoanTab;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button loanSortBookBtn;
         private System.Windows.Forms.Button showAllMembersBtn;
         private System.Windows.Forms.Button showAllAuthorsBtn;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton idAscRadio;
+        private System.Windows.Forms.RadioButton idDescRadio;
+        private System.Windows.Forms.RadioButton nameDescRadio;
+        private System.Windows.Forms.RadioButton nameAscRadio;
+        private System.Windows.Forms.TextBox bookTitleLoanSort;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button newLoanBtn;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox selectedBookCopyLoan;
     }
 }
 

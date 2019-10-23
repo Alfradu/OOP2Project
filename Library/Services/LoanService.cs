@@ -23,6 +23,16 @@ namespace Library.Services
             return loanRepository.All();
         }
 
+        internal IEnumerable<object> GetAllOfMember(string name)
+        {
+            return loanRepository.All().Where(l => l.Member.Name == name);
+        }
+
+        internal IEnumerable<object> GetAllofBook(string title)
+        {
+            return loanRepository.All().Where(l => l.BookCopy.Book.Title == title);
+        }
+
         /// <summary>
         /// The Edit method makes sure that the given Loan object is saved to the database and raises the Updated() event.
         /// </summary>
