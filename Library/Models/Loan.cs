@@ -16,10 +16,11 @@ namespace Library.Models
         public DateTime? TimeOfReturn { get; set; }
         public BookCopy BookCopy { get; set; }
         public Member Member { get; set; }
+        public int overtimeFine { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0} -- {1} Loaned by {2}.",Id,BookCopy.Book.Title,Member);
+            return String.Format("{0} -- {1} Loaned by {2}.",Id,BookCopy.Book.ISBN,Member);
         }
     }
 }

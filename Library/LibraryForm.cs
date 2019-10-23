@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Library
 {
-    public enum ListType { Book, Author, Loan, Member }
+    public enum ListType { Book, Author, Loan, Member, BookCopy }
     public partial class LibraryForm : Form
     {
         BookService bookService;
@@ -115,12 +115,42 @@ namespace Library
             }
         }
 
-        private void ShowAllCopies(IEnumerable<BookCopy> copies)
+        private void ShowAllCopies<T>(IEnumerable<T> items)
         {
             lbCopies.Items.Clear();
-            foreach (BookCopy bc in copies)
+            switch (listType)
             {
-                lbCopies.Items.Add(bc);
+                case ListType.Book:
+                    IEnumerable<BookCopy> copies = items as IEnumerable<BookCopy>;
+                    foreach (BookCopy bc in copies)
+                    {
+                        lbCopies.Items.Add(bc);
+                    }
+                    break;
+                case ListType.Author:
+                    IEnumerable<BookCopy> books = items as IEnumerable<BookCopy>;
+                    foreach (BookCopy b in books)
+                    {
+                        if (!lbCopies.Items.Contains(b.Book))
+                        {
+                            lbCopies.Items.Add(b.Book);
+                        }
+                    }
+                    break;
+                case ListType.Loan:
+                    IEnumerable<BookCopy> bookCopy = items as IEnumerable<BookCopy>;
+                    foreach (BookCopy bc in bookCopy)
+                    {
+                        lbCopies.Items.Add(bc);
+                    }
+                    break;
+                case ListType.Member:
+                    IEnumerable<BookCopy> mbc = items as IEnumerable<BookCopy>;
+                    foreach (BookCopy l in mbc)
+                    {
+                        lbCopies.Items.Add(l);
+                    }
+                    break;
             }
         }
 
@@ -150,14 +180,14 @@ namespace Library
                     lbInfo.Items.Add("Member: " + l.Member.Name);
                     lbInfo.Items.Add("Loaned on: " + l.TimeOfLoan);
                     lbInfo.Items.Add("Due date: " + l.DueDate);
-                    if (l.BookCopy.Status == Status.LOANED && l.DueDate >= DateTime.Now)
+                    if (l.DueDate >= DateTime.Now && l.TimeOfReturn == null)
                     {
-                        lbInfo.Items.Add("Status: Loaned");
+                        lbInfo.Items.Add("Status: "+ l.BookCopy.Status);
                     }
-                    else if (l.BookCopy.Status == Status.LOANED && l.DueDate <= DateTime.Now)
+                    else if (l.DueDate <= DateTime.Now && l.TimeOfReturn == null)
                     {
-                        lbInfo.Items.Add("Status: OVERDUE");
-                        lbInfo.Items.Add("PLEASE RETURN, WILL CHARGE YOU 50kr THO MAN COME ON.");
+                        lbInfo.Items.Add("Status: "+ l.BookCopy.Status);
+                        lbInfo.Items.Add("Missed due date; a fee of "+l.overtimeFine+"kr will be applied.");
                     }
                     else
                     {
@@ -183,17 +213,17 @@ namespace Library
                         Book b = lbItems.SelectedItem as Book;
                         ShowAllInfo(b);
                         ShowAllCopies(bookCopyService.All(b));
-                        bookCopySelectedBook.Text = b.ToString();
+                        bookCopySelectedBook.Text = String.Format("{0}",b.Title);
                         break;
                     case ListType.Author:
                         Author a = lbItems.SelectedItem as Author;
                         ShowAllInfo(a);
-                        List<BookCopy> bcList = new List<BookCopy>();
+                        List<BookCopy> bList = new List<BookCopy>();
                         foreach (Book book in a.Books)
                         {
-                            bcList.AddRange(book.Copies);
+                            bList.AddRange(book.Copies);
                         }
-                        ShowAllCopies(bcList);
+                        ShowAllCopies(bList);
                         break;
                     case ListType.Loan:
                         Loan l = lbItems.SelectedItem as Loan;
@@ -220,7 +250,18 @@ namespace Library
         {
             if (lbCopies.SelectedItem != null)
             {
-                selectedBookCopyLoan.Text = (lbCopies.SelectedItem as BookCopy).ToString();
+                BookCopy bc = lbCopies.SelectedItem as BookCopy;
+                Loan l = loanService.Find(bc);
+                switch (listType)
+                {
+                    case ListType.Book:
+                        selectedBookCopyLoan.Text = String.Format("{0} - {1}", bc.Id, bc.Book.Title);
+                        break;
+                    case ListType.Loan:
+                        ShowAllInfo(l);
+                        selectedLoanBox.Text = String.Format("{0} - {1}", bc.Id, bc.Book.Title);
+                        break;
+                }
             }
         }
 
@@ -285,6 +326,7 @@ namespace Library
             Book b = lbItems.SelectedItem as Book;
             if (b != null)
             {
+                //TODO: remove copies in service
                 foreach (BookCopy bc in b.Copies)
                 {
                     bookCopyService.Remove(bc);
@@ -359,6 +401,7 @@ namespace Library
 
         private void newLoanBtn_Click(object sender, EventArgs e)
         {
+            if (lbCopies.SelectedItem == null) { return; }
             Loan l = new Loan()
             {
                 Member = availableMemberComboBox.SelectedItem as Member,
@@ -369,6 +412,41 @@ namespace Library
             l.BookCopy.Status = Status.LOANED;
             bookCopyService.Edit(l.BookCopy);
             loanService.Add(l);
+        }
+
+        private void loanReturnBookBtn_Click(object sender, EventArgs e)
+        {
+            BookCopy bc = lbCopies.SelectedItem as BookCopy;
+            if (bc == null) { return; }
+            Loan l = loanService.Find(bc);
+            l.BookCopy.Status = Status.AVAILABLE;
+            bookCopyService.Edit(l.BookCopy);
+            l.TimeOfReturn = DateTime.Now;
+            loanService.Edit(l);
+        }
+
+        private void loanChangeDateBtn_Click(object sender, EventArgs e)
+        {
+            DateTime date = dateTimePicker.Value;
+            BookCopy bc = lbCopies.SelectedItem as BookCopy;
+            if (bc == null) { return; }
+            Loan l = loanService.Find(bc);
+            l.DueDate = date;
+            loanService.Edit(l);
+            overtimeCheckBtn_Click(sender,e);
+        }
+
+        private void overtimeCheckBtn_Click(object sender, EventArgs e)
+        {
+            List<Loan> loans = loanService.getOvertimedLoans().ToList();
+            foreach (Loan l in loans)
+            {
+                l.overtimeFine += ((DateTime.Now - l.DueDate).Days * 10);
+                loanService.Edit(l);
+                l.BookCopy.Status = Status.OVERDUE;
+                bookCopyService.Edit(l.BookCopy);
+            }
+            //TODO: clear input boxes after buttonpresses
         }
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Library.Models
 {
 
-    public enum Status { AVAILABLE, LOANED}
+    public enum Status { AVAILABLE, LOANED, OVERDUE}
     public class BookCopy
     {
         [Key]
@@ -15,7 +15,7 @@ namespace Library.Models
 
         public override string ToString()
         {
-            return String.Format("[{0}] -- Status: {1}, Condition: {2}", this.Id, this.Status, this.Condition);
+            return String.Format("copy ID: {0}, {1}", this.Id, this.Book.Title);
         }
     }
 }

@@ -60,10 +60,17 @@
             this.memberNameLoanSort = new System.Windows.Forms.TextBox();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.newLoanTab = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.selectedBookCopyLoan = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.newLoanBtn = new System.Windows.Forms.Button();
             this.availableMemberComboBox = new System.Windows.Forms.ComboBox();
             this.editLoanTab = new System.Windows.Forms.TabPage();
+            this.loanChangeDateBtn = new System.Windows.Forms.Button();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.selectedLoanBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.loanReturnBookBtn = new System.Windows.Forms.Button();
             this.loanSortBookBtn = new System.Windows.Forms.Button();
             this.authorMemberTab = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -88,8 +95,7 @@
             this.idDescRadio = new System.Windows.Forms.RadioButton();
             this.nameDescRadio = new System.Windows.Forms.RadioButton();
             this.nameAscRadio = new System.Windows.Forms.RadioButton();
-            this.selectedBookCopyLoan = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.overtimeCheckBtn = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.bookTab.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -100,6 +106,7 @@
             this.loanTab.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.newLoanTab.SuspendLayout();
+            this.editLoanTab.SuspendLayout();
             this.authorMemberTab.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.newAuthorTab.SuspendLayout();
@@ -427,6 +434,7 @@
             // 
             // loanTab
             // 
+            this.loanTab.Controls.Add(this.overtimeCheckBtn);
             this.loanTab.Controls.Add(this.bookTitleLoanSort);
             this.loanTab.Controls.Add(this.loanSortMemberBtn);
             this.loanTab.Controls.Add(this.memberNameLoanSort);
@@ -488,6 +496,23 @@
             this.newLoanTab.Text = "New Loan";
             this.newLoanTab.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 32);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(148, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Loan a book copy to member:";
+            // 
+            // selectedBookCopyLoan
+            // 
+            this.selectedBookCopyLoan.Location = new System.Drawing.Point(3, 88);
+            this.selectedBookCopyLoan.Name = "selectedBookCopyLoan";
+            this.selectedBookCopyLoan.ReadOnly = true;
+            this.selectedBookCopyLoan.Size = new System.Drawing.Size(217, 20);
+            this.selectedBookCopyLoan.TabIndex = 25;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -518,6 +543,11 @@
             // 
             // editLoanTab
             // 
+            this.editLoanTab.Controls.Add(this.loanChangeDateBtn);
+            this.editLoanTab.Controls.Add(this.dateTimePicker);
+            this.editLoanTab.Controls.Add(this.selectedLoanBox);
+            this.editLoanTab.Controls.Add(this.label15);
+            this.editLoanTab.Controls.Add(this.loanReturnBookBtn);
             this.editLoanTab.Location = new System.Drawing.Point(4, 22);
             this.editLoanTab.Name = "editLoanTab";
             this.editLoanTab.Padding = new System.Windows.Forms.Padding(3);
@@ -525,6 +555,50 @@
             this.editLoanTab.TabIndex = 1;
             this.editLoanTab.Text = "Edit Existing Loan";
             this.editLoanTab.UseVisualStyleBackColor = true;
+            // 
+            // loanChangeDateBtn
+            // 
+            this.loanChangeDateBtn.Location = new System.Drawing.Point(62, 114);
+            this.loanChangeDateBtn.Name = "loanChangeDateBtn";
+            this.loanChangeDateBtn.Size = new System.Drawing.Size(103, 23);
+            this.loanChangeDateBtn.TabIndex = 29;
+            this.loanChangeDateBtn.Text = "Change Due Date";
+            this.loanChangeDateBtn.UseVisualStyleBackColor = true;
+            this.loanChangeDateBtn.Click += new System.EventHandler(this.loanChangeDateBtn_Click);
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Location = new System.Drawing.Point(34, 88);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(162, 20);
+            this.dateTimePicker.TabIndex = 28;
+            // 
+            // selectedLoanBox
+            // 
+            this.selectedLoanBox.Location = new System.Drawing.Point(34, 33);
+            this.selectedLoanBox.Name = "selectedLoanBox";
+            this.selectedLoanBox.ReadOnly = true;
+            this.selectedLoanBox.Size = new System.Drawing.Size(162, 20);
+            this.selectedLoanBox.TabIndex = 27;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(31, 17);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(117, 13);
+            this.label15.TabIndex = 26;
+            this.label15.Text = "Selected Loaned copy:";
+            // 
+            // loanReturnBookBtn
+            // 
+            this.loanReturnBookBtn.Location = new System.Drawing.Point(77, 59);
+            this.loanReturnBookBtn.Name = "loanReturnBookBtn";
+            this.loanReturnBookBtn.Size = new System.Drawing.Size(75, 23);
+            this.loanReturnBookBtn.TabIndex = 0;
+            this.loanReturnBookBtn.Text = "Return book";
+            this.loanReturnBookBtn.UseVisualStyleBackColor = true;
+            this.loanReturnBookBtn.Click += new System.EventHandler(this.loanReturnBookBtn_Click);
             // 
             // loanSortBookBtn
             // 
@@ -762,22 +836,15 @@
             this.nameAscRadio.Text = "Namn ^";
             this.nameAscRadio.UseVisualStyleBackColor = true;
             // 
-            // selectedBookCopyLoan
+            // overtimeCheckBtn
             // 
-            this.selectedBookCopyLoan.Location = new System.Drawing.Point(3, 88);
-            this.selectedBookCopyLoan.Name = "selectedBookCopyLoan";
-            this.selectedBookCopyLoan.ReadOnly = true;
-            this.selectedBookCopyLoan.Size = new System.Drawing.Size(217, 20);
-            this.selectedBookCopyLoan.TabIndex = 25;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 32);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(148, 13);
-            this.label11.TabIndex = 26;
-            this.label11.Text = "Loan a book copy to member:";
+            this.overtimeCheckBtn.Location = new System.Drawing.Point(84, 70);
+            this.overtimeCheckBtn.Name = "overtimeCheckBtn";
+            this.overtimeCheckBtn.Size = new System.Drawing.Size(146, 23);
+            this.overtimeCheckBtn.TabIndex = 17;
+            this.overtimeCheckBtn.Text = "Check all loans for overtime";
+            this.overtimeCheckBtn.UseVisualStyleBackColor = true;
+            this.overtimeCheckBtn.Click += new System.EventHandler(this.overtimeCheckBtn_Click);
             // 
             // LibraryForm
             // 
@@ -816,6 +883,8 @@
             this.tabControl3.ResumeLayout(false);
             this.newLoanTab.ResumeLayout(false);
             this.newLoanTab.PerformLayout();
+            this.editLoanTab.ResumeLayout(false);
+            this.editLoanTab.PerformLayout();
             this.authorMemberTab.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.newAuthorTab.ResumeLayout(false);
@@ -896,6 +965,12 @@
         private System.Windows.Forms.Button newLoanBtn;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox selectedBookCopyLoan;
+        private System.Windows.Forms.TextBox selectedLoanBox;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button loanReturnBookBtn;
+        private System.Windows.Forms.Button loanChangeDateBtn;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.Button overtimeCheckBtn;
     }
 }
 
