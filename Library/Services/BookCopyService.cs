@@ -38,6 +38,26 @@ namespace Library.Services
             return AllAvailable().Where(bc => bc.Book == b);
         }
 
+        internal List<BookCopy> sortIdAsc(List<BookCopy> list)
+        {
+            return list.OrderBy(o => o.Id).ToList();
+        }
+
+        internal List<BookCopy> sortIdDesc(List<BookCopy> list)
+        {
+            return list.OrderByDescending(o => o.Id).ToList();
+        }
+
+        internal List<BookCopy> sortTextAsc(List<BookCopy> list)
+        {
+            return list.OrderBy(o => o.Book.Title).ToList();
+        }
+
+        internal List<BookCopy> sortTextDesc(List<BookCopy> list)
+        {
+            return list.OrderByDescending(o => o.Book.Title).ToList();
+        }
+
         /// <summary>
         /// The Edit method makes sure that the given Book object is saved to the database and raises the Updated() event.
         /// </summary>
@@ -68,10 +88,6 @@ namespace Library.Services
             OnUpdateEvent(new UpdatedEventArgs(Action.REMOVE, DateTime.Now));
         }
 
-        public void RemoveAllOfBook(Book b)
-        {
-            b.Copies.ForEach(c => bookCopyRepository.Remove(c));
-        }
         private void OnUpdateEvent(UpdatedEventArgs uea) => Updated?.Invoke(this, uea);
     }
 }

@@ -13,7 +13,8 @@ using System.Windows.Forms;
 
 namespace Library
 {
-    public enum ListType { Book, Author, Loan, Member, BookCopy }
+    public enum ListType { Book, Author, Loan, Member }
+    public enum SortType { IdDesc, IdAsc, TextDesc, TextAsc}
     public partial class LibraryForm : Form
     {
         BookService bookService;
@@ -22,13 +23,11 @@ namespace Library
         LoanService loanService;
         MemberService memberService;
         public ListType listType = new ListType();
+        public SortType sortType = SortType.IdDesc;
         public LibraryForm()
         {
             InitializeComponent();
-            // we create only one context in our application, which gets shared among repositories
             LibraryContext context = new LibraryContext();
-            // we use a factory object that will create the repositories as they are needed, it also makes
-            // sure all the repositories created use the same context.
             RepositoryFactory repFactory = new RepositoryFactory(context);
 
             this.bookService = new BookService(repFactory);
@@ -47,22 +46,18 @@ namespace Library
             listType = ListType.Book;
         }
 
-        private void LoanService_Updated(object sender, UpdatedEventArgs e)
+        private void BookService_Updated(object sender, UpdatedEventArgs e)
         {
-           if(listType == ListType.Loan)
-           {
-               ShowAllItems(loanService.All());
-           }
+            if (listType == ListType.Book)
+            {
+                ShowAllItems(bookService.All());
+            }
             dbUpdatedMsg(sender, e);
         }
 
-        private void MemberService_Updated(object sender, UpdatedEventArgs e)
+        private void BookCopyService_Updated(object sender, UpdatedEventArgs e)
         {
-            populateMemberComboBox();
-            if (listType == ListType.Member)
-            {
-                ShowAllItems(memberService.All());
-            }
+            ShowAllCopies(bookCopyService.All(lbItems.SelectedItem as Book));
             dbUpdatedMsg(sender, e);
         }
 
@@ -76,18 +71,22 @@ namespace Library
             dbUpdatedMsg(sender, e);
         }
 
-        private void BookService_Updated(object sender, UpdatedEventArgs e)
+        private void MemberService_Updated(object sender, UpdatedEventArgs e)
         {
-            if (listType == ListType.Book)
+            populateMemberComboBox();
+            if (listType == ListType.Member)
             {
-                ShowAllItems(bookService.All());
+                ShowAllItems(memberService.All());
             }
             dbUpdatedMsg(sender, e);
         }
 
-        private void BookCopyService_Updated(object sender, UpdatedEventArgs e)
+        private void LoanService_Updated(object sender, UpdatedEventArgs e)
         {
-            ShowAllCopies(bookCopyService.All(lbItems.SelectedItem as Book));
+           if(listType == ListType.Loan)
+           {
+               ShowAllItems(loanService.All());
+           }
             dbUpdatedMsg(sender, e);
         }
 
@@ -121,7 +120,8 @@ namespace Library
         private void ShowAllItems<T>(IEnumerable<T> item)
         {
             lbItems.Items.Clear();
-            foreach (T t in item)
+            IEnumerable<T> sItem = sortList(item.ToList());
+            foreach (T t in sItem)
             {
                 lbItems.Items.Add(t);
             }
@@ -130,37 +130,34 @@ namespace Library
         private void ShowAllCopies<T>(IEnumerable<T> items)
         {
             lbCopies.Items.Clear();
+            IEnumerable<BookCopy> copies = sortList((items as IEnumerable<BookCopy>).ToList());
             switch (listType)
             {
                 case ListType.Book:
-                    IEnumerable<BookCopy> copies = items as IEnumerable<BookCopy>;
                     foreach (BookCopy bc in copies)
                     {
                         lbCopies.Items.Add(bc);
                     }
                     break;
                 case ListType.Author:
-                    IEnumerable<BookCopy> books = items as IEnumerable<BookCopy>;
-                    foreach (BookCopy b in books)
+                    foreach (BookCopy bc in copies)
                     {
-                        if (!lbCopies.Items.Contains(b.Book))
+                        if (!lbCopies.Items.Contains(bc.Book))
                         {
-                            lbCopies.Items.Add(b.Book);
+                            lbCopies.Items.Add(bc.Book);
                         }
                     }
                     break;
                 case ListType.Loan:
-                    IEnumerable<BookCopy> bookCopy = items as IEnumerable<BookCopy>;
-                    foreach (BookCopy bc in bookCopy)
+                    foreach (BookCopy bc in copies)
                     {
                         lbCopies.Items.Add(bc);
                     }
                     break;
                 case ListType.Member:
-                    IEnumerable<BookCopy> mbc = items as IEnumerable<BookCopy>;
-                    foreach (BookCopy l in mbc)
+                    foreach (BookCopy bc in copies)
                     {
-                        lbCopies.Items.Add(l);
+                        lbCopies.Items.Add(bc);
                     }
                     break;
             }
@@ -329,19 +326,6 @@ namespace Library
             memberAddid.Clear();
         }
 
-        private void removeBtn_Click(object sender, EventArgs e)
-        {
-            Book b = lbItems.SelectedItem as Book;
-            if (b != null)
-            {
-                bookCopyService.RemoveAllOfBook(b);
-                b.Author.Books.Remove(b);
-                authorService.Edit(b.Author);
-                bookService.Remove(b);
-            }
-            resetSelection();
-        }
-
         private void showAllAvailableOfBookBtn_Click(object sender, EventArgs e)
         {
             listType = ListType.Book;
@@ -374,6 +358,11 @@ namespace Library
             ShowAllCopies(bookCopyService.All());
         }
 
+        private void showBooksWithoutCopies_Click(object sender, EventArgs e)
+        {
+            listType = ListType.Book;
+            ShowAllItems(bookService.GetAllWithoutCopies());
+        }
         private void showAllMembersBtn_Click(object sender, EventArgs e)
         {
             listType = ListType.Member;
@@ -462,7 +451,161 @@ namespace Library
 
         private void resetSelection()
         {
+            lbCopies.ClearSelected();
+            lbItems.ClearSelected();
+        }
 
+        private List<Book> sortList(List<Book> list)
+        {
+            List<Book>sList = new List<Book>();
+            switch (sortType)
+            {
+                case SortType.IdAsc:
+                    sList = bookService.sortIdAsc(list);
+                    break;
+                case SortType.IdDesc:
+                    sList = bookService.sortIdDesc(list);
+                    break;
+                case SortType.TextAsc:
+                    sList = bookService.sortTextAsc(list);
+                    break;
+                case SortType.TextDesc:
+                    sList = bookService.sortTextDesc(list);
+                    break;
+            }
+            return sList;
+        }
+
+        private List<BookCopy> sortList(List<BookCopy> list)
+        {
+            List<BookCopy> sList = new List<BookCopy>();
+            switch (sortType)
+            {
+                case SortType.IdAsc:
+                    sList = bookCopyService.sortIdAsc(list);
+                    break;
+                case SortType.IdDesc:
+                    sList = bookCopyService.sortIdDesc(list);
+                    break;
+                case SortType.TextAsc:
+                    sList = bookCopyService.sortTextAsc(list);
+                    break;
+                case SortType.TextDesc:
+                    sList = bookCopyService.sortTextDesc(list);
+                    break;
+            }
+            return sList;
+        }
+
+        private List<Author> sortList(List<Author> list)
+        {
+            List<Author> sList = new List<Author>();
+            switch (sortType)
+            {
+                case SortType.IdAsc:
+                    sList = authorService.sortIdAsc(list);
+                    break;
+                case SortType.IdDesc:
+                    sList = authorService.sortIdDesc(list);
+                    break;
+                case SortType.TextAsc:
+                    sList = authorService.sortTextAsc(list);
+                    break;
+                case SortType.TextDesc:
+                    sList = authorService.sortTextDesc(list);
+                    break;
+            }
+            return sList;
+        }
+
+        private List<Member> sortList(List<Member> list)
+        {
+            List<Member> sList = new List<Member>();
+            switch (sortType)
+            {
+                case SortType.IdAsc:
+                    sList = memberService.sortIdAsc(list);
+                    break;
+                case SortType.IdDesc:
+                    sList = memberService.sortIdDesc(list);
+                    break;
+                case SortType.TextAsc:
+                    sList = memberService.sortTextAsc(list);
+                    break;
+                case SortType.TextDesc:
+                    sList = memberService.sortTextDesc(list);
+                    break;
+            }
+            return sList;
+        }
+
+        private List<Loan> sortList(List<Loan> list)
+        {
+            List<Loan> sList = new List<Loan>();
+            switch (sortType)
+            {
+                case SortType.IdAsc:
+                    sList = loanService.sortIdAsc(list);
+                    break;
+                case SortType.IdDesc:
+                    sList = loanService.sortIdDesc(list);
+                    break;
+                case SortType.TextAsc:
+                    sList = loanService.sortTextAsc(list);
+                    break;
+                case SortType.TextDesc:
+                    sList = loanService.sortTextDesc(list);
+                    break;
+            }
+            return sList;
+        }
+
+        private IEnumerable<T> sortList<T>(List<T> list)
+        {
+
+            switch (listType)
+            {
+                case (ListType.Author):
+                    return sortList(list as List<Author>) as IEnumerable<T>;
+                case (ListType.Loan):
+                    return sortList(list as List<Loan>) as IEnumerable<T>;
+                case (ListType.Member):
+                    return sortList(list as List<Member>) as IEnumerable<T>;
+                default:
+                    return sortList(list as List<Book>) as IEnumerable<T>;
+            }
+        }
+
+        private void idAscRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (idAscRadio.Checked)
+            {
+                sortType = SortType.IdAsc;
+            }
+        }
+
+        private void idDescRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (idDescRadio.Checked)
+            {
+                sortType = SortType.IdDesc;
+            }
+        }
+
+        private void nameAscRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (nameAscRadio.Checked)
+            {
+                sortType = SortType.TextAsc;
+            }
+        }
+
+        private void nameDescRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (nameDescRadio.Checked)
+            {
+                sortType = SortType.TextDesc;
+            }
         }
     }
 }

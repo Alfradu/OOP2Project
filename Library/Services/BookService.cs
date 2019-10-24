@@ -47,6 +47,31 @@ namespace Library.Services
             return All().Where(b => b.Copies.Any(c => c.Status == Status.AVAILABLE));
         }
 
+        internal IEnumerable<object> GetAllWithoutCopies()
+        {
+            return All().Where(b => b.Copies.Count < 0);
+        }
+
+        internal List<Book> sortIdAsc(List<Book> list)
+        {
+            return list.OrderBy(o => o.Id).ToList();
+        }
+
+        internal List<Book> sortIdDesc(List<Book> list)
+        {
+            return list.OrderByDescending(o => o.Id).ToList();
+        }
+
+        internal List<Book> sortTextAsc(List<Book> list)
+        {
+            return list.OrderBy(o => o.Title).ToList();
+        }
+
+        internal List<Book> sortTextDesc(List<Book> list)
+        {
+            return list.OrderByDescending(o => o.Title).ToList();
+        }
+
         /// <summary>
         /// The Edit method makes sure that the given Book object is saved to the database and raises the Updated() event.
         /// </summary>

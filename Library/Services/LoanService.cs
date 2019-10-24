@@ -42,6 +42,27 @@ namespace Library.Services
         {
             return loanRepository.All().Where(a => a.DueDate <= DateTime.Now && a.BookCopy.Status != Status.AVAILABLE);
         }
+
+        internal List<Loan> sortIdAsc(List<Loan> list)
+        {
+            return list.OrderBy(o => o.Id).ToList();
+        }
+
+        internal List<Loan> sortIdDesc(List<Loan> list)
+        {
+            return list.OrderByDescending(o => o.Id).ToList();
+        }
+
+        internal List<Loan> sortTextAsc(List<Loan> list)
+        {
+            return list.OrderBy(o => o.Member.Name).ToList();
+        }
+
+        internal List<Loan> sortTextDesc(List<Loan> list)
+        {
+            return list.OrderByDescending(o => o.Member.Name).ToList();
+        }
+
         /// <summary>
         /// The Edit method makes sure that the given Loan object is saved to the database and raises the Updated() event.
         /// </summary>

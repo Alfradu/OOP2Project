@@ -15,7 +15,7 @@ namespace Library.Models
 
         public override string ToString()
         {
-            return String.Format("[{0}] {1}, condition: {2}", this.Id, this.Book.Title, this.Condition);
+            return String.Format("[{0}] {1}, Condition: {2}, Status: {3}", this.Id, this.Book.Title, this.Condition, this.Status);
         }
     }
 }

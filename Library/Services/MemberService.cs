@@ -23,6 +23,26 @@ namespace Library.Services
             return memberRepository.All();
         }
 
+        internal List<Member> sortIdAsc(List<Member> list)
+        {
+            return list.OrderBy(o => o.Id).ToList();
+        }
+
+        internal List<Member> sortIdDesc(List<Member> list)
+        {
+            return list.OrderByDescending(o => o.Id).ToList();
+        }
+
+        internal List<Member> sortTextAsc(List<Member> list)
+        {
+            return list.OrderBy(o => o.Name).ToList();
+        }
+
+        internal List<Member> sortTextDesc(List<Member> list)
+        {
+            return list.OrderByDescending(o => o.Name).ToList();
+        }
+
         /// <summary>
         /// The Edit method makes sure that the given Member object is saved to the database and raises the Updated() event.
         /// </summary>

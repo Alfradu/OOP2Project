@@ -23,6 +23,26 @@ namespace Library.Services
             return authorRepository.All();
         }
 
+        internal List<Author> sortIdAsc(List<Author> list)
+        {
+            return list.OrderBy(o => o.Id).ToList();
+        }
+
+        internal List<Author> sortIdDesc(List<Author> list)
+        {
+            return list.OrderByDescending(o => o.Id).ToList();
+        }
+
+        internal List<Author> sortTextAsc(List<Author> list)
+        {
+            return list.OrderBy(o => o.Name).ToList();
+        }
+
+        internal List<Author> sortTextDesc(List<Author> list)
+        {
+            return list.OrderByDescending(o => o.Name).ToList();
+        }
+
         /// <summary>
         /// The Edit method makes sure that the given Author object is saved to the database and raises the Updated() event.
         /// </summary>
