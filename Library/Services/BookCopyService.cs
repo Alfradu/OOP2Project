@@ -68,6 +68,10 @@ namespace Library.Services
             OnUpdateEvent(new UpdatedEventArgs(Action.REMOVE, DateTime.Now));
         }
 
+        public void RemoveAllOfBook(Book b)
+        {
+            b.Copies.ForEach(c => bookCopyRepository.Remove(c));
+        }
         private void OnUpdateEvent(UpdatedEventArgs uea) => Updated?.Invoke(this, uea);
     }
 }

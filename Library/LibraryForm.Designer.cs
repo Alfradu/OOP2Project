@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.lbItems = new System.Windows.Forms.ListBox();
-            this.BTNChangeBook = new System.Windows.Forms.Button();
             this.lbInfo = new System.Windows.Forms.ListBox();
             this.newBookBtn = new System.Windows.Forms.Button();
             this.titleTextBox = new System.Windows.Forms.TextBox();
@@ -55,6 +54,7 @@
             this.authorNameBox = new System.Windows.Forms.TextBox();
             this.sortByAuthorBtn = new System.Windows.Forms.Button();
             this.loanTab = new System.Windows.Forms.TabPage();
+            this.overtimeCheckBtn = new System.Windows.Forms.Button();
             this.bookTitleLoanSort = new System.Windows.Forms.TextBox();
             this.loanSortMemberBtn = new System.Windows.Forms.Button();
             this.memberNameLoanSort = new System.Windows.Forms.TextBox();
@@ -95,7 +95,7 @@
             this.idDescRadio = new System.Windows.Forms.RadioButton();
             this.nameDescRadio = new System.Windows.Forms.RadioButton();
             this.nameAscRadio = new System.Windows.Forms.RadioButton();
-            this.overtimeCheckBtn = new System.Windows.Forms.Button();
+            this.dbUpdateInfo = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.bookTab.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -121,17 +121,6 @@
             this.lbItems.Size = new System.Drawing.Size(191, 303);
             this.lbItems.TabIndex = 0;
             this.lbItems.SelectedIndexChanged += new System.EventHandler(this.lbItems_SelectedIndexChanged);
-            // 
-            // BTNChangeBook
-            // 
-            this.BTNChangeBook.Location = new System.Drawing.Point(3, 2);
-            this.BTNChangeBook.Margin = new System.Windows.Forms.Padding(2);
-            this.BTNChangeBook.Name = "BTNChangeBook";
-            this.BTNChangeBook.Size = new System.Drawing.Size(161, 34);
-            this.BTNChangeBook.TabIndex = 1;
-            this.BTNChangeBook.Text = "TO BE REMOVED: Change the selected book title";
-            this.BTNChangeBook.UseVisualStyleBackColor = true;
-            this.BTNChangeBook.Click += new System.EventHandler(this.BTNChangeBook_Click);
             // 
             // lbInfo
             // 
@@ -406,7 +395,6 @@
             // 
             // editBookTab
             // 
-            this.editBookTab.Controls.Add(this.BTNChangeBook);
             this.editBookTab.Controls.Add(this.removeBtn);
             this.editBookTab.Location = new System.Drawing.Point(4, 22);
             this.editBookTab.Name = "editBookTab";
@@ -446,6 +434,16 @@
             this.loanTab.TabIndex = 2;
             this.loanTab.Text = "Loans";
             this.loanTab.UseVisualStyleBackColor = true;
+            // 
+            // overtimeCheckBtn
+            // 
+            this.overtimeCheckBtn.Location = new System.Drawing.Point(84, 70);
+            this.overtimeCheckBtn.Name = "overtimeCheckBtn";
+            this.overtimeCheckBtn.Size = new System.Drawing.Size(146, 23);
+            this.overtimeCheckBtn.TabIndex = 17;
+            this.overtimeCheckBtn.Text = "Check all loans for overtime";
+            this.overtimeCheckBtn.UseVisualStyleBackColor = true;
+            this.overtimeCheckBtn.Click += new System.EventHandler(this.overtimeCheckBtn_Click);
             // 
             // bookTitleLoanSort
             // 
@@ -799,58 +797,57 @@
             this.idAscRadio.AutoSize = true;
             this.idAscRadio.Location = new System.Drawing.Point(460, 337);
             this.idAscRadio.Name = "idAscRadio";
-            this.idAscRadio.Size = new System.Drawing.Size(43, 17);
+            this.idAscRadio.Size = new System.Drawing.Size(58, 17);
             this.idAscRadio.TabIndex = 21;
-            this.idAscRadio.Text = "Id ^";
+            this.idAscRadio.Text = "Id Asc.";
             this.idAscRadio.UseVisualStyleBackColor = true;
             // 
             // idDescRadio
             // 
             this.idDescRadio.AutoSize = true;
             this.idDescRadio.Checked = true;
-            this.idDescRadio.Location = new System.Drawing.Point(460, 362);
+            this.idDescRadio.Location = new System.Drawing.Point(515, 337);
             this.idDescRadio.Name = "idDescRadio";
-            this.idDescRadio.Size = new System.Drawing.Size(43, 17);
+            this.idDescRadio.Size = new System.Drawing.Size(65, 17);
             this.idDescRadio.TabIndex = 22;
             this.idDescRadio.TabStop = true;
-            this.idDescRadio.Text = "Id v";
+            this.idDescRadio.Text = "Id Desc.";
             this.idDescRadio.UseVisualStyleBackColor = true;
             // 
             // nameDescRadio
             // 
             this.nameDescRadio.AutoSize = true;
-            this.nameDescRadio.Location = new System.Drawing.Point(551, 362);
+            this.nameDescRadio.Location = new System.Drawing.Point(649, 338);
             this.nameDescRadio.Name = "nameDescRadio";
-            this.nameDescRadio.Size = new System.Drawing.Size(62, 17);
+            this.nameDescRadio.Size = new System.Drawing.Size(84, 17);
             this.nameDescRadio.TabIndex = 24;
-            this.nameDescRadio.Text = "Namn v";
+            this.nameDescRadio.Text = "Namn Desc.";
             this.nameDescRadio.UseVisualStyleBackColor = true;
             // 
             // nameAscRadio
             // 
             this.nameAscRadio.AutoSize = true;
-            this.nameAscRadio.Location = new System.Drawing.Point(551, 337);
+            this.nameAscRadio.Location = new System.Drawing.Point(576, 337);
             this.nameAscRadio.Name = "nameAscRadio";
-            this.nameAscRadio.Size = new System.Drawing.Size(62, 17);
+            this.nameAscRadio.Size = new System.Drawing.Size(77, 17);
             this.nameAscRadio.TabIndex = 23;
-            this.nameAscRadio.Text = "Namn ^";
+            this.nameAscRadio.Text = "Name Asc.";
             this.nameAscRadio.UseVisualStyleBackColor = true;
             // 
-            // overtimeCheckBtn
+            // dbUpdateInfo
             // 
-            this.overtimeCheckBtn.Location = new System.Drawing.Point(84, 70);
-            this.overtimeCheckBtn.Name = "overtimeCheckBtn";
-            this.overtimeCheckBtn.Size = new System.Drawing.Size(146, 23);
-            this.overtimeCheckBtn.TabIndex = 17;
-            this.overtimeCheckBtn.Text = "Check all loans for overtime";
-            this.overtimeCheckBtn.UseVisualStyleBackColor = true;
-            this.overtimeCheckBtn.Click += new System.EventHandler(this.overtimeCheckBtn_Click);
+            this.dbUpdateInfo.Location = new System.Drawing.Point(460, 362);
+            this.dbUpdateInfo.Name = "dbUpdateInfo";
+            this.dbUpdateInfo.ReadOnly = true;
+            this.dbUpdateInfo.Size = new System.Drawing.Size(264, 20);
+            this.dbUpdateInfo.TabIndex = 25;
             // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 391);
+            this.Controls.Add(this.dbUpdateInfo);
             this.Controls.Add(this.nameDescRadio);
             this.Controls.Add(this.nameAscRadio);
             this.Controls.Add(this.idDescRadio);
@@ -899,7 +896,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox lbItems;
-        private System.Windows.Forms.Button BTNChangeBook;
         private System.Windows.Forms.ListBox lbInfo;
         private System.Windows.Forms.Button newBookBtn;
         private System.Windows.Forms.TextBox titleTextBox;
@@ -971,6 +967,7 @@
         private System.Windows.Forms.Button loanChangeDateBtn;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.Button overtimeCheckBtn;
+        private System.Windows.Forms.TextBox dbUpdateInfo;
     }
 }
 

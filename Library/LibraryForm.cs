@@ -50,9 +50,10 @@ namespace Library
         private void LoanService_Updated(object sender, UpdatedEventArgs e)
         {
            if(listType == ListType.Loan)
-            {
-                ShowAllItems(loanService.All());
-            }
+           {
+               ShowAllItems(loanService.All());
+           }
+            dbUpdatedMsg(sender, e);
         }
 
         private void MemberService_Updated(object sender, UpdatedEventArgs e)
@@ -62,6 +63,7 @@ namespace Library
             {
                 ShowAllItems(memberService.All());
             }
+            dbUpdatedMsg(sender, e);
         }
 
         private void AuthorService_Updated(object sender, UpdatedEventArgs e)
@@ -71,21 +73,31 @@ namespace Library
             {
                 ShowAllItems(authorService.All());
             }
+            dbUpdatedMsg(sender, e);
         }
 
         private void BookService_Updated(object sender, UpdatedEventArgs e)
         {
-            //TODO: remove writeline and display time/action in another way
-            Console.WriteLine("Sender " + sender.GetType() + " performed action " + e.Action + " on db at " + e.UpdateTime);
             if (listType == ListType.Book)
             {
                 ShowAllItems(bookService.All());
             }
+            dbUpdatedMsg(sender, e);
         }
 
         private void BookCopyService_Updated(object sender, UpdatedEventArgs e)
         {
             ShowAllCopies(bookCopyService.All(lbItems.SelectedItem as Book));
+            dbUpdatedMsg(sender, e);
+        }
+
+        private void dbUpdatedMsg(object sender, UpdatedEventArgs e)
+        {
+            dbUpdateInfo.Text = String.Format("" +
+                "{0} performed " +
+                "{1} on db at " +
+                "{2}",
+                sender.GetType().ToString().Split('.')[2], e.Action,e.UpdateTime.TimeOfDay);
         }
 
         private void populateAuthorComboBox()
@@ -169,7 +181,7 @@ namespace Library
                 case ListType.Author:
                     Author a = item as Author;
                     lbInfo.Items.Add(a.Name);
-                    lbInfo.Items.Add("Books :\n");
+                    lbInfo.Items.Add("Books :");
                     foreach (Book book in a.Books)
                     {
                         lbInfo.Items.Add(book);
@@ -187,7 +199,7 @@ namespace Library
                     else if (l.DueDate <= DateTime.Now && l.TimeOfReturn == null)
                     {
                         lbInfo.Items.Add("Status: "+ l.BookCopy.Status);
-                        lbInfo.Items.Add("Missed due date; a fee of "+l.overtimeFine+"kr will be applied.");
+                        lbInfo.Items.Add("Missed due date; a fee of "+l.OvertimeFine+"kr will be applied.");
                     }
                     else
                     {
@@ -199,6 +211,11 @@ namespace Library
                     lbInfo.Items.Add("Name: " + m.Name);
                     lbInfo.Items.Add("ID: " + m.PersonalId);
                     lbInfo.Items.Add("Member since: " + m.MembershipDate);
+                    lbInfo.Items.Add("Loans: ");
+                    foreach(Loan loan in m.Loans)
+                    {
+                        lbInfo.Items.Add(loan);
+                    }
                     break;
             }
         }
@@ -251,28 +268,15 @@ namespace Library
             if (lbCopies.SelectedItem != null)
             {
                 BookCopy bc = lbCopies.SelectedItem as BookCopy;
-                Loan l = loanService.Find(bc);
                 switch (listType)
                 {
                     case ListType.Book:
                         selectedBookCopyLoan.Text = String.Format("{0} - {1}", bc.Id, bc.Book.Title);
                         break;
                     case ListType.Loan:
-                        ShowAllInfo(l);
                         selectedLoanBox.Text = String.Format("{0} - {1}", bc.Id, bc.Book.Title);
                         break;
                 }
-            }
-        }
-
-        private void BTNChangeBook_Click(object sender, EventArgs e)
-        {
-            //TODO: delet
-            Book b = lbItems.SelectedItem as Book;
-            if (b != null)
-            {
-                b.Title = "Yoyoma koko";
-                bookService.Edit(b);
             }
         }
 
@@ -286,6 +290,7 @@ namespace Library
                 Author = authorNameCombo.SelectedItem as Author
             };
             bookService.Add(b);
+            authorNameCombo.SelectedItem = 0;
         }
 
         private void newBookCopyBtn_Click(object sender, EventArgs e)
@@ -302,11 +307,13 @@ namespace Library
                 b.Copies.Add(bc);
                 bookCopyService.Add(bc);
             }
+            resetSelection();
         }
 
         private void authorAddBtn_Click(object sender, EventArgs e)
         {
             authorService.Add(new Author { Name = authorAddName.Text });
+            authorAddName.Clear();
         }
 
         private void memberAddBtn_Click(object sender, EventArgs e)
@@ -318,23 +325,21 @@ namespace Library
                 MembershipDate = DateTime.Now
             };
             memberService.Add(m);
+            memberAddName.Clear();
+            memberAddid.Clear();
         }
 
         private void removeBtn_Click(object sender, EventArgs e)
         {
-            //TODO: remember to properly clean up tables if something is removed!
             Book b = lbItems.SelectedItem as Book;
             if (b != null)
             {
-                //TODO: remove copies in service
-                foreach (BookCopy bc in b.Copies)
-                {
-                    bookCopyService.Remove(bc);
-                }
+                bookCopyService.RemoveAllOfBook(b);
                 b.Author.Books.Remove(b);
                 authorService.Edit(b.Author);
                 bookService.Remove(b);
             }
+            resetSelection();
         }
 
         private void showAllAvailableOfBookBtn_Click(object sender, EventArgs e)
@@ -407,11 +412,13 @@ namespace Library
                 Member = availableMemberComboBox.SelectedItem as Member,
                 BookCopy = lbCopies.SelectedItem as BookCopy,
                 TimeOfLoan = DateTime.Now,
-                DueDate = DateTime.Now.AddDays(15)
+                DueDate = DateTime.Now.AddDays(15),
+                State = State.Active
             };
             l.BookCopy.Status = Status.LOANED;
             bookCopyService.Edit(l.BookCopy);
             loanService.Add(l);
+            resetSelection();
         }
 
         private void loanReturnBookBtn_Click(object sender, EventArgs e)
@@ -421,8 +428,10 @@ namespace Library
             Loan l = loanService.Find(bc);
             l.BookCopy.Status = Status.AVAILABLE;
             bookCopyService.Edit(l.BookCopy);
+            l.State = State.Archived;
             l.TimeOfReturn = DateTime.Now;
             loanService.Edit(l);
+            resetSelection();
         }
 
         private void loanChangeDateBtn_Click(object sender, EventArgs e)
@@ -434,6 +443,7 @@ namespace Library
             l.DueDate = date;
             loanService.Edit(l);
             overtimeCheckBtn_Click(sender,e);
+            resetSelection();
         }
 
         private void overtimeCheckBtn_Click(object sender, EventArgs e)
@@ -441,12 +451,18 @@ namespace Library
             List<Loan> loans = loanService.getOvertimedLoans().ToList();
             foreach (Loan l in loans)
             {
-                l.overtimeFine += ((DateTime.Now - l.DueDate).Days * 10);
+                l.OvertimeFine = 0;
+                l.OvertimeFine += ((DateTime.Now - l.DueDate).Days * 10);
                 loanService.Edit(l);
                 l.BookCopy.Status = Status.OVERDUE;
                 bookCopyService.Edit(l.BookCopy);
             }
-            //TODO: clear input boxes after buttonpresses
+            resetSelection();
+        }
+
+        private void resetSelection()
+        {
+
         }
     }
 }

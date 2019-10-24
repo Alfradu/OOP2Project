@@ -35,12 +35,12 @@ namespace Library.Services
 
         internal Loan Find(BookCopy bc)
         {
-            return loanRepository.All().Where(i => i.BookCopy == bc).FirstOrDefault();
+            return loanRepository.All().Where(i => i.BookCopy.Id == bc.Id && i.State != State.Archived).FirstOrDefault();
         }
 
         public IEnumerable<Loan> getOvertimedLoans()
         {
-            return loanRepository.All().Where(a => a.DueDate <= DateTime.Now && a.BookCopy.Status != Status.OVERDUE);
+            return loanRepository.All().Where(a => a.DueDate <= DateTime.Now && a.BookCopy.Status != Status.AVAILABLE);
         }
         /// <summary>
         /// The Edit method makes sure that the given Loan object is saved to the database and raises the Updated() event.

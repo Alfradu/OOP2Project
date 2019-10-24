@@ -17,7 +17,9 @@ namespace Library.Models {
             base.Seed(context);
 
             Book monteCristo = new Book() {
-                Title = "The Count of Monte Cristo"
+                Title = "The Count of Monte Cristo",
+                ISBN = "1323343",
+                Description = "this is a book about the count of monte cristo."
             };
             Member memb = new Member()
             {
