@@ -23,7 +23,7 @@ namespace Library
         LoanService loanService;
         MemberService memberService;
         public ListType listType = new ListType();
-        public SortType sortType = SortType.IdDesc;
+        public SortType sortType = SortType.IdAsc;
         public LibraryForm()
         {
             InitializeComponent();
@@ -227,7 +227,11 @@ namespace Library
                         Book b = lbItems.SelectedItem as Book;
                         ShowAllInfo(b);
                         ShowAllCopies(bookCopyService.All(b));
-                        bookCopySelectedBook.Text = String.Format("{0}",b.Title);
+                        bookCopySelectedBook.Text = b.Title;
+                        bookSelectedEdit.Text = b.Title;
+                        bookEditTitleBox.Text = b.Title;
+                        bookEditIsbnBox.Text = b.ISBN;
+                        BookEditDescBox.Text = b.Description;
                         break;
                     case ListType.Author:
                         Author a = lbItems.SelectedItem as Author;
@@ -455,9 +459,9 @@ namespace Library
             lbItems.ClearSelected();
         }
 
-        private List<Book> sortList(List<Book> list)
+        private IEnumerable<Book> sortList(List<Book> list)
         {
-            List<Book>sList = new List<Book>();
+            IEnumerable<Book>sList = new List<Book>();
             switch (sortType)
             {
                 case SortType.IdAsc:
@@ -476,9 +480,9 @@ namespace Library
             return sList;
         }
 
-        private List<BookCopy> sortList(List<BookCopy> list)
+        private IEnumerable<BookCopy> sortList(List<BookCopy> list)
         {
-            List<BookCopy> sList = new List<BookCopy>();
+            IEnumerable<BookCopy> sList = new List<BookCopy>();
             switch (sortType)
             {
                 case SortType.IdAsc:
@@ -497,9 +501,9 @@ namespace Library
             return sList;
         }
 
-        private List<Author> sortList(List<Author> list)
+        private IEnumerable<Author> sortList(List<Author> list)
         {
-            List<Author> sList = new List<Author>();
+            IEnumerable<Author> sList = new List<Author>();
             switch (sortType)
             {
                 case SortType.IdAsc:
@@ -518,9 +522,9 @@ namespace Library
             return sList;
         }
 
-        private List<Member> sortList(List<Member> list)
+        private IEnumerable<Member> sortList(List<Member> list)
         {
-            List<Member> sList = new List<Member>();
+            IEnumerable<Member> sList = new List<Member>();
             switch (sortType)
             {
                 case SortType.IdAsc:
@@ -539,9 +543,9 @@ namespace Library
             return sList;
         }
 
-        private List<Loan> sortList(List<Loan> list)
+        private IEnumerable<Loan> sortList(List<Loan> list)
         {
-            List<Loan> sList = new List<Loan>();
+            IEnumerable<Loan> sList = new List<Loan>();
             switch (sortType)
             {
                 case SortType.IdAsc:
@@ -565,11 +569,11 @@ namespace Library
 
             switch (listType)
             {
-                case (ListType.Author):
+                case ListType.Author:
                     return sortList(list as List<Author>) as IEnumerable<T>;
-                case (ListType.Loan):
+                case ListType.Loan:
                     return sortList(list as List<Loan>) as IEnumerable<T>;
-                case (ListType.Member):
+                case ListType.Member:
                     return sortList(list as List<Member>) as IEnumerable<T>;
                 default:
                     return sortList(list as List<Book>) as IEnumerable<T>;
@@ -580,7 +584,7 @@ namespace Library
         {
             if (idAscRadio.Checked)
             {
-                sortType = SortType.IdAsc;
+                sortType = SortType.IdDesc;
             }
         }
 
@@ -588,7 +592,7 @@ namespace Library
         {
             if (idDescRadio.Checked)
             {
-                sortType = SortType.IdDesc;
+                sortType = SortType.IdAsc;
             }
         }
 
@@ -596,7 +600,7 @@ namespace Library
         {
             if (nameAscRadio.Checked)
             {
-                sortType = SortType.TextAsc;
+                sortType = SortType.TextDesc;
             }
         }
 
@@ -604,8 +608,45 @@ namespace Library
         {
             if (nameDescRadio.Checked)
             {
-                sortType = SortType.TextDesc;
+                sortType = SortType.TextAsc;
             }
+        }
+
+        private void authorsShowWithoutBooks_Click(object sender, EventArgs e)
+        {
+            listType = ListType.Author;
+            ShowAllItems(authorService.GetAllWithoutBooks());
+        }
+
+        private void authorSortByBook_Click(object sender, EventArgs e)
+        {
+            listType = ListType.Author;
+            ShowAllItems(authorService.GetAuthorByBook(bookService.GetBook(authorSortByBook.Text)));
+        }
+
+        private void loanShowAllActiveBtn_Click(object sender, EventArgs e)
+        {
+            listType = ListType.Loan;
+            ShowAllItems(loanService.GetAllActiveLoans());
+        }
+
+        private void loanShowAllArchivedBtn_Click(object sender, EventArgs e)
+        {
+            listType = ListType.Loan;
+            ShowAllItems(loanService.GetAllArchivedLoans());
+        }
+
+        private void editSelectedBookBtn_Click(object sender, EventArgs e)
+        {
+            listType = ListType.Book;
+            Book selectedBook = lbItems.SelectedItem as Book;
+            selectedBook.Title = bookEditTitleBox.Text;
+            selectedBook.ISBN = bookEditIsbnBox.Text;
+            selectedBook.Description = BookEditDescBox.Text;
+            bookService.Edit(selectedBook);
+            bookEditTitleBox.Clear();
+            bookEditIsbnBox.Clear();
+            BookEditDescBox.Clear();
         }
     }
 }

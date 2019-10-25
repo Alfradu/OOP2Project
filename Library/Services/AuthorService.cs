@@ -23,22 +23,32 @@ namespace Library.Services
             return authorRepository.All();
         }
 
-        internal List<Author> sortIdAsc(List<Author> list)
+        public IEnumerable<Author> GetAllWithoutBooks()
+        {
+            return All().Where(a => a.Books.Count == 0);
+        }
+
+        public IEnumerable<Author> GetAuthorByBook(Book book)
+        {
+            return All().Where(a => a.Books.Contains(book));
+        }
+
+        public IEnumerable<Author> sortIdAsc(List<Author> list)
         {
             return list.OrderBy(o => o.Id).ToList();
         }
 
-        internal List<Author> sortIdDesc(List<Author> list)
+        public IEnumerable<Author> sortIdDesc(List<Author> list)
         {
             return list.OrderByDescending(o => o.Id).ToList();
         }
 
-        internal List<Author> sortTextAsc(List<Author> list)
+        public IEnumerable<Author> sortTextAsc(List<Author> list)
         {
             return list.OrderBy(o => o.Name).ToList();
         }
 
-        internal List<Author> sortTextDesc(List<Author> list)
+        public IEnumerable<Author> sortTextDesc(List<Author> list)
         {
             return list.OrderByDescending(o => o.Name).ToList();
         }

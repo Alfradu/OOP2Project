@@ -23,22 +23,22 @@ namespace Library.Services
             return memberRepository.All();
         }
 
-        internal List<Member> sortIdAsc(List<Member> list)
+        internal IEnumerable<Member> sortIdAsc(List<Member> list)
         {
             return list.OrderBy(o => o.Id).ToList();
         }
 
-        internal List<Member> sortIdDesc(List<Member> list)
+        internal IEnumerable<Member> sortIdDesc(List<Member> list)
         {
             return list.OrderByDescending(o => o.Id).ToList();
         }
 
-        internal List<Member> sortTextAsc(List<Member> list)
+        internal IEnumerable<Member> sortTextAsc(List<Member> list)
         {
             return list.OrderBy(o => o.Name).ToList();
         }
 
-        internal List<Member> sortTextDesc(List<Member> list)
+        internal IEnumerable<Member> sortTextDesc(List<Member> list)
         {
             return list.OrderByDescending(o => o.Name).ToList();
         }

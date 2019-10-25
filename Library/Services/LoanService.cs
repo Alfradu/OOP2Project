@@ -23,17 +23,17 @@ namespace Library.Services
             return loanRepository.All();
         }
 
-        internal IEnumerable<object> GetAllOfMember(string name)
+        public IEnumerable<object> GetAllOfMember(string name)
         {
             return loanRepository.All().Where(l => l.Member.Name == name);
         }
 
-        internal IEnumerable<object> GetAllofBook(string title)
+        public IEnumerable<object> GetAllofBook(string title)
         {
             return loanRepository.All().Where(l => l.BookCopy.Book.Title == title);
         }
 
-        internal Loan Find(BookCopy bc)
+        public Loan Find(BookCopy bc)
         {
             return loanRepository.All().Where(i => i.BookCopy.Id == bc.Id && i.State != State.Archived).FirstOrDefault();
         }
@@ -43,22 +43,32 @@ namespace Library.Services
             return loanRepository.All().Where(a => a.DueDate <= DateTime.Now && a.BookCopy.Status != Status.AVAILABLE);
         }
 
-        internal List<Loan> sortIdAsc(List<Loan> list)
+        public IEnumerable<Loan> GetAllActiveLoans()
+        {
+            return All().Where(l => l.State == State.Active);
+        }
+
+        public IEnumerable<Loan> GetAllArchivedLoans()
+        {
+            return All().Where(l => l.State == State.Archived);
+        }
+
+        public IEnumerable<Loan> sortIdAsc(List<Loan> list)
         {
             return list.OrderBy(o => o.Id).ToList();
         }
 
-        internal List<Loan> sortIdDesc(List<Loan> list)
+        public IEnumerable<Loan> sortIdDesc(List<Loan> list)
         {
             return list.OrderByDescending(o => o.Id).ToList();
         }
 
-        internal List<Loan> sortTextAsc(List<Loan> list)
+        public IEnumerable<Loan> sortTextAsc(List<Loan> list)
         {
             return list.OrderBy(o => o.Member.Name).ToList();
         }
 
-        internal List<Loan> sortTextDesc(List<Loan> list)
+        public IEnumerable<Loan> sortTextDesc(List<Loan> list)
         {
             return list.OrderByDescending(o => o.Member.Name).ToList();
         }

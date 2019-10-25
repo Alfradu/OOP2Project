@@ -47,27 +47,32 @@ namespace Library.Services
             return All().Where(b => b.Copies.Any(c => c.Status == Status.AVAILABLE));
         }
 
-        internal IEnumerable<object> GetAllWithoutCopies()
+        public IEnumerable<Book> GetAllWithoutCopies()
         {
-            return All().Where(b => b.Copies.Count < 0);
+            return All().Where(b => b.Copies.Count == 0);
         }
 
-        internal List<Book> sortIdAsc(List<Book> list)
+        public Book GetBook(string text)
+        {
+            return All().Where(b => b.Title == text).FirstOrDefault();
+        }
+
+        public IEnumerable<Book> sortIdAsc(List<Book> list)
         {
             return list.OrderBy(o => o.Id).ToList();
         }
 
-        internal List<Book> sortIdDesc(List<Book> list)
+        public IEnumerable<Book> sortIdDesc(List<Book> list)
         {
             return list.OrderByDescending(o => o.Id).ToList();
         }
 
-        internal List<Book> sortTextAsc(List<Book> list)
+        public IEnumerable<Book> sortTextAsc(List<Book> list)
         {
             return list.OrderBy(o => o.Title).ToList();
         }
 
-        internal List<Book> sortTextDesc(List<Book> list)
+        public IEnumerable<Book> sortTextDesc(List<Book> list)
         {
             return list.OrderByDescending(o => o.Title).ToList();
         }

@@ -51,9 +51,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.newBookCopyBtn = new System.Windows.Forms.Button();
             this.editBookTab = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.bookEditTitleBox = new System.Windows.Forms.TextBox();
+            this.bookEditIsbnBox = new System.Windows.Forms.TextBox();
+            this.BookEditDescBox = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -63,8 +63,8 @@
             this.authorNameBox = new System.Windows.Forms.TextBox();
             this.sortByAuthorBtn = new System.Windows.Forms.Button();
             this.loanTab = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.loanShowAllArchivedBtn = new System.Windows.Forms.Button();
+            this.loanShowAllActiveBtn = new System.Windows.Forms.Button();
             this.overtimeCheckBtn = new System.Windows.Forms.Button();
             this.bookTitleLoanSort = new System.Windows.Forms.TextBox();
             this.loanSortMemberBtn = new System.Windows.Forms.Button();
@@ -84,9 +84,9 @@
             this.loanReturnBookBtn = new System.Windows.Forms.Button();
             this.loanSortBookBtn = new System.Windows.Forms.Button();
             this.authorMemberTab = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.authorsShowWithoutBooks = new System.Windows.Forms.Button();
+            this.authorSortBookText = new System.Windows.Forms.TextBox();
+            this.authorSortByBook = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.newAuthorTab = new System.Windows.Forms.TabPage();
             this.authorAddBtn = new System.Windows.Forms.Button();
@@ -410,9 +410,9 @@
             // 
             // editBookTab
             // 
-            this.editBookTab.Controls.Add(this.textBox1);
-            this.editBookTab.Controls.Add(this.textBox2);
-            this.editBookTab.Controls.Add(this.textBox3);
+            this.editBookTab.Controls.Add(this.bookEditTitleBox);
+            this.editBookTab.Controls.Add(this.bookEditIsbnBox);
+            this.editBookTab.Controls.Add(this.BookEditDescBox);
             this.editBookTab.Controls.Add(this.label17);
             this.editBookTab.Controls.Add(this.label18);
             this.editBookTab.Controls.Add(this.label19);
@@ -426,26 +426,26 @@
             this.editBookTab.Text = "Edit Books";
             this.editBookTab.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // bookEditTitleBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(72, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 20);
-            this.textBox1.TabIndex = 28;
+            this.bookEditTitleBox.Location = new System.Drawing.Point(72, 30);
+            this.bookEditTitleBox.Name = "bookEditTitleBox";
+            this.bookEditTitleBox.Size = new System.Drawing.Size(150, 20);
+            this.bookEditTitleBox.TabIndex = 28;
             // 
-            // textBox2
+            // bookEditIsbnBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(72, 56);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(150, 20);
-            this.textBox2.TabIndex = 29;
+            this.bookEditIsbnBox.Location = new System.Drawing.Point(72, 56);
+            this.bookEditIsbnBox.Name = "bookEditIsbnBox";
+            this.bookEditIsbnBox.Size = new System.Drawing.Size(150, 20);
+            this.bookEditIsbnBox.TabIndex = 29;
             // 
-            // textBox3
+            // BookEditDescBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(72, 82);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(150, 20);
-            this.textBox3.TabIndex = 30;
+            this.BookEditDescBox.Location = new System.Drawing.Point(72, 82);
+            this.BookEditDescBox.Name = "BookEditDescBox";
+            this.BookEditDescBox.Size = new System.Drawing.Size(150, 20);
+            this.BookEditDescBox.TabIndex = 30;
             // 
             // label17
             // 
@@ -482,6 +482,7 @@
             this.editSelectedBookBtn.TabIndex = 27;
             this.editSelectedBookBtn.Text = "Edit Selected Book";
             this.editSelectedBookBtn.UseVisualStyleBackColor = true;
+            this.editSelectedBookBtn.Click += new System.EventHandler(this.editSelectedBookBtn_Click);
             // 
             // bookSelectedEdit
             // 
@@ -519,8 +520,8 @@
             // 
             // loanTab
             // 
-            this.loanTab.Controls.Add(this.button2);
-            this.loanTab.Controls.Add(this.button1);
+            this.loanTab.Controls.Add(this.loanShowAllArchivedBtn);
+            this.loanTab.Controls.Add(this.loanShowAllActiveBtn);
             this.loanTab.Controls.Add(this.overtimeCheckBtn);
             this.loanTab.Controls.Add(this.bookTitleLoanSort);
             this.loanTab.Controls.Add(this.loanSortMemberBtn);
@@ -534,23 +535,25 @@
             this.loanTab.Text = "Loans";
             this.loanTab.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // loanShowAllArchivedBtn
             // 
-            this.button2.Location = new System.Drawing.Point(7, 102);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(134, 23);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Show All Archived Loans";
-            this.button2.UseVisualStyleBackColor = true;
+            this.loanShowAllArchivedBtn.Location = new System.Drawing.Point(7, 102);
+            this.loanShowAllArchivedBtn.Name = "loanShowAllArchivedBtn";
+            this.loanShowAllArchivedBtn.Size = new System.Drawing.Size(134, 23);
+            this.loanShowAllArchivedBtn.TabIndex = 19;
+            this.loanShowAllArchivedBtn.Text = "Show All Archived Loans";
+            this.loanShowAllArchivedBtn.UseVisualStyleBackColor = true;
+            this.loanShowAllArchivedBtn.Click += new System.EventHandler(this.loanShowAllArchivedBtn_Click);
             // 
-            // button1
+            // loanShowAllActiveBtn
             // 
-            this.button1.Location = new System.Drawing.Point(7, 72);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Show All Active Loans";
-            this.button1.UseVisualStyleBackColor = true;
+            this.loanShowAllActiveBtn.Location = new System.Drawing.Point(7, 72);
+            this.loanShowAllActiveBtn.Name = "loanShowAllActiveBtn";
+            this.loanShowAllActiveBtn.Size = new System.Drawing.Size(122, 23);
+            this.loanShowAllActiveBtn.TabIndex = 18;
+            this.loanShowAllActiveBtn.Text = "Show All Active Loans";
+            this.loanShowAllActiveBtn.UseVisualStyleBackColor = true;
+            this.loanShowAllActiveBtn.Click += new System.EventHandler(this.loanShowAllActiveBtn_Click);
             // 
             // overtimeCheckBtn
             // 
@@ -727,9 +730,9 @@
             // 
             // authorMemberTab
             // 
-            this.authorMemberTab.Controls.Add(this.button3);
-            this.authorMemberTab.Controls.Add(this.textBox4);
-            this.authorMemberTab.Controls.Add(this.button5);
+            this.authorMemberTab.Controls.Add(this.authorsShowWithoutBooks);
+            this.authorMemberTab.Controls.Add(this.authorSortBookText);
+            this.authorMemberTab.Controls.Add(this.authorSortByBook);
             this.authorMemberTab.Controls.Add(this.tabControl1);
             this.authorMemberTab.Location = new System.Drawing.Point(4, 22);
             this.authorMemberTab.Name = "authorMemberTab";
@@ -739,30 +742,32 @@
             this.authorMemberTab.Text = "Authors and Members";
             this.authorMemberTab.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // authorsShowWithoutBooks
             // 
-            this.button3.Location = new System.Drawing.Point(7, 39);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(159, 23);
-            this.button3.TabIndex = 31;
-            this.button3.Text = "Show Authors Without Books";
-            this.button3.UseVisualStyleBackColor = true;
+            this.authorsShowWithoutBooks.Location = new System.Drawing.Point(7, 39);
+            this.authorsShowWithoutBooks.Name = "authorsShowWithoutBooks";
+            this.authorsShowWithoutBooks.Size = new System.Drawing.Size(159, 23);
+            this.authorsShowWithoutBooks.TabIndex = 31;
+            this.authorsShowWithoutBooks.Text = "Show Authors Without Books";
+            this.authorsShowWithoutBooks.UseVisualStyleBackColor = true;
+            this.authorsShowWithoutBooks.Click += new System.EventHandler(this.authorsShowWithoutBooks_Click);
             // 
-            // textBox4
+            // authorSortBookText
             // 
-            this.textBox4.Location = new System.Drawing.Point(7, 6);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(134, 20);
-            this.textBox4.TabIndex = 30;
+            this.authorSortBookText.Location = new System.Drawing.Point(7, 6);
+            this.authorSortBookText.Name = "authorSortBookText";
+            this.authorSortBookText.Size = new System.Drawing.Size(134, 20);
+            this.authorSortBookText.TabIndex = 30;
             // 
-            // button5
+            // authorSortByBook
             // 
-            this.button5.Location = new System.Drawing.Point(147, 6);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(83, 21);
-            this.button5.TabIndex = 27;
-            this.button5.Text = "Sort by Book";
-            this.button5.UseVisualStyleBackColor = true;
+            this.authorSortByBook.Location = new System.Drawing.Point(147, 6);
+            this.authorSortByBook.Name = "authorSortByBook";
+            this.authorSortByBook.Size = new System.Drawing.Size(83, 21);
+            this.authorSortByBook.TabIndex = 27;
+            this.authorSortByBook.Text = "Sort by Book";
+            this.authorSortByBook.UseVisualStyleBackColor = true;
+            this.authorSortByBook.Click += new System.EventHandler(this.authorSortByBook_Click);
             // 
             // tabControl1
             // 
@@ -1119,20 +1124,20 @@
         private System.Windows.Forms.Button overtimeCheckBtn;
         private System.Windows.Forms.TextBox dbUpdateInfo;
         private System.Windows.Forms.Button showBooksWithoutCopies;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox bookEditTitleBox;
+        private System.Windows.Forms.TextBox bookEditIsbnBox;
+        private System.Windows.Forms.TextBox BookEditDescBox;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button editSelectedBookBtn;
         private System.Windows.Forms.TextBox bookSelectedEdit;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button loanShowAllArchivedBtn;
+        private System.Windows.Forms.Button loanShowAllActiveBtn;
+        private System.Windows.Forms.Button authorsShowWithoutBooks;
+        private System.Windows.Forms.TextBox authorSortBookText;
+        private System.Windows.Forms.Button authorSortByBook;
     }
 }
 

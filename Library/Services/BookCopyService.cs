@@ -38,22 +38,22 @@ namespace Library.Services
             return AllAvailable().Where(bc => bc.Book == b);
         }
 
-        internal List<BookCopy> sortIdAsc(List<BookCopy> list)
+        internal IEnumerable<BookCopy> sortIdAsc(List<BookCopy> list)
         {
             return list.OrderBy(o => o.Id).ToList();
         }
 
-        internal List<BookCopy> sortIdDesc(List<BookCopy> list)
+        internal IEnumerable<BookCopy> sortIdDesc(List<BookCopy> list)
         {
             return list.OrderByDescending(o => o.Id).ToList();
         }
 
-        internal List<BookCopy> sortTextAsc(List<BookCopy> list)
+        internal IEnumerable<BookCopy> sortTextAsc(List<BookCopy> list)
         {
             return list.OrderBy(o => o.Book.Title).ToList();
         }
 
-        internal List<BookCopy> sortTextDesc(List<BookCopy> list)
+        internal IEnumerable<BookCopy> sortTextDesc(List<BookCopy> list)
         {
             return list.OrderByDescending(o => o.Book.Title).ToList();
         }
