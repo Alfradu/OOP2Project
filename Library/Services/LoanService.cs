@@ -13,65 +13,29 @@ namespace Library.Services
         LoanRepository loanRepository;
         public event EventHandler<UpdatedEventArgs> Updated;
 
-        public LoanService(RepositoryFactory rFactory)
-        {
-            this.loanRepository = rFactory.CreateLoanRepository();
-        }
+        public LoanService(RepositoryFactory rFactory) => loanRepository = rFactory.CreateLoanRepository();
 
-        public IEnumerable<Loan> All()
-        {
-            return loanRepository.All();
-        }
+        public IEnumerable<Loan> All() => loanRepository.All();
 
-        public IEnumerable<object> GetAllOfMember(string name)
-        {
-            return loanRepository.All().Where(l => l.Member.Name == name);
-        }
+        public IEnumerable<object> GetAllOfMember(string name) => loanRepository.All().Where(l => l.Member.Name == name);
 
-        public IEnumerable<object> GetAllofBook(string title)
-        {
-            return loanRepository.All().Where(l => l.BookCopy.Book.Title == title);
-        }
+        public IEnumerable<object> GetAllofBook(string title) => loanRepository.All().Where(l => l.BookCopy.Book.Title == title);
 
-        public Loan Find(BookCopy bc)
-        {
-            return loanRepository.All().Where(i => i.BookCopy.Id == bc.Id && i.State != State.Archived).FirstOrDefault();
-        }
+        public Loan Find(BookCopy bc) => loanRepository.All().Where(i => i.BookCopy.Id == bc.Id && i.State != State.Archived).FirstOrDefault();
 
-        public IEnumerable<Loan> getOvertimedLoans()
-        {
-            return loanRepository.All().Where(a => a.DueDate <= DateTime.Now && a.BookCopy.Status != Status.AVAILABLE);
-        }
+        public IEnumerable<Loan> GetOvertimedLoans() => loanRepository.All().Where(a => a.DueDate <= DateTime.Now && a.BookCopy.Status != Status.AVAILABLE);
 
-        public IEnumerable<Loan> GetAllActiveLoans()
-        {
-            return All().Where(l => l.State == State.Active);
-        }
+        public IEnumerable<Loan> GetAllActiveLoans() => All().Where(l => l.State == State.Active);
 
-        public IEnumerable<Loan> GetAllArchivedLoans()
-        {
-            return All().Where(l => l.State == State.Archived);
-        }
+        public IEnumerable<Loan> GetAllArchivedLoans() => All().Where(l => l.State == State.Archived);
 
-        public IEnumerable<Loan> sortIdAsc(List<Loan> list)
-        {
-            return list.OrderBy(o => o.Id).ToList();
-        }
+        public IEnumerable<Loan> SortIdAsc(List<Loan> list) => list.OrderBy(o => o.Id).ToList();
 
-        public IEnumerable<Loan> sortIdDesc(List<Loan> list)
-        {
-            return list.OrderByDescending(o => o.Id).ToList();
-        }
+        public IEnumerable<Loan> SortIdDesc(List<Loan> list) => list.OrderByDescending(o => o.Id).ToList();
 
-        public IEnumerable<Loan> sortTextAsc(List<Loan> list)
-        {
-            return list.OrderBy(o => o.Member.Name).ToList();
-        }
+        public IEnumerable<Loan> SortTextAsc(List<Loan> list) => list.OrderBy(o => o.Member.Name).ToList();
 
-        public IEnumerable<Loan> sortTextDesc(List<Loan> list)
-        {
-            return list.OrderByDescending(o => o.Member.Name).ToList();
-        }
+        public IEnumerable<Loan> SortTextDesc(List<Loan> list) => list.OrderByDescending(o => o.Member.Name).ToList();
 
         /// <summary>
         /// The Edit method makes sure that the given Loan object is saved to the database and raises the Updated() event.
@@ -101,6 +65,11 @@ namespace Library.Services
         {
             loanRepository.Remove(b);
             OnUpdateEvent(new UpdatedEventArgs(Action.REMOVE, DateTime.Now));
+        }
+
+        public void Reset()
+        {
+            loanRepository.Reset();
         }
 
         private void OnUpdateEvent(UpdatedEventArgs uea) => Updated?.Invoke(this, uea);

@@ -15,11 +15,12 @@ namespace Library.Models {
         //TODO: swap to DropCreateDatabaseIfModelChanges DropCreateDatabaseAlways
         protected override void Seed(LibraryContext context) {
             base.Seed(context);
-
+            Author a = new Author { Name = "Örjan" };
             Book monteCristo = new Book() {
                 Title = "The Count of Monte Cristo",
                 ISBN = "1323343",
-                Description = "this is a book about the count of monte cristo."
+                Description = "this is a book about the count of monte cristo.",
+                Author = a
             };
             Member memb = new Member()
             {
@@ -29,6 +30,7 @@ namespace Library.Models {
             };
 
             // Add the book to the DbSet of books.
+            context.Authors.Add(a);
             context.Books.Add(monteCristo);
             context.Members.Add(memb);
             // Persist changes to the database

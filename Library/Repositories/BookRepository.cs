@@ -46,5 +46,25 @@ namespace Library.Repositories
             context.Books.Remove(item);
             context.SaveChanges();
         }
+
+        public void Reset()
+        {
+            var entries = context.ChangeTracker.Entries().Where(e => e.State != System.Data.Entity.EntityState.Unchanged).ToArray();
+            foreach (var entry in entries)
+            {
+                switch (entry.State)
+                {
+                    case System.Data.Entity.EntityState.Modified:
+                        entry.State = System.Data.Entity.EntityState.Unchanged;
+                        break;
+                    case System.Data.Entity.EntityState.Added:
+                        entry.State = System.Data.Entity.EntityState.Detached;
+                        break;
+                    case System.Data.Entity.EntityState.Deleted:
+                        entry.Reload();
+                        break;
+                }
+            }
+        }
     }
 }

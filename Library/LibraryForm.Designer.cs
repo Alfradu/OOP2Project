@@ -134,7 +134,7 @@
             this.lbItems.Name = "lbItems";
             this.lbItems.Size = new System.Drawing.Size(191, 303);
             this.lbItems.TabIndex = 0;
-            this.lbItems.SelectedIndexChanged += new System.EventHandler(this.lbItems_SelectedIndexChanged);
+            this.lbItems.SelectedIndexChanged += new System.EventHandler(this.LbItems_SelectedIndexChanged);
             // 
             // lbInfo
             // 
@@ -152,7 +152,7 @@
             this.newBookBtn.TabIndex = 3;
             this.newBookBtn.Text = "Add new book";
             this.newBookBtn.UseVisualStyleBackColor = true;
-            this.newBookBtn.Click += new System.EventHandler(this.newBookBtn_Click);
+            this.newBookBtn.Click += new System.EventHandler(this.BookNewBtn_Click);
             // 
             // titleTextBox
             // 
@@ -209,7 +209,7 @@
             this.lbCopies.Name = "lbCopies";
             this.lbCopies.Size = new System.Drawing.Size(337, 199);
             this.lbCopies.TabIndex = 11;
-            this.lbCopies.SelectedIndexChanged += new System.EventHandler(this.lbCopies_SelectedIndexChanged);
+            this.lbCopies.SelectedIndexChanged += new System.EventHandler(this.LbCopies_SelectedIndexChanged);
             // 
             // showAllAvailableOfBookBtn
             // 
@@ -219,7 +219,7 @@
             this.showAllAvailableOfBookBtn.TabIndex = 13;
             this.showAllAvailableOfBookBtn.Text = "Show Available copies of selected book";
             this.showAllAvailableOfBookBtn.UseVisualStyleBackColor = true;
-            this.showAllAvailableOfBookBtn.Click += new System.EventHandler(this.showAllAvailableOfBookBtn_Click);
+            this.showAllAvailableOfBookBtn.Click += new System.EventHandler(this.BookCopyShowAllAvailableBtn_Click);
             // 
             // tabControl
             // 
@@ -258,7 +258,7 @@
             this.showBooksWithoutCopies.TabIndex = 22;
             this.showBooksWithoutCopies.Text = "Show Books Without Copies";
             this.showBooksWithoutCopies.UseVisualStyleBackColor = true;
-            this.showBooksWithoutCopies.Click += new System.EventHandler(this.showBooksWithoutCopies_Click);
+            this.showBooksWithoutCopies.Click += new System.EventHandler(this.BookShowWithoutCopies_Click);
             // 
             // showAllAvailableBooksBtn
             // 
@@ -268,7 +268,7 @@
             this.showAllAvailableBooksBtn.TabIndex = 21;
             this.showAllAvailableBooksBtn.Text = "Show Available books";
             this.showAllAvailableBooksBtn.UseVisualStyleBackColor = true;
-            this.showAllAvailableBooksBtn.Click += new System.EventHandler(this.showAllAvailableBooksBtn_Click);
+            this.showAllAvailableBooksBtn.Click += new System.EventHandler(this.BookShowAllAvailableBtn_Click);
             // 
             // bookTitleBox
             // 
@@ -285,7 +285,7 @@
             this.sortByTitleBtn.TabIndex = 19;
             this.sortByTitleBtn.Text = "Sort by title";
             this.sortByTitleBtn.UseVisualStyleBackColor = true;
-            this.sortByTitleBtn.Click += new System.EventHandler(this.sortByTitleBtn_Click);
+            this.sortByTitleBtn.Click += new System.EventHandler(this.BookSortByTitleBtn_Click);
             // 
             // tabControl2
             // 
@@ -406,7 +406,7 @@
             this.newBookCopyBtn.TabIndex = 12;
             this.newBookCopyBtn.Text = "Add new copy of selected book";
             this.newBookCopyBtn.UseVisualStyleBackColor = true;
-            this.newBookCopyBtn.Click += new System.EventHandler(this.newBookCopyBtn_Click);
+            this.newBookCopyBtn.Click += new System.EventHandler(this.BookCopyNewBtn_Click);
             // 
             // editBookTab
             // 
@@ -482,7 +482,7 @@
             this.editSelectedBookBtn.TabIndex = 27;
             this.editSelectedBookBtn.Text = "Edit Selected Book";
             this.editSelectedBookBtn.UseVisualStyleBackColor = true;
-            this.editSelectedBookBtn.Click += new System.EventHandler(this.editSelectedBookBtn_Click);
+            this.editSelectedBookBtn.Click += new System.EventHandler(this.BookEditSelectedBtn_Click);
             // 
             // bookSelectedEdit
             // 
@@ -516,7 +516,7 @@
             this.sortByAuthorBtn.TabIndex = 14;
             this.sortByAuthorBtn.Text = "Sort by author";
             this.sortByAuthorBtn.UseVisualStyleBackColor = true;
-            this.sortByAuthorBtn.Click += new System.EventHandler(this.sortByAuthorBtn_Click);
+            this.sortByAuthorBtn.Click += new System.EventHandler(this.BookSortByAuthorBtn_Click);
             // 
             // loanTab
             // 
@@ -543,7 +543,7 @@
             this.loanShowAllArchivedBtn.TabIndex = 19;
             this.loanShowAllArchivedBtn.Text = "Show All Archived Loans";
             this.loanShowAllArchivedBtn.UseVisualStyleBackColor = true;
-            this.loanShowAllArchivedBtn.Click += new System.EventHandler(this.loanShowAllArchivedBtn_Click);
+            this.loanShowAllArchivedBtn.Click += new System.EventHandler(this.LoanShowAllArchivedBtn_Click);
             // 
             // loanShowAllActiveBtn
             // 
@@ -553,7 +553,7 @@
             this.loanShowAllActiveBtn.TabIndex = 18;
             this.loanShowAllActiveBtn.Text = "Show All Active Loans";
             this.loanShowAllActiveBtn.UseVisualStyleBackColor = true;
-            this.loanShowAllActiveBtn.Click += new System.EventHandler(this.loanShowAllActiveBtn_Click);
+            this.loanShowAllActiveBtn.Click += new System.EventHandler(this.LoanShowAllActiveBtn_Click);
             // 
             // overtimeCheckBtn
             // 
@@ -563,7 +563,7 @@
             this.overtimeCheckBtn.TabIndex = 17;
             this.overtimeCheckBtn.Text = "Check all loans for overtime";
             this.overtimeCheckBtn.UseVisualStyleBackColor = true;
-            this.overtimeCheckBtn.Click += new System.EventHandler(this.overtimeCheckBtn_Click);
+            this.overtimeCheckBtn.Click += new System.EventHandler(this.LoanOvertimeCheckBtn_Click);
             // 
             // bookTitleLoanSort
             // 
@@ -580,7 +580,7 @@
             this.loanSortMemberBtn.TabIndex = 15;
             this.loanSortMemberBtn.Text = "Sort by Member";
             this.loanSortMemberBtn.UseVisualStyleBackColor = true;
-            this.loanSortMemberBtn.Click += new System.EventHandler(this.loanSortMemberBtn_Click);
+            this.loanSortMemberBtn.Click += new System.EventHandler(this.LoanSortMemberBtn_Click);
             // 
             // memberNameLoanSort
             // 
@@ -648,7 +648,7 @@
             this.newLoanBtn.TabIndex = 19;
             this.newLoanBtn.Text = "Add New Loan";
             this.newLoanBtn.UseVisualStyleBackColor = true;
-            this.newLoanBtn.Click += new System.EventHandler(this.newLoanBtn_Click);
+            this.newLoanBtn.Click += new System.EventHandler(this.LoanNewBtn_Click);
             // 
             // availableMemberComboBox
             // 
@@ -682,7 +682,7 @@
             this.loanChangeDateBtn.TabIndex = 29;
             this.loanChangeDateBtn.Text = "Change Due Date";
             this.loanChangeDateBtn.UseVisualStyleBackColor = true;
-            this.loanChangeDateBtn.Click += new System.EventHandler(this.loanChangeDateBtn_Click);
+            this.loanChangeDateBtn.Click += new System.EventHandler(this.LoanChangeDateBtn_Click);
             // 
             // dateTimePicker
             // 
@@ -716,7 +716,7 @@
             this.loanReturnBookBtn.TabIndex = 0;
             this.loanReturnBookBtn.Text = "Return book";
             this.loanReturnBookBtn.UseVisualStyleBackColor = true;
-            this.loanReturnBookBtn.Click += new System.EventHandler(this.loanReturnBookBtn_Click);
+            this.loanReturnBookBtn.Click += new System.EventHandler(this.LoanReturnBookBtn_Click);
             // 
             // loanSortBookBtn
             // 
@@ -726,7 +726,7 @@
             this.loanSortBookBtn.TabIndex = 1;
             this.loanSortBookBtn.Text = "Sort by Book";
             this.loanSortBookBtn.UseVisualStyleBackColor = true;
-            this.loanSortBookBtn.Click += new System.EventHandler(this.loanSortBookBtn_Click);
+            this.loanSortBookBtn.Click += new System.EventHandler(this.LoanSortBookBtn_Click);
             // 
             // authorMemberTab
             // 
@@ -750,7 +750,7 @@
             this.authorsShowWithoutBooks.TabIndex = 31;
             this.authorsShowWithoutBooks.Text = "Show Authors Without Books";
             this.authorsShowWithoutBooks.UseVisualStyleBackColor = true;
-            this.authorsShowWithoutBooks.Click += new System.EventHandler(this.authorsShowWithoutBooks_Click);
+            this.authorsShowWithoutBooks.Click += new System.EventHandler(this.AuthorsShowWithoutBooks_Click);
             // 
             // authorSortBookText
             // 
@@ -767,7 +767,7 @@
             this.authorSortByBook.TabIndex = 27;
             this.authorSortByBook.Text = "Sort by Book";
             this.authorSortByBook.UseVisualStyleBackColor = true;
-            this.authorSortByBook.Click += new System.EventHandler(this.authorSortByBook_Click);
+            this.authorSortByBook.Click += new System.EventHandler(this.AuthorSortByBook_Click);
             // 
             // tabControl1
             // 
@@ -800,7 +800,7 @@
             this.authorAddBtn.TabIndex = 17;
             this.authorAddBtn.Text = "Add new author";
             this.authorAddBtn.UseVisualStyleBackColor = true;
-            this.authorAddBtn.Click += new System.EventHandler(this.authorAddBtn_Click);
+            this.authorAddBtn.Click += new System.EventHandler(this.AuthorAddBtn_Click);
             // 
             // authorAddName
             // 
@@ -857,7 +857,7 @@
             this.memberAddBtn.TabIndex = 10;
             this.memberAddBtn.Text = "Add new member";
             this.memberAddBtn.UseVisualStyleBackColor = true;
-            this.memberAddBtn.Click += new System.EventHandler(this.memberAddBtn_Click);
+            this.memberAddBtn.Click += new System.EventHandler(this.MemberAddBtn_Click);
             // 
             // label6
             // 
@@ -883,7 +883,7 @@
             this.showAllBooksBtn.TabIndex = 18;
             this.showAllBooksBtn.Text = "Show Books";
             this.showAllBooksBtn.UseVisualStyleBackColor = true;
-            this.showAllBooksBtn.Click += new System.EventHandler(this.showAllBooksBtn_Click);
+            this.showAllBooksBtn.Click += new System.EventHandler(this.BookShowAllBtn_Click);
             // 
             // showAllLoansBtn
             // 
@@ -893,7 +893,7 @@
             this.showAllLoansBtn.TabIndex = 0;
             this.showAllLoansBtn.Text = "Show Loans";
             this.showAllLoansBtn.UseVisualStyleBackColor = true;
-            this.showAllLoansBtn.Click += new System.EventHandler(this.showAllLoansBtn_Click);
+            this.showAllLoansBtn.Click += new System.EventHandler(this.LoanShowAllBtn_Click);
             // 
             // label7
             // 
@@ -930,7 +930,7 @@
             this.showAllMembersBtn.TabIndex = 19;
             this.showAllMembersBtn.Text = "Show Members";
             this.showAllMembersBtn.UseVisualStyleBackColor = true;
-            this.showAllMembersBtn.Click += new System.EventHandler(this.showAllMembersBtn_Click);
+            this.showAllMembersBtn.Click += new System.EventHandler(this.MemberShowAllBtn_Click);
             // 
             // showAllAuthorsBtn
             // 
@@ -940,7 +940,7 @@
             this.showAllAuthorsBtn.TabIndex = 20;
             this.showAllAuthorsBtn.Text = "Show Authors";
             this.showAllAuthorsBtn.UseVisualStyleBackColor = true;
-            this.showAllAuthorsBtn.Click += new System.EventHandler(this.showAllAuthorsBtn_Click);
+            this.showAllAuthorsBtn.Click += new System.EventHandler(this.AuthorShowAllBtn_Click);
             // 
             // idAscRadio
             // 
@@ -951,7 +951,7 @@
             this.idAscRadio.TabIndex = 21;
             this.idAscRadio.Text = "Id Asc.";
             this.idAscRadio.UseVisualStyleBackColor = true;
-            this.idAscRadio.CheckedChanged += new System.EventHandler(this.idAscRadio_CheckedChanged);
+            this.idAscRadio.CheckedChanged += new System.EventHandler(this.IdAscRadio_CheckedChanged);
             // 
             // idDescRadio
             // 
@@ -964,7 +964,7 @@
             this.idDescRadio.TabStop = true;
             this.idDescRadio.Text = "Id Desc.";
             this.idDescRadio.UseVisualStyleBackColor = true;
-            this.idDescRadio.CheckedChanged += new System.EventHandler(this.idDescRadio_CheckedChanged);
+            this.idDescRadio.CheckedChanged += new System.EventHandler(this.IdDescRadio_CheckedChanged);
             // 
             // nameDescRadio
             // 
@@ -975,7 +975,7 @@
             this.nameDescRadio.TabIndex = 24;
             this.nameDescRadio.Text = "Namn Desc.";
             this.nameDescRadio.UseVisualStyleBackColor = true;
-            this.nameDescRadio.CheckedChanged += new System.EventHandler(this.nameDescRadio_CheckedChanged);
+            this.nameDescRadio.CheckedChanged += new System.EventHandler(this.NameDescRadio_CheckedChanged);
             // 
             // nameAscRadio
             // 
@@ -986,7 +986,7 @@
             this.nameAscRadio.TabIndex = 23;
             this.nameAscRadio.Text = "Name Asc.";
             this.nameAscRadio.UseVisualStyleBackColor = true;
-            this.nameAscRadio.CheckedChanged += new System.EventHandler(this.nameAscRadio_CheckedChanged);
+            this.nameAscRadio.CheckedChanged += new System.EventHandler(this.NameAscRadio_CheckedChanged);
             // 
             // dbUpdateInfo
             // 

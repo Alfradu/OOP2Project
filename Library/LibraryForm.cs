@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,11 +31,11 @@ namespace Library
             LibraryContext context = new LibraryContext();
             RepositoryFactory repFactory = new RepositoryFactory(context);
 
-            this.bookService = new BookService(repFactory);
-            this.authorService = new AuthorService(repFactory);
-            this.bookCopyService = new BookCopyService(repFactory);
-            this.loanService = new LoanService(repFactory);
-            this.memberService = new MemberService(repFactory);
+            bookService = new BookService(repFactory);
+            authorService = new AuthorService(repFactory);
+            bookCopyService = new BookCopyService(repFactory);
+            loanService = new LoanService(repFactory);
+            memberService = new MemberService(repFactory);
             bookService.Updated += BookService_Updated;
             bookCopyService.Updated += BookCopyService_Updated;
             authorService.Updated += AuthorService_Updated;
@@ -120,7 +121,7 @@ namespace Library
         private void ShowAllItems<T>(IEnumerable<T> item)
         {
             lbItems.Items.Clear();
-            IEnumerable<T> sItem = sortList(item.ToList());
+            IEnumerable<T> sItem = SortList(item.ToList());
             foreach (T t in sItem)
             {
                 lbItems.Items.Add(t);
@@ -130,7 +131,7 @@ namespace Library
         private void ShowAllCopies<T>(IEnumerable<T> items)
         {
             lbCopies.Items.Clear();
-            IEnumerable<BookCopy> copies = sortList((items as IEnumerable<BookCopy>).ToList());
+            IEnumerable<BookCopy> copies = SortList((items as IEnumerable<BookCopy>).ToList());
             switch (listType)
             {
                 case ListType.Book:
@@ -217,7 +218,7 @@ namespace Library
             }
         }
 
-        private void lbItems_SelectedIndexChanged(object sender, EventArgs e)
+        private void LbItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbItems.SelectedItem != null)
             {
@@ -260,11 +261,13 @@ namespace Library
                         }
                         ShowAllCopies(bcl);
                         break;
+                    default:
+                        break;
                 }
             }
         }
 
-        private void lbCopies_SelectedIndexChanged(object sender, EventArgs e)
+        private void LbCopies_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbCopies.SelectedItem != null)
             {
@@ -277,310 +280,155 @@ namespace Library
                     case ListType.Loan:
                         selectedLoanBox.Text = String.Format("{0} - {1}", bc.Id, bc.Book.Title);
                         break;
+                    default:
+                        break;
                 }
             }
         }
 
-        private void newBookBtn_Click(object sender, EventArgs e)
-        {
-            Book b = new Book()
-            {
-                Title = titleTextBox.Text,
-                ISBN = isbnTextBox.Text,
-                Description = descTextBox.Text,
-                Author = authorNameCombo.SelectedItem as Author
-            };
-            bookService.Add(b);
-            authorNameCombo.SelectedItem = 0;
-        }
-
-        private void newBookCopyBtn_Click(object sender, EventArgs e)
-        {
-            Book b = lbItems.SelectedItem as Book;
-            if (b != null)
-            {
-                BookCopy bc = new BookCopy
-                {
-                    Book = b,
-                    Condition = Convert.ToInt32(copyCondition.Value),
-                    Status = Status.AVAILABLE
-                };
-                b.Copies.Add(bc);
-                bookCopyService.Add(bc);
-            }
-            resetSelection();
-        }
-
-        private void authorAddBtn_Click(object sender, EventArgs e)
-        {
-            authorService.Add(new Author { Name = authorAddName.Text });
-            authorAddName.Clear();
-        }
-
-        private void memberAddBtn_Click(object sender, EventArgs e)
-        {
-            Member m = new Member()
-            {
-                Name = memberAddName.Text,
-                PersonalId = memberAddid.Text,
-                MembershipDate = DateTime.Now
-            };
-            memberService.Add(m);
-            memberAddName.Clear();
-            memberAddid.Clear();
-        }
-
-        private void showAllAvailableOfBookBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Book;
-            ShowAllCopies(bookCopyService.AllAvailable(lbItems.SelectedItem as Book));
-        }
-
-        private void sortByAuthorBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Book;
-            ShowAllItems(bookService.GetAllThatHasAuthor(authorNameBox.Text));
-        }
-
-        private void sortByTitleBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Book;
-            ShowAllItems(bookService.GetAllThatHasTitle(bookTitleBox.Text));
-        }
-
-        private void showAllAvailableBooksBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Book;
-            ShowAllItems(bookService.GetAllAvailable());
-            ShowAllCopies(bookCopyService.AllAvailable());
-        }
-
-        private void showAllBooksBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Book;
-            ShowAllItems(bookService.All());
-            ShowAllCopies(bookCopyService.All());
-        }
-
-        private void showBooksWithoutCopies_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Book;
-            ShowAllItems(bookService.GetAllWithoutCopies());
-        }
-        private void showAllMembersBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Member;
-            ShowAllItems(memberService.All());
-        }
-
-        private void showAllAuthorsBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Author;
-            ShowAllItems(authorService.All());
-        }
-
-        private void showAllLoansBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Loan;
-            ShowAllItems(loanService.All());
-        }
-
-        private void loanSortMemberBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Loan;
-            ShowAllItems(loanService.GetAllOfMember(memberNameLoanSort.Text));
-        }
-
-        private void loanSortBookBtn_Click(object sender, EventArgs e)
-        {
-            listType = ListType.Loan;
-            ShowAllItems(loanService.GetAllofBook(bookTitleLoanSort.Text));
-        }
-
-        private void newLoanBtn_Click(object sender, EventArgs e)
-        {
-            if (lbCopies.SelectedItem == null) { return; }
-            Loan l = new Loan()
-            {
-                Member = availableMemberComboBox.SelectedItem as Member,
-                BookCopy = lbCopies.SelectedItem as BookCopy,
-                TimeOfLoan = DateTime.Now,
-                DueDate = DateTime.Now.AddDays(15),
-                State = State.Active
-            };
-            l.BookCopy.Status = Status.LOANED;
-            bookCopyService.Edit(l.BookCopy);
-            loanService.Add(l);
-            resetSelection();
-        }
-
-        private void loanReturnBookBtn_Click(object sender, EventArgs e)
-        {
-            BookCopy bc = lbCopies.SelectedItem as BookCopy;
-            if (bc == null) { return; }
-            Loan l = loanService.Find(bc);
-            l.BookCopy.Status = Status.AVAILABLE;
-            bookCopyService.Edit(l.BookCopy);
-            l.State = State.Archived;
-            l.TimeOfReturn = DateTime.Now;
-            loanService.Edit(l);
-            resetSelection();
-        }
-
-        private void loanChangeDateBtn_Click(object sender, EventArgs e)
-        {
-            DateTime date = dateTimePicker.Value;
-            BookCopy bc = lbCopies.SelectedItem as BookCopy;
-            if (bc == null) { return; }
-            Loan l = loanService.Find(bc);
-            l.DueDate = date;
-            loanService.Edit(l);
-            overtimeCheckBtn_Click(sender,e);
-            resetSelection();
-        }
-
-        private void overtimeCheckBtn_Click(object sender, EventArgs e)
-        {
-            List<Loan> loans = loanService.getOvertimedLoans().ToList();
-            foreach (Loan l in loans)
-            {
-                l.OvertimeFine = 0;
-                l.OvertimeFine += ((DateTime.Now - l.DueDate).Days * 10);
-                loanService.Edit(l);
-                l.BookCopy.Status = Status.OVERDUE;
-                bookCopyService.Edit(l.BookCopy);
-            }
-            resetSelection();
-        }
-
-        private void resetSelection()
+        private void ResetSelection()
         {
             lbCopies.ClearSelected();
             lbItems.ClearSelected();
         }
 
-        private IEnumerable<Book> sortList(List<Book> list)
+        private IEnumerable<Book> SortList(List<Book> list)
         {
-            IEnumerable<Book>sList = new List<Book>();
+            IEnumerable<Book> sList = new List<Book>();
             switch (sortType)
             {
                 case SortType.IdAsc:
-                    sList = bookService.sortIdAsc(list);
+                    sList = bookService.SortIdAsc(list);
                     break;
                 case SortType.IdDesc:
-                    sList = bookService.sortIdDesc(list);
+                    sList = bookService.SortIdDesc(list);
                     break;
                 case SortType.TextAsc:
-                    sList = bookService.sortTextAsc(list);
+                    sList = bookService.SortTextAsc(list);
                     break;
                 case SortType.TextDesc:
-                    sList = bookService.sortTextDesc(list);
+                    sList = bookService.SortTextDesc(list);
+                    break;
+                default:
+                    sList = list;
                     break;
             }
             return sList;
         }
 
-        private IEnumerable<BookCopy> sortList(List<BookCopy> list)
+        private IEnumerable<BookCopy> SortList(List<BookCopy> list)
         {
             IEnumerable<BookCopy> sList = new List<BookCopy>();
             switch (sortType)
             {
                 case SortType.IdAsc:
-                    sList = bookCopyService.sortIdAsc(list);
+                    sList = bookCopyService.SortIdAsc(list);
                     break;
                 case SortType.IdDesc:
-                    sList = bookCopyService.sortIdDesc(list);
+                    sList = bookCopyService.SortIdDesc(list);
                     break;
                 case SortType.TextAsc:
-                    sList = bookCopyService.sortTextAsc(list);
+                    sList = bookCopyService.SortTextAsc(list);
                     break;
                 case SortType.TextDesc:
-                    sList = bookCopyService.sortTextDesc(list);
+                    sList = bookCopyService.SortTextDesc(list);
+                    break;
+                default:
+                    sList = list;
                     break;
             }
             return sList;
         }
 
-        private IEnumerable<Author> sortList(List<Author> list)
+        private IEnumerable<Author> SortList(List<Author> list)
         {
             IEnumerable<Author> sList = new List<Author>();
             switch (sortType)
             {
                 case SortType.IdAsc:
-                    sList = authorService.sortIdAsc(list);
+                    sList = authorService.SortIdAsc(list);
                     break;
                 case SortType.IdDesc:
-                    sList = authorService.sortIdDesc(list);
+                    sList = authorService.SortIdDesc(list);
                     break;
                 case SortType.TextAsc:
-                    sList = authorService.sortTextAsc(list);
+                    sList = authorService.SortTextAsc(list);
                     break;
                 case SortType.TextDesc:
-                    sList = authorService.sortTextDesc(list);
+                    sList = authorService.SortTextDesc(list);
+                    break;
+                default:
+                    sList = list;
                     break;
             }
             return sList;
         }
 
-        private IEnumerable<Member> sortList(List<Member> list)
+        private IEnumerable<Member> SortList(List<Member> list)
         {
             IEnumerable<Member> sList = new List<Member>();
             switch (sortType)
             {
                 case SortType.IdAsc:
-                    sList = memberService.sortIdAsc(list);
+                    sList = memberService.SortIdAsc(list);
                     break;
                 case SortType.IdDesc:
-                    sList = memberService.sortIdDesc(list);
+                    sList = memberService.SortIdDesc(list);
                     break;
                 case SortType.TextAsc:
-                    sList = memberService.sortTextAsc(list);
+                    sList = memberService.SortTextAsc(list);
                     break;
                 case SortType.TextDesc:
-                    sList = memberService.sortTextDesc(list);
+                    sList = memberService.SortTextDesc(list);
+                    break;
+                default:
+                    sList = list;
                     break;
             }
             return sList;
         }
 
-        private IEnumerable<Loan> sortList(List<Loan> list)
+        private IEnumerable<Loan> SortList(List<Loan> list)
         {
             IEnumerable<Loan> sList = new List<Loan>();
             switch (sortType)
             {
                 case SortType.IdAsc:
-                    sList = loanService.sortIdAsc(list);
+                    sList = loanService.SortIdAsc(list);
                     break;
                 case SortType.IdDesc:
-                    sList = loanService.sortIdDesc(list);
+                    sList = loanService.SortIdDesc(list);
                     break;
                 case SortType.TextAsc:
-                    sList = loanService.sortTextAsc(list);
+                    sList = loanService.SortTextAsc(list);
                     break;
                 case SortType.TextDesc:
-                    sList = loanService.sortTextDesc(list);
+                    sList = loanService.SortTextDesc(list);
+                    break;
+                default:
+                    sList = list;
                     break;
             }
             return sList;
         }
 
-        private IEnumerable<T> sortList<T>(List<T> list)
+        private IEnumerable<T> SortList<T>(List<T> list)
         {
 
             switch (listType)
             {
                 case ListType.Author:
-                    return sortList(list as List<Author>) as IEnumerable<T>;
+                    return SortList(list as List<Author>) as IEnumerable<T>;
                 case ListType.Loan:
-                    return sortList(list as List<Loan>) as IEnumerable<T>;
+                    return SortList(list as List<Loan>) as IEnumerable<T>;
                 case ListType.Member:
-                    return sortList(list as List<Member>) as IEnumerable<T>;
+                    return SortList(list as List<Member>) as IEnumerable<T>;
                 default:
-                    return sortList(list as List<Book>) as IEnumerable<T>;
+                    return SortList(list as List<Book>) as IEnumerable<T>;
             }
         }
 
-        private void idAscRadio_CheckedChanged(object sender, EventArgs e)
+        private void IdAscRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (idAscRadio.Checked)
             {
@@ -588,7 +436,7 @@ namespace Library
             }
         }
 
-        private void idDescRadio_CheckedChanged(object sender, EventArgs e)
+        private void IdDescRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (idDescRadio.Checked)
             {
@@ -596,7 +444,7 @@ namespace Library
             }
         }
 
-        private void nameAscRadio_CheckedChanged(object sender, EventArgs e)
+        private void NameAscRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (nameAscRadio.Checked)
             {
@@ -604,7 +452,7 @@ namespace Library
             }
         }
 
-        private void nameDescRadio_CheckedChanged(object sender, EventArgs e)
+        private void NameDescRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (nameDescRadio.Checked)
             {
@@ -612,41 +460,434 @@ namespace Library
             }
         }
 
-        private void authorsShowWithoutBooks_Click(object sender, EventArgs e)
+        public void ShowMsgBox(DbEntityValidationException ex)
         {
-            listType = ListType.Author;
-            ShowAllItems(authorService.GetAllWithoutBooks());
+            string Caption = "Error!";
+            StringBuilder errorMsg = new StringBuilder();
+            foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+            {
+                System.Data.Entity.Infrastructure.DbEntityEntry entry = item.Entry;
+                string entityTypeName = entry.Entity.GetType().Name;
+                foreach (DbValidationError subItem in item.ValidationErrors)
+                {
+                    errorMsg.Append(subItem.ErrorMessage + "\n");
+                }
+            }
+            MessageBox.Show(errorMsg.ToString(), Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        
+        //----------------------- BOOK SERVICE -----------------------
+        private void BookNewBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book b = new Book()
+                {
+                    Title = titleTextBox.Text,
+                    ISBN = isbnTextBox.Text,
+                    Description = descTextBox.Text,
+                    Author = authorNameCombo.SelectedItem as Author
+                };
+                bookService.Add(b);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                bookService.Reset();
+            }
+            catch (Exception) { }
+            authorNameCombo.SelectedItem = 0;
         }
 
-        private void authorSortByBook_Click(object sender, EventArgs e)
+        private void BookSortByAuthorBtn_Click(object sender, EventArgs e)
         {
-            listType = ListType.Author;
-            ShowAllItems(authorService.GetAuthorByBook(bookService.GetBook(authorSortByBook.Text)));
+            try
+            {
+                listType = ListType.Book;
+                ShowAllItems(bookService.GetAllThatHasAuthor(authorNameBox.Text));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
         }
 
-        private void loanShowAllActiveBtn_Click(object sender, EventArgs e)
+        private void BookSortByTitleBtn_Click(object sender, EventArgs e)
         {
-            listType = ListType.Loan;
-            ShowAllItems(loanService.GetAllActiveLoans());
+            try
+            {
+                listType = ListType.Book;
+                ShowAllItems(bookService.GetAllThatHasTitle(bookTitleBox.Text));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
         }
 
-        private void loanShowAllArchivedBtn_Click(object sender, EventArgs e)
+        private void BookShowAllAvailableBtn_Click(object sender, EventArgs e)
         {
-            listType = ListType.Loan;
-            ShowAllItems(loanService.GetAllArchivedLoans());
+            try
+            {
+                listType = ListType.Book;
+                ShowAllItems(bookService.GetAllAvailable());
+                ShowAllCopies(bookCopyService.AllAvailable());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
         }
 
-        private void editSelectedBookBtn_Click(object sender, EventArgs e)
+        private void BookShowAllBtn_Click(object sender, EventArgs e)
         {
-            listType = ListType.Book;
-            Book selectedBook = lbItems.SelectedItem as Book;
-            selectedBook.Title = bookEditTitleBox.Text;
-            selectedBook.ISBN = bookEditIsbnBox.Text;
-            selectedBook.Description = BookEditDescBox.Text;
-            bookService.Edit(selectedBook);
+            try
+            {
+                listType = ListType.Book;
+                ShowAllItems(bookService.All());
+                ShowAllCopies(bookCopyService.All());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void BookShowWithoutCopies_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Book;
+                ShowAllItems(bookService.GetAllWithoutCopies());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void BookEditSelectedBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Book;
+                Book selectedBook = lbItems.SelectedItem as Book;
+                selectedBook.Title = bookEditTitleBox.Text;
+                selectedBook.ISBN = bookEditIsbnBox.Text;
+                selectedBook.Description = BookEditDescBox.Text;
+                bookService.Edit(selectedBook);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                bookService.Reset();
+            }
+            catch (Exception) { }
             bookEditTitleBox.Clear();
             bookEditIsbnBox.Clear();
             BookEditDescBox.Clear();
+        }
+        
+        //----------------------- BOOKCOPY SERVICE -----------------------
+        private void BookCopyNewBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book b = lbItems.SelectedItem as Book;
+                BookCopy bc = new BookCopy
+                {
+                    Book = b,
+                    Condition = Convert.ToInt32(copyCondition.Value),
+                    Status = Status.AVAILABLE
+                };
+                bookCopyService.Add(bc);
+                b.Copies.Add(bc);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                bookCopyService.Reset();
+            }
+            catch (Exception) { }
+            ResetSelection();
+        }
+
+        private void BookCopyShowAllAvailableBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Book;
+                ShowAllCopies(bookCopyService.AllAvailable(lbItems.SelectedItem as Book));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        //----------------------- AUTHOR SERVICE -----------------------
+        private void AuthorAddBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Author a = new Author { Name = authorAddName.Text };
+                authorService.Add(a);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                authorService.Reset();
+            }
+            catch (Exception) { }
+            authorAddName.Clear();
+        }
+
+        private void AuthorsShowWithoutBooks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Author;
+                ShowAllItems(authorService.GetAllWithoutBooks());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+
+        }
+
+        private void AuthorShowAllBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Author;
+                ShowAllItems(authorService.All());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void AuthorSortByBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Author;
+                ShowAllItems(authorService.GetAuthorByBook(bookService.GetBook(authorSortByBook.Text)));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        //----------------------- MEMBER SERVICE -----------------------
+        private void MemberAddBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Member m = new Member()
+                {
+                    Name = memberAddName.Text,
+                    PersonalId = memberAddid.Text,
+                    MembershipDate = DateTime.Now
+                };
+                memberService.Add(m);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                memberService.Reset();
+            }
+            catch (Exception) { }
+            memberAddName.Clear();
+            memberAddid.Clear();
+        }
+
+        private void MemberShowAllBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Member;
+                ShowAllItems(memberService.All());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        //----------------------- LOAN SERVICE -----------------------
+        private void LoanShowAllBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Loan;
+                ShowAllItems(loanService.All());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void LoanSortMemberBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Loan;
+                ShowAllItems(loanService.GetAllOfMember(memberNameLoanSort.Text));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void LoanSortBookBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Loan;
+                ShowAllItems(loanService.GetAllofBook(bookTitleLoanSort.Text));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void LoanNewBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Loan l = new Loan()
+                {
+                    Member = availableMemberComboBox.SelectedItem as Member,
+                    BookCopy = lbCopies.SelectedItem as BookCopy,
+                    TimeOfLoan = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(15),
+                    State = State.Active
+                };
+                l.BookCopy.Status = Status.LOANED;
+                bookCopyService.Edit(l.BookCopy);
+                loanService.Add(l);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                bookCopyService.Reset();
+                loanService.Reset();
+            }
+            catch (Exception) { }
+            ResetSelection();
+        }
+
+        private void LoanReturnBookBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BookCopy bc = lbCopies.SelectedItem as BookCopy;
+                Loan l = loanService.Find(bc);
+                l.BookCopy.Status = Status.AVAILABLE;
+                bookCopyService.Edit(l.BookCopy);
+                l.State = State.Archived;
+                l.TimeOfReturn = DateTime.Now;
+                loanService.Edit(l);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                bookCopyService.Reset();
+                loanService.Reset();
+            }
+            catch (Exception) { }
+            ResetSelection();
+        }
+
+        private void LoanChangeDateBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime date = dateTimePicker.Value;
+                BookCopy bc = lbCopies.SelectedItem as BookCopy;
+                Loan l = loanService.Find(bc);
+                l.DueDate = date;
+                loanService.Edit(l);
+                LoanOvertimeCheckBtn_Click(sender, e);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                loanService.Reset();
+            }
+            catch (Exception) { }
+            ResetSelection();
+        }
+
+        private void LoanShowAllActiveBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Loan;
+                ShowAllItems(loanService.GetAllActiveLoans());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void LoanShowAllArchivedBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listType = ListType.Loan;
+                ShowAllItems(loanService.GetAllArchivedLoans());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+            }
+            catch (Exception) { }
+        }
+
+        private void LoanOvertimeCheckBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Loan> loans = loanService.GetOvertimedLoans().ToList();
+                foreach (Loan l in loans)
+                {
+                    l.OvertimeFine = (DateTime.Now - l.DueDate).Days * 10;
+                    loanService.Edit(l);
+                    l.BookCopy.Status = Status.OVERDUE;
+                    bookCopyService.Edit(l.BookCopy);
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ShowMsgBox(ex);
+                loanService.Reset();
+                bookCopyService.Reset();
+            }
+            catch (Exception) { }
+            ResetSelection();
         }
     }
 }

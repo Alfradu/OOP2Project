@@ -13,45 +13,21 @@ namespace Library.Services
         AuthorRepository authorRepository;
         public event EventHandler<UpdatedEventArgs> Updated;
 
-        public AuthorService(RepositoryFactory rFactory)
-        {
-            this.authorRepository = rFactory.CreateAuthorRepository();
-        }
+        public AuthorService(RepositoryFactory rFactory) => authorRepository = rFactory.CreateAuthorRepository();
 
-        public IEnumerable<Author> All()
-        {
-            return authorRepository.All();
-        }
+        public IEnumerable<Author> All() => authorRepository.All();
 
-        public IEnumerable<Author> GetAllWithoutBooks()
-        {
-            return All().Where(a => a.Books.Count == 0);
-        }
+        public IEnumerable<Author> GetAllWithoutBooks() => All().Where(a => a.Books.Count == 0);
 
-        public IEnumerable<Author> GetAuthorByBook(Book book)
-        {
-            return All().Where(a => a.Books.Contains(book));
-        }
+        public IEnumerable<Author> GetAuthorByBook(Book book) => All().Where(a => a.Books.Contains(book));
 
-        public IEnumerable<Author> sortIdAsc(List<Author> list)
-        {
-            return list.OrderBy(o => o.Id).ToList();
-        }
+        public IEnumerable<Author> SortIdAsc(List<Author> list) => list.OrderBy(o => o.Id).ToList();
 
-        public IEnumerable<Author> sortIdDesc(List<Author> list)
-        {
-            return list.OrderByDescending(o => o.Id).ToList();
-        }
+        public IEnumerable<Author> SortIdDesc(List<Author> list) => list.OrderByDescending(o => o.Id).ToList();
 
-        public IEnumerable<Author> sortTextAsc(List<Author> list)
-        {
-            return list.OrderBy(o => o.Name).ToList();
-        }
+        public IEnumerable<Author> SortTextAsc(List<Author> list) => list.OrderBy(o => o.Name).ToList();
 
-        public IEnumerable<Author> sortTextDesc(List<Author> list)
-        {
-            return list.OrderByDescending(o => o.Name).ToList();
-        }
+        public IEnumerable<Author> SortTextDesc(List<Author> list) => list.OrderByDescending(o => o.Name).ToList();
 
         /// <summary>
         /// The Edit method makes sure that the given Author object is saved to the database and raises the Updated() event.
@@ -81,6 +57,11 @@ namespace Library.Services
         {
             authorRepository.Remove(b);
             OnUpdateEvent(new UpdatedEventArgs(Action.REMOVE, DateTime.Now));
+        }
+
+        public void Reset()
+        {
+            authorRepository.Reset();
         }
 
         private void OnUpdateEvent(UpdatedEventArgs uea) => Updated?.Invoke(this, uea);

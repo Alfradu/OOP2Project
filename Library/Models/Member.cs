@@ -9,8 +9,11 @@ namespace Library.Models
 
         [Key]
         public int Id { get; set; }
+        [Required]
         public string PersonalId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public DateTime MembershipDate { get; set; }
         public List<Loan> Loans { get; set; }
 

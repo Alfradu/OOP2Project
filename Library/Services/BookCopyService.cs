@@ -13,50 +13,23 @@ namespace Library.Services
         BookCopyRepository bookCopyRepository;
         public event EventHandler<UpdatedEventArgs> Updated;
 
-        public BookCopyService(RepositoryFactory rFactory)
-        {
-            this.bookCopyRepository = rFactory.CreateBookCopyRepository();
-        }
-        
-        public IEnumerable<BookCopy> All()
-        {
-            return bookCopyRepository.All();
-        }
+        public BookCopyService(RepositoryFactory rFactory) => bookCopyRepository = rFactory.CreateBookCopyRepository();
 
-        public IEnumerable<BookCopy> All(Book b)
-        {
-            return bookCopyRepository.All().Where(c => c.Book == b);
-        }
+        public IEnumerable<BookCopy> All() => bookCopyRepository.All();
 
-        public IEnumerable<BookCopy> AllAvailable()
-        {
-            return All().Where(bc => bc.Status == Status.AVAILABLE);
-        }
+        public IEnumerable<BookCopy> All(Book b) => bookCopyRepository.All().Where(c => c.Book == b);
 
-        public IEnumerable<BookCopy> AllAvailable(Book b)
-        {
-            return AllAvailable().Where(bc => bc.Book == b);
-        }
+        public IEnumerable<BookCopy> AllAvailable() => All().Where(bc => bc.Status == Status.AVAILABLE);
 
-        internal IEnumerable<BookCopy> sortIdAsc(List<BookCopy> list)
-        {
-            return list.OrderBy(o => o.Id).ToList();
-        }
+        public IEnumerable<BookCopy> AllAvailable(Book b) => AllAvailable().Where(bc => bc.Book == b);
 
-        internal IEnumerable<BookCopy> sortIdDesc(List<BookCopy> list)
-        {
-            return list.OrderByDescending(o => o.Id).ToList();
-        }
+        public IEnumerable<BookCopy> SortIdAsc(List<BookCopy> list) => list.OrderBy(o => o.Id).ToList();
 
-        internal IEnumerable<BookCopy> sortTextAsc(List<BookCopy> list)
-        {
-            return list.OrderBy(o => o.Book.Title).ToList();
-        }
+        public IEnumerable<BookCopy> SortIdDesc(List<BookCopy> list) => list.OrderByDescending(o => o.Id).ToList();
 
-        internal IEnumerable<BookCopy> sortTextDesc(List<BookCopy> list)
-        {
-            return list.OrderByDescending(o => o.Book.Title).ToList();
-        }
+        public IEnumerable<BookCopy> SortTextAsc(List<BookCopy> list) => list.OrderBy(o => o.Book.Title).ToList();
+
+        public IEnumerable<BookCopy> SortTextDesc(List<BookCopy> list) => list.OrderByDescending(o => o.Book.Title).ToList();
 
         /// <summary>
         /// The Edit method makes sure that the given Book object is saved to the database and raises the Updated() event.
@@ -86,6 +59,11 @@ namespace Library.Services
         {
             bookCopyRepository.Remove(bc);
             OnUpdateEvent(new UpdatedEventArgs(Action.REMOVE, DateTime.Now));
+        }
+
+        public void Reset()
+        {
+            bookCopyRepository.Reset();
         }
 
         private void OnUpdateEvent(UpdatedEventArgs uea) => Updated?.Invoke(this, uea);

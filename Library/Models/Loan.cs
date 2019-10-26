@@ -13,12 +13,17 @@ namespace Library.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public DateTime TimeOfLoan { get; set; }
+        [Required]
         public DateTime DueDate { get; set; }
         public DateTime? TimeOfReturn { get; set; }
+        [Required]
         public BookCopy BookCopy { get; set; }
+        [Required]
         public Member Member { get; set; }
         public int OvertimeFine { get; set; }
+        [Required]
         public State State { get; set; }
 
         public override string ToString()

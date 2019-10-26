@@ -9,18 +9,18 @@ namespace Library.Models {
 
         [Key]
         public int Id { get; set; }
+        [Required]
         public string ISBN { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public Author Author { get; set; }
         public List<BookCopy> Copies { get; set; }
 
         public Book()
         {
-            ISBN = "";
-            Title = "";
-            Description = "";
-            Author = new Author {Name = "Örjan" };
             Copies = new List<BookCopy>();
         }
 
