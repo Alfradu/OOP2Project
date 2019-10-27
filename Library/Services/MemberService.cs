@@ -3,11 +3,12 @@ using Library.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Services
 {
+    /// <summary>
+    /// Service for handling member-related queries.
+    /// </summary>
     class MemberService : IService
     {
         MemberRepository memberRepository;
@@ -17,13 +18,13 @@ namespace Library.Services
 
         public IEnumerable<Member> All() => memberRepository.All();
 
-        public IEnumerable<Member> SortIdAsc(List<Member> list) => list.OrderBy(o => o.Id).ToList();
+        public IEnumerable<Member> SortIdAsc(List<Member> list) => list.OrderBy(o => o.Id);
 
-        public IEnumerable<Member> SortIdDesc(List<Member> list) => list.OrderByDescending(o => o.Id).ToList();
+        public IEnumerable<Member> SortIdDesc(List<Member> list) => list.OrderByDescending(o => o.Id);
 
-        public IEnumerable<Member> SortTextAsc(List<Member> list) => list.OrderBy(o => o.Name).ToList();
+        public IEnumerable<Member> SortTextAsc(List<Member> list) => list.OrderBy(o => o.Name);
 
-        public IEnumerable<Member> SortTextDesc(List<Member> list) => list.OrderByDescending(o => o.Name).ToList();
+        public IEnumerable<Member> SortTextDesc(List<Member> list) => list.OrderByDescending(o => o.Name);
 
         /// <summary>
         /// The Edit method makes sure that the given Member object is saved to the database and raises the Updated() event.

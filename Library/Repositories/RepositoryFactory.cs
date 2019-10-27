@@ -1,12 +1,10 @@
 ﻿using Library.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Repositories
 {
+    /// <summary>
+    /// Factory for creating a context that is shared among the repositories.
+    /// </summary>
     class RepositoryFactory
     {
         private LibraryContext context;

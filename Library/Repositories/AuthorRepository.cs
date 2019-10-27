@@ -1,19 +1,19 @@
 ﻿using Library.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Repositories
 {
+    /// <summary>
+    /// Repository for handling Author-related database actions.
+    /// </summary>
     public class AuthorRepository : IRepository<Author, int>
     {
         LibraryContext context;
 
         public AuthorRepository(LibraryContext c)
         {
-            this.context = c;
+            context = c;
         }
 
         public void Add(Author item)

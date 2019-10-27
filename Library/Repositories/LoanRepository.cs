@@ -1,12 +1,12 @@
 ﻿using Library.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Repositories
 {
+    /// <summary>
+    /// Repository for handling Author-related database actions.
+    /// </summary>
     public class LoanRepository : IRepository<Loan, int>
     {
         LibraryContext context;

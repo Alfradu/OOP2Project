@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library
 {
+    /// <summary>
+    /// Defines what database action an event fires.
+    /// </summary>
     public enum Action { ADD, EDIT, REMOVE }
+
+    /// <summary>
+    /// Event arguments for database actions.
+    /// </summary>
     class UpdatedEventArgs : EventArgs
     {
         public Action Action { get; set; }

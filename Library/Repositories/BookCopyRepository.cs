@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library.Models;
 
 namespace Library.Repositories
 {
+    /// <summary>
+    /// Repository for handling BookCopy-related database actions.
+    /// </summary>
     public class BookCopyRepository : IRepository<BookCopy, int>
     {
         LibraryContext context;
 
         public BookCopyRepository(LibraryContext c)
         {
-            this.context = c;
+            context = c;
         }
 
         public void Add(BookCopy item)

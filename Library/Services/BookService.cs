@@ -3,15 +3,13 @@ using Library.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Services
 {
     class BookService : IService
     {
         /// <summary>
-        /// service doesn't need a context but it needs a repository.
+        /// Service for handling book-related queries.
         /// </summary>
         BookRepository bookRepository;
         public event EventHandler<UpdatedEventArgs> Updated;
@@ -33,13 +31,13 @@ namespace Library.Services
 
         public Book GetBook(string text) => All().Where(b => b.Title == text).FirstOrDefault();
 
-        public IEnumerable<Book> SortIdAsc(List<Book> list) => list.OrderBy(o => o.Id).ToList();
+        public IEnumerable<Book> SortIdAsc(List<Book> list) => list.OrderBy(o => o.Id);
 
-        public IEnumerable<Book> SortIdDesc(List<Book> list) => list.OrderByDescending(o => o.Id).ToList();
+        public IEnumerable<Book> SortIdDesc(List<Book> list) => list.OrderByDescending(o => o.Id);
 
-        public IEnumerable<Book> SortTextAsc(List<Book> list) => list.OrderBy(o => o.Title).ToList();
+        public IEnumerable<Book> SortTextAsc(List<Book> list) => list.OrderBy(o => o.Title);
 
-        public IEnumerable<Book> SortTextDesc(List<Book> list) => list.OrderByDescending(o => o.Title).ToList();
+        public IEnumerable<Book> SortTextDesc(List<Book> list) => list.OrderByDescending(o => o.Title);
 
         /// <summary>
         /// The Edit method makes sure that the given Book object is saved to the database and raises the Updated() event.

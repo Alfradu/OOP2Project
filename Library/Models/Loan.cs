@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Models
 {
+    /// <summary>
+    /// Defines what state a loan is currently in.
+    /// </summary>
     public enum State{Active, Archived}
+
+    /// <summary>
+    /// Defines the Loan table in the database.
+    /// </summary>
     public class Loan
     {
         [Key]
@@ -28,7 +30,7 @@ namespace Library.Models
 
         public override string ToString()
         {
-            return String.Format("[{0}] {1} Loaned by {2}", this.Id, BookCopy.Book.ISBN, this.Member);
+            return string.Format("[{0}] {1} Loaned by {2}", Id, BookCopy.Book.ISBN, Member);
         }
     }
 }

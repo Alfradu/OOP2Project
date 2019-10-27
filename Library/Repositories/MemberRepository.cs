@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Library.Repositories
 {
+    /// <summary>
+    /// Repository for handling Member-related database actions.
+    /// </summary>
     public class MemberRepository : IRepository<Member, int>
     {
         LibraryContext context;

@@ -3,8 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
 {
-
+    /// <summary>
+    /// Defines the different statuses a bookCopy can have.
+    /// </summary>
     public enum Status { AVAILABLE, LOANED, OVERDUE}
+
+    /// <summary>
+    /// Defines the BookCopy table in the database.
+    /// </summary>
     public class BookCopy
     {
         [Key]
@@ -18,7 +24,7 @@ namespace Library.Models
 
         public override string ToString()
         {
-            return String.Format("[{0}] {1}, Condition: {2}, Status: {3}", this.Id, this.Book.Title, this.Condition, this.Status);
+            return String.Format("[{0}] {1}, Condition: {2}, Status: {3}", Id, Book.Title, Condition, Status);
         }
     }
 }

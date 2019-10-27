@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
 {
+    /// <summary>
+    /// Defines the Author table in the database.
+    /// </summary>
     public class Author
     {
         [Key]

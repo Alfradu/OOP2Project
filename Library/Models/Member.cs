@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
 {
+    /// <summary>
+    /// Defines the Member table in the database.
+    /// </summary>
     public class Member
     {
 

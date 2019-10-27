@@ -141,7 +141,7 @@
             this.lbInfo.FormattingEnabled = true;
             this.lbInfo.Location = new System.Drawing.Point(460, 27);
             this.lbInfo.Name = "lbInfo";
-            this.lbInfo.Size = new System.Drawing.Size(337, 69);
+            this.lbInfo.Size = new System.Drawing.Size(302, 69);
             this.lbInfo.TabIndex = 2;
             // 
             // newBookBtn
@@ -207,7 +207,7 @@
             this.lbCopies.FormattingEnabled = true;
             this.lbCopies.Location = new System.Drawing.Point(460, 131);
             this.lbCopies.Name = "lbCopies";
-            this.lbCopies.Size = new System.Drawing.Size(337, 199);
+            this.lbCopies.Size = new System.Drawing.Size(302, 199);
             this.lbCopies.TabIndex = 11;
             this.lbCopies.SelectedIndexChanged += new System.EventHandler(this.LbCopies_SelectedIndexChanged);
             // 
@@ -945,10 +945,12 @@
             // idAscRadio
             // 
             this.idAscRadio.AutoSize = true;
+            this.idAscRadio.Checked = true;
             this.idAscRadio.Location = new System.Drawing.Point(460, 336);
             this.idAscRadio.Name = "idAscRadio";
             this.idAscRadio.Size = new System.Drawing.Size(58, 17);
             this.idAscRadio.TabIndex = 21;
+            this.idAscRadio.TabStop = true;
             this.idAscRadio.Text = "Id Asc.";
             this.idAscRadio.UseVisualStyleBackColor = true;
             this.idAscRadio.CheckedChanged += new System.EventHandler(this.IdAscRadio_CheckedChanged);
@@ -956,12 +958,10 @@
             // idDescRadio
             // 
             this.idDescRadio.AutoSize = true;
-            this.idDescRadio.Checked = true;
             this.idDescRadio.Location = new System.Drawing.Point(524, 336);
             this.idDescRadio.Name = "idDescRadio";
             this.idDescRadio.Size = new System.Drawing.Size(65, 17);
             this.idDescRadio.TabIndex = 22;
-            this.idDescRadio.TabStop = true;
             this.idDescRadio.Text = "Id Desc.";
             this.idDescRadio.UseVisualStyleBackColor = true;
             this.idDescRadio.CheckedChanged += new System.EventHandler(this.IdDescRadio_CheckedChanged);
@@ -969,18 +969,18 @@
             // nameDescRadio
             // 
             this.nameDescRadio.AutoSize = true;
-            this.nameDescRadio.Location = new System.Drawing.Point(713, 336);
+            this.nameDescRadio.Location = new System.Drawing.Point(678, 336);
             this.nameDescRadio.Name = "nameDescRadio";
             this.nameDescRadio.Size = new System.Drawing.Size(84, 17);
             this.nameDescRadio.TabIndex = 24;
-            this.nameDescRadio.Text = "Namn Desc.";
+            this.nameDescRadio.Text = "Name Desc.";
             this.nameDescRadio.UseVisualStyleBackColor = true;
             this.nameDescRadio.CheckedChanged += new System.EventHandler(this.NameDescRadio_CheckedChanged);
             // 
             // nameAscRadio
             // 
             this.nameAscRadio.AutoSize = true;
-            this.nameAscRadio.Location = new System.Drawing.Point(630, 336);
+            this.nameAscRadio.Location = new System.Drawing.Point(595, 336);
             this.nameAscRadio.Name = "nameAscRadio";
             this.nameAscRadio.Size = new System.Drawing.Size(77, 17);
             this.nameAscRadio.TabIndex = 23;
@@ -993,14 +993,14 @@
             this.dbUpdateInfo.Location = new System.Drawing.Point(460, 360);
             this.dbUpdateInfo.Name = "dbUpdateInfo";
             this.dbUpdateInfo.ReadOnly = true;
-            this.dbUpdateInfo.Size = new System.Drawing.Size(337, 20);
+            this.dbUpdateInfo.Size = new System.Drawing.Size(302, 20);
             this.dbUpdateInfo.TabIndex = 25;
             // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(809, 391);
+            this.ClientSize = new System.Drawing.Size(772, 391);
             this.Controls.Add(this.dbUpdateInfo);
             this.Controls.Add(this.nameDescRadio);
             this.Controls.Add(this.nameAscRadio);

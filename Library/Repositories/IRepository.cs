@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Repositories {
+namespace Library.Repositories
+{
     /// <summary>
     /// Basic repository functionality, exposes CRUD-operations.
     /// </summary>
-    interface IRepository<T, Tid> {
+    interface IRepository<T, Tid>
+    {
         void Add(T item);
         void Remove(T item);
         T Find(Tid id);

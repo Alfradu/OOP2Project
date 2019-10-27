@@ -3,19 +3,26 @@ using Library.Repositories;
 using Library.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.Entity.Validation;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Library
-{
+
+{   /// <summary>
+    /// Defines what type of model the ui will currently show.
+    /// </summary>
     public enum ListType { Book, Author, Loan, Member }
+
+    /// <summary>
+    /// Defines what type of sorting the ui will currently show.
+    /// </summary>
     public enum SortType { IdDesc, IdAsc, TextDesc, TextAsc}
+
+    /// <summary>
+    /// UI class.
+    /// </summary>
     public partial class LibraryForm : Form
     {
         BookService bookService;
@@ -284,12 +291,20 @@ namespace Library
                         break;
                 }
             }
+            else
+            {
+                selectedBookCopyLoan.Clear();
+                selectedLoanBox.Clear();
+            }
         }
 
         private void ResetSelection()
         {
             lbCopies.ClearSelected();
             lbItems.ClearSelected();
+            selectedBookCopyLoan.Clear();
+            selectedLoanBox.Clear();
+            bookCopySelectedBook.Clear();
         }
 
         private IEnumerable<Book> SortList(List<Book> list)
@@ -428,11 +443,32 @@ namespace Library
             }
         }
 
+        private void UpdateLists()
+        {
+            switch (listType)
+            {
+                case ListType.Author:
+                    ShowAllItems(lbItems.Items.Cast<Author>().ToList());
+                    break;
+                case ListType.Loan:
+                    ShowAllItems(lbItems.Items.Cast<Loan>().ToList());
+                    break;
+                case ListType.Member:
+                    ShowAllItems(lbItems.Items.Cast<Member>().ToList());
+                    break;
+                default:
+                    ShowAllItems(lbItems.Items.Cast<Book>().ToList());
+                    break;
+            }
+            ShowAllCopies(lbCopies.Items.Cast<BookCopy>().ToList());
+        }
+
         private void IdAscRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (idAscRadio.Checked)
             {
-                sortType = SortType.IdDesc;
+                sortType = SortType.IdAsc;
+                UpdateLists();
             }
         }
 
@@ -440,7 +476,8 @@ namespace Library
         {
             if (idDescRadio.Checked)
             {
-                sortType = SortType.IdAsc;
+                sortType = SortType.IdDesc;
+                UpdateLists();
             }
         }
 
@@ -448,7 +485,8 @@ namespace Library
         {
             if (nameAscRadio.Checked)
             {
-                sortType = SortType.TextDesc;
+                sortType = SortType.TextAsc;
+                UpdateLists();
             }
         }
 
@@ -456,18 +494,17 @@ namespace Library
         {
             if (nameDescRadio.Checked)
             {
-                sortType = SortType.TextAsc;
+                sortType = SortType.TextDesc;
+                UpdateLists();
             }
         }
 
         public void ShowMsgBox(DbEntityValidationException ex)
         {
-            string Caption = "Error!";
+            string Caption = "Database Error!";
             StringBuilder errorMsg = new StringBuilder();
             foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
             {
-                System.Data.Entity.Infrastructure.DbEntityEntry entry = item.Entry;
-                string entityTypeName = entry.Entity.GetType().Name;
                 foreach (DbValidationError subItem in item.ValidationErrors)
                 {
                     errorMsg.Append(subItem.ErrorMessage + "\n");
@@ -475,7 +512,11 @@ namespace Library
             }
             MessageBox.Show(errorMsg.ToString(), Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        
+
+        public void ShowMsgBox(Exception ex)
+        {
+            MessageBox.Show(ex.Message, ex.GetType().ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         //----------------------- BOOK SERVICE -----------------------
         private void BookNewBtn_Click(object sender, EventArgs e)
         {
@@ -495,7 +536,10 @@ namespace Library
                 ShowMsgBox(ex);
                 bookService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             authorNameCombo.SelectedItem = 0;
         }
 
@@ -510,7 +554,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void BookSortByTitleBtn_Click(object sender, EventArgs e)
@@ -524,7 +571,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void BookShowAllAvailableBtn_Click(object sender, EventArgs e)
@@ -539,7 +589,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void BookShowAllBtn_Click(object sender, EventArgs e)
@@ -554,7 +607,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void BookShowWithoutCopies_Click(object sender, EventArgs e)
@@ -568,7 +624,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void BookEditSelectedBtn_Click(object sender, EventArgs e)
@@ -587,7 +646,10 @@ namespace Library
                 ShowMsgBox(ex);
                 bookService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             bookEditTitleBox.Clear();
             bookEditIsbnBox.Clear();
             BookEditDescBox.Clear();
@@ -613,7 +675,10 @@ namespace Library
                 ShowMsgBox(ex);
                 bookCopyService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             ResetSelection();
         }
 
@@ -628,7 +693,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         //----------------------- AUTHOR SERVICE -----------------------
@@ -644,7 +712,10 @@ namespace Library
                 ShowMsgBox(ex);
                 authorService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             authorAddName.Clear();
         }
 
@@ -659,7 +730,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
 
         }
 
@@ -674,7 +748,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void AuthorSortByBook_Click(object sender, EventArgs e)
@@ -682,13 +759,18 @@ namespace Library
             try
             {
                 listType = ListType.Author;
-                ShowAllItems(authorService.GetAuthorByBook(bookService.GetBook(authorSortByBook.Text)));
+                Book b = bookService.GetBook(authorSortBookText.Text);
+                IEnumerable<Author> a = authorService.GetAuthorByBook(b);
+                ShowAllItems(a);
             }
             catch (DbEntityValidationException ex)
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         //----------------------- MEMBER SERVICE -----------------------
@@ -709,7 +791,10 @@ namespace Library
                 ShowMsgBox(ex);
                 memberService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             memberAddName.Clear();
             memberAddid.Clear();
         }
@@ -725,7 +810,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         //----------------------- LOAN SERVICE -----------------------
@@ -740,7 +828,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void LoanSortMemberBtn_Click(object sender, EventArgs e)
@@ -754,7 +845,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void LoanSortBookBtn_Click(object sender, EventArgs e)
@@ -768,24 +862,34 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void LoanNewBtn_Click(object sender, EventArgs e)
         {
             try
             {
+                Member m = availableMemberComboBox.SelectedItem as Member;
+                BookCopy bc = lbCopies.SelectedItem as BookCopy;
                 Loan l = new Loan()
                 {
-                    Member = availableMemberComboBox.SelectedItem as Member,
-                    BookCopy = lbCopies.SelectedItem as BookCopy,
+                    Member = m,
+                    BookCopy = bc,
                     TimeOfLoan = DateTime.Now,
                     DueDate = DateTime.Now.AddDays(15),
                     State = State.Active
                 };
-                l.BookCopy.Status = Status.LOANED;
-                bookCopyService.Edit(l.BookCopy);
                 loanService.Add(l);
+                if (bc.Status != Status.AVAILABLE)
+                {
+                    throw new Exception("Cannot loan a book copy that is not available.");
+                }
+                l.BookCopy.Status = Status.LOANED;
+                bookCopyService.Edit(bc);
+                ResetSelection();
             }
             catch (DbEntityValidationException ex)
             {
@@ -793,7 +897,10 @@ namespace Library
                 bookCopyService.Reset();
                 loanService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             ResetSelection();
         }
 
@@ -815,7 +922,10 @@ namespace Library
                 bookCopyService.Reset();
                 loanService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             ResetSelection();
         }
 
@@ -835,7 +945,10 @@ namespace Library
                 ShowMsgBox(ex);
                 loanService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             ResetSelection();
         }
 
@@ -850,7 +963,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void LoanShowAllArchivedBtn_Click(object sender, EventArgs e)
@@ -864,7 +980,10 @@ namespace Library
             {
                 ShowMsgBox(ex);
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
         }
 
         private void LoanOvertimeCheckBtn_Click(object sender, EventArgs e)
@@ -886,7 +1005,10 @@ namespace Library
                 loanService.Reset();
                 bookCopyService.Reset();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                ShowMsgBox(ex);
+            }
             ResetSelection();
         }
     }
