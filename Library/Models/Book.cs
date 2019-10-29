@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
 {
-
     /// <summary>
     /// Defines the Book table in the database.
     /// </summary>
@@ -27,9 +26,6 @@ namespace Library.Models
             Copies = new List<BookCopy>();
         }
 
-        /// <summary>
-        /// Useful for adding the book objects directly to a ListBox.
-        /// </summary>
         public override string ToString() {
             return String.Format("[{0}] -- {1}", Id, Title);
         }

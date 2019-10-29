@@ -9,7 +9,6 @@ namespace Library.Models
     /// </summary>
     public class Member
     {
-
         [Key]
         public int Id { get; set; }
         [Required]

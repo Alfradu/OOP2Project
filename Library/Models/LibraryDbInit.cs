@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 
-namespace Library.Models {
+namespace Library.Models
+{
 
     /// <summary>
     /// Database strategy is chosen as the base class to LibraryDbInit.

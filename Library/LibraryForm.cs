@@ -25,6 +25,7 @@ namespace Library
     /// </summary>
     public partial class LibraryForm : Form
     {
+
         BookService bookService;
         AuthorService authorService;
         BookCopyService bookCopyService;
@@ -32,6 +33,10 @@ namespace Library
         MemberService memberService;
         public ListType listType = new ListType();
         public SortType sortType = SortType.IdAsc;
+
+        /// <summary>
+        /// Initialize ui.
+        /// </summary>
         public LibraryForm()
         {
             InitializeComponent();
@@ -272,6 +277,10 @@ namespace Library
                         break;
                 }
             }
+            else
+            {
+                bookCopySelectedBook.Clear();
+            }
         }
 
         private void LbCopies_SelectedIndexChanged(object sender, EventArgs e)
@@ -471,7 +480,7 @@ namespace Library
                 UpdateLists();
             }
         }
-
+        
         private void IdDescRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (idDescRadio.Checked)
@@ -499,6 +508,10 @@ namespace Library
             }
         }
 
+        /// <summary>
+        /// Displays a messagebox with an error.
+        /// </summary>
+        /// <param name="ex">Takes an DbEntityValidationException as the message.</param>
         public void ShowMsgBox(DbEntityValidationException ex)
         {
             string Caption = "Database Error!";
@@ -513,11 +526,15 @@ namespace Library
             MessageBox.Show(errorMsg.ToString(), Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Displays a messagebox with an error.
+        /// </summary>
+        /// <param name="ex">Takes an exception as the message.</param>
         public void ShowMsgBox(Exception ex)
         {
             MessageBox.Show(ex.Message, ex.GetType().ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        //----------------------- BOOK SERVICE -----------------------
+
         private void BookNewBtn_Click(object sender, EventArgs e)
         {
             try
@@ -654,8 +671,7 @@ namespace Library
             bookEditIsbnBox.Clear();
             BookEditDescBox.Clear();
         }
-        
-        //----------------------- BOOKCOPY SERVICE -----------------------
+
         private void BookCopyNewBtn_Click(object sender, EventArgs e)
         {
             try
@@ -698,8 +714,7 @@ namespace Library
                 ShowMsgBox(ex);
             }
         }
-
-        //----------------------- AUTHOR SERVICE -----------------------
+        
         private void AuthorAddBtn_Click(object sender, EventArgs e)
         {
             try
@@ -773,7 +788,6 @@ namespace Library
             }
         }
 
-        //----------------------- MEMBER SERVICE -----------------------
         private void MemberAddBtn_Click(object sender, EventArgs e)
         {
             try
@@ -816,7 +830,6 @@ namespace Library
             }
         }
 
-        //----------------------- LOAN SERVICE -----------------------
         private void LoanShowAllBtn_Click(object sender, EventArgs e)
         {
             try
@@ -968,7 +981,7 @@ namespace Library
                 ShowMsgBox(ex);
             }
         }
-
+        
         private void LoanShowAllArchivedBtn_Click(object sender, EventArgs e)
         {
             try

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Library.Repositories;
 
-namespace Library.Services {
+namespace Library.Services
+{
     /// <summary>
     /// Allows services to notify when their underlying data model changes.
     /// </summary>

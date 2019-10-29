@@ -24,6 +24,9 @@ namespace Library.Models
         public BookCopy BookCopy { get; set; }
         [Required]
         public Member Member { get; set; }
+        /// <summary>
+        /// Stores the fine a member needs to pay in the loan data.
+        /// </summary>
         public int OvertimeFine { get; set; }
         [Required]
         public State State { get; set; }
